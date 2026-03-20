@@ -21,6 +21,9 @@ export default defineConfig({
 				{ icon: 'telegram', label: 'Telegram', href: 'https://t.me/LumenEmby' },
 				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/yKrXZctAm' },
 			],
+			components: {
+				SiteTitle: './src/components/SiteTitle.astro',
+			},
 			sidebar: [
 				{
 					label: '开始使用',
