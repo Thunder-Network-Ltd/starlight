@@ -19,7 +19,7 @@ export default defineConfig({
 			favicon: '/favicon.svg',
 			social: [
 				{ icon: 'telegram', label: 'Telegram', href: 'https://t.me/LumenEmby' },
-				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/yKrXZctAm' },
+				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/dTXhCZWE9T' },
 			],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
