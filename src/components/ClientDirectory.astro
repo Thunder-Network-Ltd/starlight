@@ -1,0 +1,519 @@
+---
+interface Client {
+	name: string;
+	description: string;
+	price: '免费' | '付费';
+	platform: string;
+	source: string;
+	href: string;
+	badge?: string;
+	color?: string;
+}
+
+interface Props {
+	clients: Client[];
+}
+
+const { clients } = Astro.props;
+---
+
+<section class="client-directory" aria-labelledby="client-directory-title">
+	<header class="directory-header">
+		<div>
+			<p class="eyebrow">QUICK GUIDE</p>
+			<h2 id="client-directory-title">客户端速查</h2>
+			<p class="summary">从 {clients.length} 款客户端中，找到最适合你设备的一款。</p>
+		</div>
+		<div class="count" aria-label={`共 ${clients.length} 款客户端`}>
+			<strong>{clients.length}</strong>
+			<span>款客户端</span>
+		</div>
+	</header>
+
+	<div class="table-shell">
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">客户端</th>
+					<th scope="col">支持平台</th>
+					<th scope="col">价格</th>
+					<th scope="col"><span class="sr-only">下载入口</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				{clients.map((client) => (
+					<tr>
+						<td class="client-cell">
+							<span class="client-inner">
+								<span
+									class="app-mark"
+									style={`--app-color: ${client.color ?? '#7c6cf2'}`}
+									aria-hidden="true"
+								>
+									{client.name.slice(0, 1)}
+								</span>
+								<span class="client-copy">
+									<span class="name-line">
+										<strong>{client.name}</strong>
+										{client.badge && <span class="recommend-badge">{client.badge}</span>}
+									</span>
+									<span class="description">{client.description}</span>
+								</span>
+							</span>
+						</td>
+						<td class="platform-cell" data-label="支持平台">
+							<span class="platform-inner">
+								<span class="platform-icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none">
+										<rect x="3.25" y="5" width="12.5" height="9.5" rx="1.75" />
+										<path d="M7 19h10M9.5 14.5V19M16.75 8.25h3.5v8.5h-6.5v-2.25" />
+									</svg>
+								</span>
+								<span>{client.platform}</span>
+							</span>
+						</td>
+						<td class="price-cell" data-label="价格">
+							<span class:list={['price-badge', { free: client.price === '免费' }]}>
+								<span class="status-dot" aria-hidden="true"></span>
+								{client.price}
+							</span>
+						</td>
+						<td class="action-cell">
+							<a href={client.href} target="_blank" rel="noopener noreferrer">
+								<span>{client.source}</span>
+								<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+									<path d="M5 11 11 5M6 5h5v5" />
+								</svg>
+							</a>
+						</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<style>
+	.client-directory {
+		margin-block: 2rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 1rem;
+		background:
+			radial-gradient(circle at 92% -8%, color-mix(in srgb, var(--sl-color-accent) 13%, transparent), transparent 24rem),
+			var(--sl-color-bg);
+		box-shadow: 0 1.2rem 3.5rem rgb(0 0 0 / 8%);
+		overflow: hidden;
+	}
+
+	.directory-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding: 1.55rem 1.65rem 1.35rem;
+		border-bottom: 1px solid var(--sl-color-hairline-light);
+	}
+
+	.directory-header :global(*) {
+		margin: 0;
+	}
+
+	.eyebrow {
+		color: var(--sl-color-accent-high);
+		font-size: 0.68rem;
+		font-weight: 750;
+		letter-spacing: 0.14em;
+		line-height: 1.2;
+	}
+
+	.directory-header h2 {
+		margin-top: 0.38rem;
+		border: 0;
+		color: var(--sl-color-white);
+		font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.65rem);
+		font-weight: 720;
+		letter-spacing: -0.025em;
+		line-height: 1.2;
+	}
+
+	.summary {
+		margin-top: 0.38rem !important;
+		color: var(--sl-color-gray-3);
+		font-size: 0.84rem;
+		line-height: 1.6;
+	}
+
+	.count {
+		display: grid;
+		grid-template-columns: auto auto;
+		align-items: baseline;
+		gap: 0.35rem;
+		flex: 0 0 auto;
+		padding: 0.65rem 0.85rem;
+		border: 1px solid color-mix(in srgb, var(--sl-color-accent) 28%, var(--sl-color-hairline));
+		border-radius: 0.75rem;
+		background: color-mix(in srgb, var(--sl-color-accent-low) 40%, transparent);
+		color: var(--sl-color-accent-high);
+	}
+
+	.count strong {
+		font-size: 1.4rem;
+		font-variant-numeric: tabular-nums;
+		line-height: 1;
+	}
+
+	.count span {
+		font-size: 0.72rem;
+		font-weight: 650;
+	}
+
+	.table-shell {
+		overflow-x: auto;
+	}
+
+	table {
+		display: table;
+		width: 100%;
+		margin: 0;
+		border: 0;
+		border-collapse: collapse;
+		font-size: 0.83rem;
+	}
+
+	thead {
+		background: color-mix(in srgb, var(--sl-color-gray-6) 54%, transparent);
+	}
+
+	th {
+		padding: 0.72rem 1rem;
+		border: 0;
+		color: var(--sl-color-gray-3);
+		font-size: 0.67rem;
+		font-weight: 680;
+		letter-spacing: 0.06em;
+		text-align: left;
+		text-transform: uppercase;
+	}
+
+	th:first-child {
+		padding-left: 1.65rem;
+	}
+
+	td {
+		padding: 0.82rem 1rem;
+		border: 0;
+		border-top: 1px solid var(--sl-color-hairline-light);
+		vertical-align: middle;
+	}
+
+	tbody tr {
+		transition: background-color 160ms ease;
+	}
+
+	tbody tr:hover {
+		background: color-mix(in srgb, var(--sl-color-accent-low) 26%, transparent);
+	}
+
+	.client-cell {
+		min-width: 14rem;
+		padding-left: 1.65rem;
+	}
+
+	.client-inner {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+	}
+
+	.app-mark {
+		display: grid;
+		width: 2.25rem;
+		height: 2.25rem;
+		place-items: center;
+		flex: 0 0 auto;
+		border: 1px solid color-mix(in srgb, var(--app-color) 55%, white 20%);
+		border-radius: 0.68rem;
+		background:
+			linear-gradient(145deg, color-mix(in srgb, var(--app-color) 78%, white), var(--app-color));
+		box-shadow: inset 0 1px 0 rgb(255 255 255 / 28%), 0 0.35rem 0.8rem color-mix(in srgb, var(--app-color) 22%, transparent);
+		color: white;
+		font-size: 0.9rem;
+		font-weight: 760;
+		line-height: 1;
+	}
+
+	.client-copy,
+	.name-line {
+		display: flex;
+		align-items: center;
+	}
+
+	.client-copy {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 0.15rem;
+		line-height: 1.35;
+	}
+
+	.name-line {
+		gap: 0.45rem;
+	}
+
+	.name-line strong {
+		color: var(--sl-color-white);
+		font-size: 0.88rem;
+		font-weight: 680;
+	}
+
+	.description {
+		color: var(--sl-color-gray-3);
+		font-size: 0.71rem;
+	}
+
+	.recommend-badge {
+		padding: 0.13rem 0.38rem;
+		border: 1px solid color-mix(in srgb, var(--sl-color-accent) 30%, transparent);
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--sl-color-accent-low) 48%, transparent);
+		color: var(--sl-color-accent-high);
+		font-size: 0.59rem;
+		font-weight: 700;
+		letter-spacing: 0.03em;
+		white-space: nowrap;
+	}
+
+	.platform-cell {
+		min-width: 12.5rem;
+		color: var(--sl-color-gray-2);
+	}
+
+	.platform-inner,
+	.price-badge,
+	.action-cell a {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.platform-inner {
+		gap: 0.5rem;
+	}
+
+	.platform-icon {
+		display: grid;
+		width: 1.55rem;
+		height: 1.55rem;
+		place-items: center;
+		flex: 0 0 auto;
+		border-radius: 0.46rem;
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-gray-3);
+	}
+
+	.platform-icon svg {
+		width: 0.95rem;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 1.55;
+	}
+
+	.price-cell {
+		width: 5.4rem;
+	}
+
+	.price-badge {
+		gap: 0.38rem;
+		padding: 0.28rem 0.52rem;
+		border: 1px solid color-mix(in srgb, #e9a23b 28%, transparent);
+		border-radius: 999px;
+		background: color-mix(in srgb, #e9a23b 10%, transparent);
+		color: color-mix(in srgb, #f6bd60 84%, var(--sl-color-white));
+		font-size: 0.68rem;
+		font-weight: 650;
+		white-space: nowrap;
+	}
+
+	.price-badge.free {
+		border-color: color-mix(in srgb, #31b887 28%, transparent);
+		background: color-mix(in srgb, #31b887 10%, transparent);
+		color: color-mix(in srgb, #53d5a5 84%, var(--sl-color-white));
+	}
+
+	.status-dot {
+		width: 0.35rem;
+		height: 0.35rem;
+		border-radius: 50%;
+		background: currentColor;
+		box-shadow: 0 0 0 0.16rem color-mix(in srgb, currentColor 14%, transparent);
+	}
+
+	.action-cell {
+		width: 1%;
+		padding-right: 1.65rem;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.action-cell a {
+		justify-content: center;
+		gap: 0.38rem;
+		min-width: 5.3rem;
+		padding: 0.45rem 0.62rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 0.58rem;
+		background: color-mix(in srgb, var(--sl-color-gray-6) 70%, transparent);
+		color: var(--sl-color-gray-2);
+		font-size: 0.69rem;
+		font-weight: 650;
+		text-decoration: none;
+		transition: border-color 150ms ease, color 150ms ease, transform 150ms ease;
+	}
+
+	.action-cell a:hover {
+		border-color: color-mix(in srgb, var(--sl-color-accent) 55%, transparent);
+		color: var(--sl-color-accent-high);
+		transform: translateY(-1px);
+	}
+
+	.action-cell svg {
+		width: 0.82rem;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 1.6;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (max-width: 48rem) {
+		.client-directory {
+			border-radius: 0.9rem;
+		}
+
+		.directory-header {
+			align-items: flex-end;
+			padding: 1.3rem 1.1rem 1.15rem;
+		}
+
+		.summary {
+			max-width: 15rem;
+		}
+
+		.count {
+			grid-template-columns: 1fr;
+			gap: 0.12rem;
+			padding: 0.55rem 0.7rem;
+			text-align: center;
+		}
+
+		.table-shell {
+			overflow: visible;
+		}
+
+		table,
+		tbody,
+		tr,
+		td {
+			display: block;
+			width: 100%;
+		}
+
+		table {
+			padding: 0.35rem 0.75rem 0.75rem;
+		}
+
+		thead {
+			display: none;
+		}
+
+		tbody tr {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 0.72rem 0.8rem;
+			margin-top: 0.55rem;
+			padding: 0.9rem;
+			border: 1px solid var(--sl-color-hairline-light);
+			border-radius: 0.8rem;
+			background: color-mix(in srgb, var(--sl-color-gray-6) 26%, transparent);
+		}
+
+		tbody tr:hover {
+			background: color-mix(in srgb, var(--sl-color-accent-low) 24%, transparent);
+		}
+
+		td {
+			padding: 0;
+			border: 0;
+		}
+
+		.client-cell {
+			grid-column: 1 / -1;
+			min-width: 0;
+		}
+
+		.platform-cell {
+			display: flex;
+			align-items: center;
+			grid-column: 1 / -1;
+			min-width: 0;
+			padding-top: 0.62rem;
+			border-top: 1px solid var(--sl-color-hairline-light);
+		}
+
+		.platform-inner {
+			min-width: 0;
+		}
+
+		.platform-cell::before {
+			content: attr(data-label);
+			min-width: 3.8rem;
+			color: var(--sl-color-gray-3);
+			font-size: 0.68rem;
+			font-weight: 650;
+		}
+
+		.platform-icon {
+			display: none;
+		}
+
+		.price-cell {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			width: auto;
+		}
+
+		.price-cell::before {
+			content: attr(data-label);
+			color: var(--sl-color-gray-3);
+			font-size: 0.68rem;
+			font-weight: 650;
+		}
+
+		.action-cell {
+			width: auto;
+			padding: 0;
+		}
+
+		.action-cell a {
+			min-width: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		tbody tr,
+		.action-cell a {
+			transition: none;
+		}
+	}
+</style>
