@@ -18,8 +18,8 @@ export default defineConfig({
 			},
 			favicon: '/favicon.svg',
 			social: [
-				{ icon: 'telegram', label: 'Telegram', href: 'https://t.me/LumenEmby' },
-				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/dTXhCZWE9T' },
+				{ icon: 'telegram', label: 'Telegram', href: 'https://t.me/@Lumen_Media' },
+				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/Ry7yDf4ApF' },
 			],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
@@ -37,6 +37,7 @@ export default defineConfig({
 						{ label: '客户端总览', slug: 'application/summery' },
 						{ label: 'Android', slug: 'application/android' },
 						{ label: 'iOS', slug: 'application/ios' },
+						{ label: 'Windows', slug: 'application/windows' },
 						{ label: '设备访问', slug: 'access/clients' },
 						{ label: '常见问题', slug: 'troubleshooting/faq' },
 					],
