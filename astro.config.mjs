@@ -34,6 +34,7 @@ export default defineConfig({
 				{
 					label: '使用教程',
 					items: [
+						{ label: '客户端总览', slug: 'application/summery' },
 						{ label: 'Android', slug: 'application/android' },
 						{ label: 'iOS', slug: 'application/ios' },
 						{ label: '设备访问', slug: 'access/clients' },
