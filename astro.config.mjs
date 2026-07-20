@@ -17,12 +17,14 @@ export default defineConfig({
 				replacesTitle: true,
 			},
 			favicon: '/favicon.svg',
+			customCss: ['./src/styles/custom.css'],
 			social: [
 				{ icon: 'telegram', label: 'Telegram', href: 'https://t.me/@Lumen_Media' },
 				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/Ry7yDf4ApF' },
 			],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
+				MarkdownContent: './src/components/MarkdownContent.astro',
 			},
 			sidebar: [
 				{

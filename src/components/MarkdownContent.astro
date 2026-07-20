@@ -1,0 +1,79 @@
+---
+import Default from '@astrojs/starlight/components/MarkdownContent.astro';
+---
+
+<Default><slot /></Default>
+
+<style is:global>
+	.sl-markdown-content img:not([data-no-zoom]) {
+		cursor: zoom-in;
+	}
+
+	.image-lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+		border: 0;
+		background: rgb(0 0 0 / 80%);
+		cursor: zoom-out;
+	}
+
+	.image-lightbox img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		border-radius: 0.5rem;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.image-lightbox {
+			animation: lightbox-fade 160ms ease;
+		}
+
+		@keyframes lightbox-fade {
+			from {
+				opacity: 0;
+			}
+		}
+	}
+</style>
+
+<script>
+	function openLightbox(img: HTMLImageElement) {
+		const overlay = document.createElement('div');
+		overlay.className = 'image-lightbox';
+		overlay.setAttribute('role', 'dialog');
+		overlay.setAttribute('aria-label', img.alt || '图片预览');
+		overlay.tabIndex = -1;
+
+		const full = document.createElement('img');
+		full.src = img.currentSrc || img.src;
+		full.alt = img.alt;
+		overlay.append(full);
+
+		const close = () => {
+			overlay.remove();
+			document.removeEventListener('keydown', onKey);
+		};
+		const onKey = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') close();
+		};
+
+		overlay.addEventListener('click', close);
+		document.addEventListener('keydown', onKey);
+		document.body.append(overlay);
+		overlay.focus();
+	}
+
+	document.addEventListener('click', (event) => {
+		const target = event.target as HTMLElement;
+		if (!(target instanceof HTMLImageElement)) return;
+		if (!target.closest('.sl-markdown-content')) return;
+		if (target.closest('a') || target.hasAttribute('data-no-zoom')) return;
+		openLightbox(target);
+	});
+</script>

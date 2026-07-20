@@ -5,6 +5,20 @@ description: 按设备与平台快速选择适合你的 Emby 客户端
 
 import ClientDirectory from '../../../components/ClientDirectory.astro';
 
+import lennaIcon from '../../../assets/clients/lenna.webp';
+import infuseIcon from '../../../assets/clients/infuse.webp';
+import forwardIcon from '../../../assets/clients/forward.webp';
+import senplayerIcon from '../../../assets/clients/senplayer.webp';
+import yambyIcon from '../../../assets/clients/yamby.webp';
+import afusektIcon from '../../../assets/clients/afusekt.webp';
+import hillsIcon from '../../../assets/clients/hills.webp';
+import flowIcon from '../../../assets/clients/flow.webp';
+import tvxembyIcon from '../../../assets/clients/tvxemby.webp';
+import hillsLiteIcon from '../../../assets/clients/hills-lite.webp';
+import xiaohuanIcon from '../../../assets/clients/xiaohuan.webp';
+import vidhubIcon from '../../../assets/clients/vidhub.webp';
+import capyplayerIcon from '../../../assets/clients/capyplayer.webp';
+
 export const clients = [
 	{
 		name: 'Lenna',
@@ -14,6 +28,7 @@ export const clients = [
 		source: 'App Store',
 		href: 'https://apps.apple.com/us/app/lenna-video-library-player/id6502967807',
 		color: '#7c6cf2',
+		icon: lennaIcon.src,
 	},
 	{
 		name: 'Infuse',
@@ -24,6 +39,7 @@ export const clients = [
 		href: 'https://firecore.com/infuse',
 		badge: 'Apple 首选',
 		color: '#e55b50',
+		icon: infuseIcon.src,
 	},
 	{
 		name: 'Forward',
@@ -33,6 +49,7 @@ export const clients = [
 		source: 'App Store',
 		href: 'https://apps.apple.com/cn/app/id6503940939',
 		color: '#3478f6',
+		icon: forwardIcon.src,
 	},
 	{
 		name: 'SenPlayer',
@@ -42,6 +59,7 @@ export const clients = [
 		source: 'App Store',
 		href: 'https://apps.apple.com/us/app/senplayer-media-player/id6443975850',
 		color: '#6f7c91',
+		icon: senplayerIcon.src,
 	},
 	{
 		name: 'Yamby',
@@ -52,6 +70,7 @@ export const clients = [
 		href: 'https://play.google.com/store/apps/details?id=com.hush.yamby',
 		badge: 'Android 推荐',
 		color: '#2fb985',
+		icon: yambyIcon.src,
 	},
 	{
 		name: 'AfuseKt',
@@ -61,6 +80,7 @@ export const clients = [
 		source: 'GitHub',
 		href: 'https://github.com/AttemptD/AfuseKt-release',
 		color: '#cd6fd5',
+		icon: afusektIcon.src,
 	},
 	{
 		name: 'Hills',
@@ -70,6 +90,7 @@ export const clients = [
 		source: 'Google Play',
 		href: 'https://play.google.com/store/apps/details?id=com.mountains.hills',
 		color: '#3b8aa1',
+		icon: hillsIcon.src,
 	},
 	{
 		name: 'Flow',
@@ -79,6 +100,7 @@ export const clients = [
 		source: 'GitHub',
 		href: 'https://github.com/Flow-Media-Client/Flow-release',
 		color: '#3269cb',
+		icon: flowIcon.src,
 	},
 	{
 		name: 'TVxEmby',
@@ -88,6 +110,7 @@ export const clients = [
 		source: 'Telegram',
 		href: 'https://t.me/TVxEmby',
 		color: '#2798d7',
+		icon: tvxembyIcon.src,
 	},
 	{
 		name: 'Hills Lite',
@@ -97,6 +120,7 @@ export const clients = [
 		source: '微软商店',
 		href: 'https://apps.microsoft.com/search?query=Hills%20Lite',
 		color: '#1389d1',
+		icon: hillsLiteIcon.src,
 	},
 	{
 		name: '小幻影视',
@@ -106,6 +130,7 @@ export const clients = [
 		source: '微软商店',
 		href: 'https://apps.microsoft.com/search?query=%E5%B0%8F%E5%B9%BB%E5%BD%B1%E8%A7%86',
 		color: '#d38a31',
+		icon: xiaohuanIcon.src,
 	},
 	{
 		name: 'VidHub',
@@ -116,6 +141,7 @@ export const clients = [
 		href: 'https://www.vidhub.icu/',
 		badge: '跨平台',
 		color: '#eb5c91',
+		icon: vidhubIcon.src,
 	},
 	{
 		name: 'CapyPlayer',
@@ -125,6 +151,7 @@ export const clients = [
 		source: '官网',
 		href: 'https://capyplayer.feifeiduck.com/',
 		color: '#e69b3c',
+		icon: capyplayerIcon.src,
 	},
 ];
 

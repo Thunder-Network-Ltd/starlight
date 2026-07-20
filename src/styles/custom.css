@@ -1,0 +1,6 @@
+/* 全站自定义样式 */
+
+/* 放宽正文栏宽度：Starlight 默认 45rem,在宽屏上右侧留白过多 */
+:root {
+	--sl-content-width: 62rem;
+}
