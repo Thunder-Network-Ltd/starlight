@@ -10,6 +10,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Emby 文档',
+			locales: {
+				root: { label: '简体中文', lang: 'zh-CN' },
+			},
 			logo: {
 				light: './src/assets/lumen-black.svg',
 				dark: './src/assets/lumen-white.svg',
@@ -31,6 +34,7 @@ export default defineConfig({
 					label: '开始使用',
 					items: [
 						{ label: '关于 Lumen', slug: 'overview/introduction' },
+						{ label: '面板使用教程', slug: 'overview/panel' },
 					],
 				},
 				{
@@ -40,8 +44,23 @@ export default defineConfig({
 						{ label: 'Android', slug: 'application/android' },
 						{ label: 'iOS', slug: 'application/ios' },
 						{ label: 'Windows', slug: 'application/windows' },
-						{ label: '设备访问', slug: 'access/clients' },
-						{ label: '常见问题', slug: 'troubleshooting/faq' },
+					],
+				},
+				{
+					label: '常见问题',
+					items: [
+						{ label: '账号与登录', slug: 'troubleshooting/account' },
+						{ label: '播放问题排查', slug: 'troubleshooting/playback' },
+						{ label: '订阅与余额', slug: 'troubleshooting/billing' },
+						{ label: '求片与报错', slug: 'troubleshooting/content' },
+					],
+				},
+				{
+					label: '条款与声明',
+					items: [
+						{ label: '服务条款', slug: 'legal/terms' },
+						{ label: '隐私政策', slug: 'legal/privacy' },
+						{ label: '内容与版权声明', slug: 'legal/copyright' },
 					],
 				},
 			],

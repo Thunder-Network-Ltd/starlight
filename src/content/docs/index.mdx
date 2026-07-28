@@ -1,22 +1,66 @@
 ---
-title: Emby 文档
-description: 一个用于整理 Emby 安装、配置与日常使用说明的文档站点。
+title: Lumen 影视服务
+description: Lumen（Emby）影视服务使用文档：从注册订阅、客户端安装到问题排查的完整指南。
+template: splash
+hero:
+  tagline: 从注册订阅到打开客户端观影，只需要几分钟。这里是 Lumen 影视服务的完整使用手册——清晰、好找、随查随用。
+  image:
+    light: ../../assets/lumen-black.svg
+    dark: ../../assets/lumen-white.svg
+    alt: Lumen
+  actions:
+    - text: 开始使用
+      link: /overview/panel/
+      icon: right-arrow
+    - text: 什么是 Lumen？
+      link: /overview/introduction/
+      icon: information
+      variant: minimal
 ---
 
-这里是 Emby 文档站的入口页。现在访问根路径 `/` 时，会直接进入标准文档布局，而不是单独的首页。
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-## 你可以从这里开始
+## 三步开始观影
 
-- 阅读 [Emby 简介](/overview/introduction/) 了解这套文档的定位
-- 按 [快速开始](/getting-started/quick-start/) 完成首次搭建
-- 查看 [媒体库管理](/library/management/) 统一目录和命名规范
-- 遇到问题时查 [常见问题](/troubleshooting/faq/)
+<CardGrid stagger>
+	<Card title="第一步 · 注册并订阅" icon="rocket">
+		在[面板](https://www.lumen.ax)注册账号，充值并订阅套餐，Emby 账号自动开通。
+		完整流程见[面板使用教程](/overview/panel/)。
+	</Card>
+	<Card title="第二步 · 安装客户端" icon="laptop">
+		在[客户端总览](/application/summery/)按设备挑一个顺手的播放器，跟着
+		[Android](/application/android/) · [iOS](/application/ios/) ·
+		[Windows](/application/windows/) 教程安装。
+	</Card>
+	<Card title="第三步 · 登录观影" icon="star">
+		从面板[个人概览](/overview/panel/#个人概览)复制线路地址与 Emby
+		登录信息，填进客户端，开始观影。
+	</Card>
+</CardGrid>
 
-## 建议的文档结构
+## 遇到问题？按主题直达
 
-- 安装部署
-- 媒体库管理
-- 客户端访问
-- 远程访问与反向代理
-- 硬件转码
-- 故障排查
+<CardGrid>
+	<LinkCard
+		title="账号与登录"
+		description="连不上服务器、收不到验证码、面板账号和 Emby 账号的区别"
+		href="/troubleshooting/account/"
+	/>
+	<LinkCard
+		title="播放问题排查"
+		description="卡顿、字幕乱码、HDR 发灰、没有声音，按现象逐条排查"
+		href="/troubleshooting/playback/"
+	/>
+	<LinkCard
+		title="订阅与余额"
+		description="到期与续费、自动续订、充值未到账、兑换码与邀请返利"
+		href="/troubleshooting/billing/"
+	/>
+	<LinkCard
+		title="求片与报错"
+		description="想看的片没有？资源缺集或有错误？在这里提交反馈"
+		href="/troubleshooting/content/"
+	/>
+</CardGrid>
+
+[服务条款](/legal/terms/) · [隐私政策](/legal/privacy/) · [内容与版权声明](/legal/copyright/)

@@ -1,0 +1,9 @@
+{
+	// 隐藏构建产物,防止误编辑(预览与部署都以 src/ 为准)
+	"files.exclude": {
+		"dist": true
+	},
+	"search.exclude": {
+		"dist": true
+	}
+}
