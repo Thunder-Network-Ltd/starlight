@@ -1,0 +1,212 @@
+---
+/**
+ * 首页 Hero：替换 Starlight 默认的「左文右图」版式，改成居中大标题 + 网格底纹 + 控制台蓝强调。
+ * 标题 / 标语 / 按钮仍从 index.mdx 的 hero 字段读。
+ */
+import { LinkButton } from '@astrojs/starlight/components';
+
+// Starlight 的「回到顶部」锚点靠这个 id；constants 不在包的公开导出里，只能照抄它的值
+const PAGE_TITLE_ID = '_top';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, actions = [] } = data.hero || {};
+---
+
+<section class="lx-hero not-content">
+	<div class="lx-backdrop" aria-hidden="true"></div>
+
+	<p class="lx-eyebrow">
+		<span class="lx-rule"></span>LUMEN DOCS · 帮助中心<span class="lx-rule"></span>
+	</p>
+
+	<h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
+
+	{tagline && <p class="lx-tagline" set:html={tagline} />}
+
+	<button class="lx-search" type="button" data-lx-search disabled>
+		<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+			<circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+			<path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+		</svg>
+		<span class="lx-search-label">搜索文档，例如「线路」「字幕」「流量」</span>
+		<kbd data-lx-kbd>Ctrl K</kbd>
+	</button>
+
+	{
+		actions.length > 0 && (
+			<div class="lx-actions">
+				{actions.map(({ attrs = {}, icon, link: href, text, variant }) => (
+					<LinkButton {href} {variant} icon={icon?.name} {...attrs}>
+						{text}
+					</LinkButton>
+				))}
+			</div>
+		)
+	}
+</section>
+
+<script>
+	// 大搜索框只是个入口：点它等于点页头那颗搜索按钮（Starlight 的 pagefind 弹窗）。
+	// 必须拦住冒泡：弹窗打开时会在 window 上挂「点弹窗外就关」，这一下点击冒上去会立刻把它关掉
+	const trigger = document.querySelector<HTMLButtonElement>('[data-lx-search]');
+	const headerSearch = document.querySelector<HTMLButtonElement>('site-search button[data-open-modal]');
+	if (trigger && headerSearch) {
+		trigger.disabled = false;
+		trigger.addEventListener('click', (event) => {
+			event.stopPropagation();
+			headerSearch.click();
+		});
+	}
+	const kbd = document.querySelector<HTMLElement>('[data-lx-kbd]');
+	if (kbd && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) kbd.textContent = '⌘ K';
+</script>
+
+<style>
+	.lx-hero {
+		position: relative;
+		isolation: isolate;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1.25rem;
+		padding-block: clamp(3.5rem, 12vh, 8rem) clamp(2.5rem, 8vh, 5rem);
+	}
+
+	/* 网格底纹：全出血、向四周淡出，顶上压一团很淡的蓝光 */
+	.lx-backdrop {
+		position: absolute;
+		z-index: -1;
+		top: calc(-1 * var(--sl-nav-height) - 2rem);
+		bottom: -6rem;
+		left: 50%;
+		width: 100vw;
+		transform: translateX(-50%);
+		pointer-events: none;
+		background:
+			radial-gradient(ellipse 50% 45% at 50% 32%, var(--lumen-glow), transparent 70%),
+			linear-gradient(var(--lumen-grid-line) 1px, transparent 1px) 0 0 / 56px 56px,
+			linear-gradient(90deg, var(--lumen-grid-line) 1px, transparent 1px) 0 0 / 56px 56px;
+		mask-image: radial-gradient(ellipse 70% 75% at 50% 35%, #000 35%, transparent 100%);
+	}
+
+	.lx-eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.875rem;
+		margin: 0;
+		font-size: 0.6875rem;
+		letter-spacing: 0.28em;
+		color: var(--lumen-accent-text);
+	}
+
+	.lx-rule {
+		width: 2rem;
+		height: 1px;
+		background: currentColor;
+		opacity: 0.5;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(2.25rem, 1.2rem + 4.2vw, 4rem);
+		font-weight: 500;
+		line-height: 1.18;
+		letter-spacing: -0.03em;
+		color: var(--sl-color-white);
+	}
+
+	h1 :global(.g) {
+		color: var(--lumen-accent-text);
+	}
+
+	/* 不能用 word-break: keep-all：它让中文只在标点处断行，balance 一平衡就把句末的「。」单独挤到下一行。
+	 * 宽度放到一行放得下整句，窄屏再由 balance 均分成两行 */
+	.lx-tagline {
+		margin: 0;
+		max-width: 42rem;
+		text-wrap: balance;
+		line-break: strict;
+		font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.0625rem);
+		line-height: 1.8;
+		color: var(--lumen-muted);
+	}
+
+	.lx-search {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		width: min(100%, 34rem);
+		margin-top: 0.75rem;
+		padding: 0.875rem 1rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 8px;
+		background: color-mix(in srgb, var(--lumen-panel) 85%, transparent);
+		backdrop-filter: blur(6px);
+		color: var(--lumen-muted);
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		text-align: start;
+		cursor: pointer;
+		transition:
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.lx-search:hover:not(:disabled),
+	.lx-search:focus-visible {
+		border-color: var(--lumen-accent);
+		color: var(--sl-color-gray-1);
+	}
+
+	.lx-search:disabled {
+		cursor: default;
+	}
+
+	.lx-search-label {
+		flex: 1;
+		min-width: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.lx-search kbd {
+		flex: none;
+		padding: 0.125rem 0.4rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 4px;
+		font-family: inherit;
+		font-size: 0.6875rem;
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 0.5rem;
+	}
+
+	.lx-actions :global(.sl-link-button) {
+		padding: 0.625rem 1.25rem;
+		font-size: var(--sl-text-sm);
+	}
+
+	.lx-actions :global(.sl-link-button.secondary) {
+		border-color: var(--sl-color-hairline-light);
+		background: transparent;
+		color: var(--sl-color-gray-1);
+	}
+
+	.lx-actions :global(.sl-link-button.secondary:hover) {
+		border-color: var(--sl-color-gray-4);
+	}
+
+	@media (max-width: 40rem) {
+		.lx-search kbd {
+			display: none;
+		}
+	}
+</style>

@@ -1,0 +1,114 @@
+---
+title: iPhone · iPad · Apple TV
+description: 介绍 Apple 设备上推荐的 Emby 客户端（Infuse、Forward 等）的下载方式及添加服务器的步骤。
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import ImageRow from '../../../components/ImageRow.astro';
+
+在 Apple 设备上，推荐首选 **Infuse**，其对画质、HDR 与杜比视界的支持最为完整。如果您需要界面更现代、更便于连续观看剧集的客户端，可以选择 **Forward**。开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、本站用户名（或邮箱）和密码。
+
+## Infuse
+
+Infuse 适用于 iPhone、iPad、Mac、Apple TV 和 Vision Pro，可从[官网](https://firecore.com/infuse)或 App Store 下载。部分高级功能需要订阅 Infuse Pro。
+
+### 添加服务器
+
+<Steps>
+
+1. 打开 **设置**，点击 **新增文件来源**。
+
+2. 在「已储存的共享」下点击 **添加…**，然后在「媒体服务器」中选择 **添加 Emby**（请勿选择 Emby Connect 或 Jellyfin）。
+
+3. 按下表填写各项信息，然后保存：
+
+   | 项目 | 填写 |
+   | --- | --- |
+   | 名称 | 可自定义，例如 `Lumen` |
+   | 位址 | 线路域名，**不含** `https://` |
+   | 用户名 / 密码 | 本站用户名（或邮箱）和密码 |
+   | 高级 → 端口 | `443` |
+   | 高级 → HTTPS | 自动 |
+   | 高级 → 媒体库模式 | **保持关闭** |
+
+</Steps>
+
+<ImageRow
+	group="ios"
+	images={[
+		{ src: 'infuse_1.png', alt: 'Infuse 设置页，点击新增文件来源' },
+		{ src: 'infuse_2.png', alt: 'Infuse 新增文件来源页，点击添加' },
+		{ src: 'infuse_3.png', alt: 'Infuse 添加共享页，选择添加 Emby' },
+		{ src: 'infuse_4.png', alt: 'Infuse 添加 Emby 表单' },
+	]}
+/>
+
+<Aside type="caution" title="关于媒体库模式">
+	请保持媒体库模式关闭。开启后，Infuse 会将整个片库扫描至本地，首次扫描耗时较长，并会产生大量请求。关闭该模式时，Infuse 直接浏览服务器上的片库，打开后即可使用。
+</Aside>
+
+### 界面预览
+
+<ImageRow
+	group="ios"
+	images={[
+		{ src: 'infuse_5.PNG', alt: 'Infuse 首页' },
+		{ src: 'infuse_6.PNG', alt: 'Infuse 片库浏览页' },
+		{ src: 'infuse_7.PNG', alt: 'Infuse 详情页' },
+	]}
+/>
+
+## Forward
+
+Forward 是一款聚合网盘、NAS 与媒体服务器的播放器，界面现代，适合连续观看剧集。可从 [App Store](https://apps.apple.com/cn/app/id6503940939) 下载，为付费应用。
+
+### 添加服务器
+
+<Steps>
+
+1. 在底部的 **追剧** 页面，点击右下角的添加服务器图标。
+
+2. 在「添加资料库」中选择 **Emby**。
+
+3. 填写以下信息：
+   - **线路别名**：可自定义，例如线路名称
+   - **连接地址**：将前缀切换为 `https://`，然后填写线路域名
+   - **用户名 / 密码**：本站用户名（或邮箱）和密码
+
+4. 点击右上角的 **保存**。
+
+</Steps>
+
+<ImageRow
+	group="ios"
+	images={[
+		{ src: 'forward_4.png', alt: 'Forward 追剧页，点击右下角添加服务器' },
+		{ src: 'forward_5.png', alt: 'Forward 添加资料库页，选择 Emby' },
+		{ src: 'forward_6.png', alt: 'Forward 添加 Emby 表单' },
+	]}
+/>
+
+<Aside type="tip">
+	建议保持表单下方的「自动同步线路」开启，Forward 将自动获取您套餐中的其他线路。您也可以在「备用服务器」中手动添加另一条线路。
+</Aside>
+
+### 界面预览
+
+<ImageRow
+	group="ios"
+	images={[
+		{ src: 'forward_1.PNG', alt: 'Forward 首页' },
+		{ src: 'forward_2.PNG', alt: 'Forward 详情页' },
+		{ src: 'forward_3.PNG', alt: 'Forward 播放页' },
+	]}
+/>
+
+## 其他客户端
+
+以下客户端添加服务器的步骤相近：新建服务器 → 类型选择 **Emby** → 填写地址、用户名和密码。
+
+- **SenPlayer**：功能全面的原生播放器，支持 iPhone、iPad、Mac、Apple TV，[App Store](https://apps.apple.com/us/app/senplayer-media-player/id6443975850)
+- **VidHub**：同时支持 Apple 与 Android 平台，适合多平台用户，[官网](https://www.vidhub.icu/)
+- **Lenna**：免费、轻量，支持多服务器管理，未在中国区上架，[App Store](https://apps.apple.com/us/app/lenna-video-library-player/id6502967807)
+
+完整的客户端清单与价格，请参阅[客户端总览](/clients/)。

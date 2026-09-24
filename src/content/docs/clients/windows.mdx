@@ -1,0 +1,61 @@
+---
+title: Windows 与 Mac
+description: 介绍 Windows 与 Mac 电脑上推荐的 Emby 客户端（小幻影视、Hills Lite、Infuse）的下载方式及添加服务器的步骤。
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import ImageRow from '../../../components/ImageRow.astro';
+
+在 Windows 电脑上，推荐使用 **小幻影视**；Mac 用户可直接使用 [Infuse](/clients/apple/#infuse)。如果仅偶尔观看，也可以直接使用控制台的[在线观影](/watch/web/)，无需安装软件。
+
+开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、本站用户名（或邮箱）和密码。
+
+## 小幻影视
+
+小幻影视是 Windows 桌面端的媒体聚合播放器，同时支持 Emby、Jellyfin、Plex 与本地文件。其界面采用 Fluent 设计风格，支持 4K 原画播放、多版本与多音轨切换，并可从 Hills、AfuseKt、Yamby 等客户端一键导入已有配置。可从[微软商店](https://apps.microsoft.com/detail/9nb0h051m4v4)下载，为付费应用。
+
+### 添加服务器
+
+<Steps>
+
+1. 在左侧「服务列表」中点击 **+**，然后选择 **Emby**。
+
+2. 填写显示名称、服务器地址（完整线路地址）、本站用户名（或邮箱）和密码。
+
+3. 点击 **测试连接**，确认连接可用后点击 **创建**。
+
+</Steps>
+
+<ImageRow
+	group="windows"
+	images={[
+		{ src: 'xiaohuan_4.png', alt: '小幻影视添加服务菜单' },
+		{ src: 'xiaohuan_5.png', alt: '小幻影视添加 Emby 服务器页' },
+		{ src: 'xiaohuan_6.png', alt: '小幻影视备份与导入配置菜单' },
+	]}
+/>
+
+服务类别菜单中还提供 **备份当前配置 / 从备份恢复** 功能，可在更换电脑或重新安装时一键迁移配置。您也可以直接从其他客户端导入服务器配置。
+
+### 界面预览
+
+<ImageRow
+	group="windows"
+	images={[
+		{ src: 'xiaohuan_1.png', alt: '小幻影视主界面' },
+		{ src: 'xiaohuan_2.png', alt: '小幻影视媒体详情页' },
+		{ src: 'xiaohuan_3.png', alt: '小幻影视播放器界面' },
+	]}
+/>
+
+## Hills Lite
+
+Hills Lite 是 Hills 的 Windows 原生客户端，可从[微软商店](https://apps.microsoft.com/detail/9nxnzfrllwzx)下载，为付费应用。添加服务器时请选择 Emby，并填写完整线路地址（包含 `https://`）、端口 `443` 以及本站账号和密码。具体操作可参考 [Android 版 Hills](/clients/android/#hills) 的截图。
+
+## Emby 官方客户端
+
+您也可以使用 Emby 官方的 Windows 客户端。其登录页不会列出用户头像，需要手动输入用户名和密码。
+
+<Aside type="note">
+	在浏览器中直接打开线路地址会显示 404，该页面并非 Emby 网页版。如需在浏览器中观看，请使用控制台的[在线观影](/watch/web/)。
+</Aside>

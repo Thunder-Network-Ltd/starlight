@@ -1,6 +1,6 @@
 ---
 title: 客户端总览
-description: 按设备与平台快速选择适合你的 Emby 客户端
+description: 按设备选择 Emby 客户端：推荐客户端清单、价格与下载渠道，以及选择客户端时最重要的考量因素：解码能力。
 ---
 
 import ClientDirectory from '../../../components/ClientDirectory.astro';
@@ -22,7 +22,7 @@ import capyplayerIcon from '../../../assets/clients/capyplayer.webp';
 export const clients = [
 	{
 		name: 'Lenna',
-		description: '轻量，多服务器管理',
+		description: '轻量，支持多服务器管理',
 		price: '免费',
 		platform: 'iPhone · iPad · Mac · Apple TV (未上架国区)',
 		source: 'App Store',
@@ -32,12 +32,12 @@ export const clients = [
 	},
 	{
 		name: 'Infuse',
-		description: 'Apple 生态体验完整',
+		description: 'Apple 生态支持完整',
 		price: '付费',
 		platform: 'iPhone · iPad · Mac · Apple TV · Vision Pro',
 		source: '官网',
 		href: 'https://firecore.com/infuse',
-		badge: 'Apple 全家桶首选',
+		badge: 'Apple 设备首选',
 		color: '#e55b50',
 		icon: infuseIcon.src,
 	},
@@ -104,7 +104,7 @@ export const clients = [
 	},
 	{
 		name: 'TVxEmby',
-		description: '免费的电视端选择',
+		description: '免费的电视端客户端',
 		price: '免费',
 		platform: 'Android TV · Google TV',
 		source: 'Telegram',
@@ -134,7 +134,7 @@ export const clients = [
 	},
 	{
 		name: 'VidHub',
-		description: '覆盖 Apple 与 Android',
+		description: '支持 Apple 与 Android',
 		price: '付费',
 		platform: 'Apple 全平台 · Android（含 TV）',
 		source: '官网',
@@ -145,7 +145,7 @@ export const clients = [
 	},
 	{
 		name: 'CapyPlayer',
-		description: '移动设备跨平台使用',
+		description: '跨平台移动客户端',
 		price: '付费',
 		platform: 'iPhone · iPad · Android',
 		source: '官网',
@@ -155,10 +155,18 @@ export const clients = [
 	},
 ];
 
-Lumen Media 推荐使用以下客户端。
+Lumen 兼容 Emby 客户端协议，以下为推荐的客户端。请先按设备筛选，再根据价格和使用习惯选择即可。登录时的填写方式，请参阅[连接信息](/clients/connect/)。
 
 <ClientDirectory clients={clients} />
 
-:::tip[怎么选]
-不同客户端各有所长。先按常用设备筛选，再结合价格与使用习惯选择即可。
+## 如何选择客户端
+
+选择客户端时，最重要的是**解码能力**。Lumen 的服务器**不进行转码**，向您发送的是原始文件，能否流畅播放完全取决于客户端和设备本身：
+
+- 如果您经常观看 **4K HDR、杜比视界** 内容，请选择支持硬件解码和 HDR 输出的客户端，例如 Apple 设备上的 Infuse、Android 设备上的 Hills
+- 如果 **TrueHD、DTS-HD** 音轨没有声音，请更换支持软件解码这些格式的客户端，或关闭音频直通
+- 如果某部影片在当前客户端中无法播放，更换其他客户端通常即可解决
+
+:::tip[在浏览器中观看]
+通过控制台的[在线观影](/watch/web/)，您可以直接在浏览器中观看，适合临时使用。长期观看时，客户端的播放体验更好。
 :::

@@ -1,35 +1,174 @@
-/* 全站自定义样式 */
+/*
+ * 全站主题：强调色跟控制台走（HeroUI Pro 默认 accent，oklch(0.6204 0.195 253.83) ≈ #0485f7），
+ * 底色与分隔线取控制台深色主题的中性灰（带一点点冷调的近黑）。
+ * 不跟 lumen.ax 落地页的绿色 —— 那套之后会改掉（2026-09-25 用户）。
+ *
+ * user-css 不在 Starlight 的 cascade layer 里，所以这里的 :root 会盖过它的默认值；
+ * 浅色主题用 :root[data-theme='light']，靠更高的优先级再盖回来。
+ */
 
-/* 放宽正文栏宽度：Starlight 默认 45rem,在宽屏上右侧留白过多 */
 :root {
-	--sl-content-width: 62rem;
-}
+	--sl-font: -apple-system, BlinkMacSystemFont, 'Inter', 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
 
-/* 首页(splash)风格,参考 starlight.astro.build 官网的背景光晕 */
-:root {
-	--overlay-blurple: hsla(var(--sl-hue-blue), 60%, 61%, 0.2);
+	/* 放宽正文栏：Starlight 默认 45rem，宽屏右侧留白过多 */
+	--sl-content-width: 50rem;
+
+	/* 深色：控制台深色主题的灰阶（background #060607 / surface #18181b / border #28282c） */
+	--sl-color-white: #f4f4f5;
+	--sl-color-gray-1: #e4e4e7;
+	--sl-color-gray-2: #b8b8c0;
+	--sl-color-gray-3: #9f9fa9;
+	--sl-color-gray-4: #5d5d66;
+	--sl-color-gray-5: #28282c;
+	--sl-color-gray-6: #18181b;
+	--sl-color-black: #060607;
+
+	/* 同一个蓝：实心用控制台原值，淡底是它 15% 叠在底色上，文字链接提亮到对深底够对比 */
+	--sl-color-accent-low: #082036;
+	--sl-color-accent: #0485f7;
+	--sl-color-accent-high: #80bbff;
+
+	--sl-color-bg-nav: #060607;
+	--sl-color-bg-sidebar: #060607;
+	--sl-color-hairline: #1c1c1f;
+	--sl-color-hairline-light: #28282c;
+	--sl-color-bg-inline-code: #1d1d21;
+
+	/* 首页与自定义组件共用 */
+	--lumen-accent: #0485f7;
+	/* 当文字颜色用的那一份：小字号下要过 4.5:1，深底上原值就够 */
+	--lumen-accent-text: #0485f7;
+	--lumen-panel: #111114;
+	--lumen-grid-line: rgb(255 255 255 / 4%);
+	--lumen-glow: rgb(4 133 247 / 18%);
+	--lumen-muted: #9f9fa9;
 }
 
 :root[data-theme='light'] {
-	--overlay-blurple: hsla(var(--sl-hue-blue), 40%, 90%, 0.8);
+	--sl-color-white: #111113;
+	--sl-color-gray-1: #1d1d20;
+	--sl-color-gray-2: #3f3f46;
+	--sl-color-gray-3: #71717a;
+	--sl-color-gray-4: #a1a1aa;
+	--sl-color-gray-5: #dedee0;
+	--sl-color-gray-6: #efeff0;
+	--sl-color-gray-7: #f5f5f5;
+	--sl-color-black: #ffffff;
+
+	/* 浅色下文字链接不能直接用 #0485f7：对白底只有约 3.7:1，压深一档到 #006fdc（同色相）过 4.5:1；
+	 * 按钮等实心块仍用控制台原值 */
+	--sl-color-accent-low: #dcecfe;
+	--sl-color-accent: #006fdc;
+	--sl-color-accent-high: #0053aa;
+
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #ffffff;
+	--sl-color-hairline: #e9e9ec;
+	--sl-color-hairline-light: #dedee0;
+	--sl-color-bg-inline-code: #efeff0;
+
+	--lumen-accent: #0485f7;
+	--lumen-accent-text: #006fdc;
+	--lumen-panel: #f5f5f5;
+	--lumen-grid-line: rgb(0 0 0 / 5%);
+	--lumen-glow: rgb(4 133 247 / 14%);
+	--lumen-muted: #71717a;
 }
 
-[data-has-hero] .page {
-	background:
-		linear-gradient(215deg, var(--overlay-blurple), transparent 40%),
-		radial-gradient(var(--overlay-blurple), transparent 40%) no-repeat -60vw -40vh / 105vw 200vh,
-		radial-gradient(var(--overlay-blurple), transparent 65%) no-repeat 50% calc(100% + 20rem) / 60rem
-			30rem;
+/* ---------- 首页（splash）---------- */
+
+/* Hero 的网格底纹是 100vw 全出血，裁掉竖向滚动条那一截，否则会出横向滚动 */
+html[data-has-hero] body {
+	overflow-x: clip;
 }
 
-[data-has-hero] header {
-	border-bottom: 1px solid transparent;
-	background-color: transparent;
-	-webkit-backdrop-filter: blur(16px);
-	backdrop-filter: blur(16px);
+/* 首页页头半透明，网格从下面透上来 */
+[data-has-hero] header.header {
+	background-color: color-mix(in srgb, var(--sl-color-bg-nav) 70%, transparent);
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(14px);
 }
 
-[data-has-hero] .hero > img,
-[data-has-hero] .hero > .hero-html {
-	filter: drop-shadow(0 0 3rem var(--overlay-blurple));
+/* ---------- 全站框架 ---------- */
+
+header.header {
+	border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+.sidebar-pane {
+	border-inline-end: 1px solid var(--sl-color-hairline);
+}
+
+/* 侧栏当前页：淡蓝底 + 左侧细条，和控制台侧栏的选中态同一个意思 */
+.sidebar-content a[aria-current='page'] {
+	background-color: var(--sl-color-accent-low);
+	color: var(--sl-color-white);
+	box-shadow: inset 2px 0 0 var(--sl-color-accent);
+	font-weight: 600;
+}
+
+.sidebar-content .group-label .large {
+	font-size: var(--sl-text-sm);
+	letter-spacing: 0.02em;
+}
+
+/* 正文标题：略收字距 */
+.sl-markdown-content :is(h1, h2, h3) {
+	letter-spacing: -0.01em;
+}
+
+[data-page-title] {
+	letter-spacing: -0.02em;
+}
+
+/* 主按钮：实心控制台蓝、6px 圆角，不用 Starlight 的胶囊 */
+.sl-link-button {
+	border-radius: 6px !important;
+}
+
+.sl-link-button.primary {
+	background: var(--lumen-accent) !important;
+	border-color: var(--lumen-accent) !important;
+	color: #fff !important;
+}
+
+/* 提示框：默认的蓝（note）和紫（tip）跟单一强调色打架。
+ * note 改成中性灰、tip 用控制台蓝；caution / danger 保留橙红，因为颜色本身带警示含义 */
+.starlight-aside {
+	border-radius: 0 6px 6px 0;
+}
+
+.starlight-aside--note {
+	--sl-color-asides-text-accent: var(--sl-color-white);
+	--sl-color-asides-border: var(--sl-color-gray-4);
+	background-color: var(--lumen-panel);
+}
+
+.starlight-aside--tip {
+	--sl-color-asides-text-accent: var(--sl-color-accent-high);
+	--sl-color-asides-border: var(--sl-color-accent);
+	background-color: var(--sl-color-accent-low);
+}
+
+/* 卡片、表格、提示框统一方角细边 */
+.sl-markdown-content table {
+	border-radius: 0;
+}
+
+/* 正文里单独一张的界面截图：控制台截图的底色和页面几乎一样黑，不加边框就看不出图的边界。
+ * 只作用于 Markdown 图片（<p> 里的 <img>），客户端教程的手机截图走 ImageRow，不受影响 */
+.sl-markdown-content p > img {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: 8px;
+}
+
+/* 表格首列的粗体是短标签（「当前订阅」「豆瓣 Top250」），窄栏里被拆成两行很难看 */
+.sl-markdown-content td:first-child strong {
+	white-space: nowrap;
+}
+
+.card,
+.sl-link-card {
+	border-radius: 6px !important;
 }
