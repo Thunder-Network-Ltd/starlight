@@ -2,11 +2,15 @@
 import { logos } from 'virtual:starlight/user-images';
 import config from 'virtual:starlight/user-config';
 
-const { siteTitle } = Astro.locals.starlightRoute;
-const homeUrl = 'https://www.lumen.ax';
+const { siteTitle, siteTitleHref, id } = Astro.locals.starlightRoute;
+
+// 文档首页（slug 为空）点 logo 回 lumen.ax 落地页；其余文章页点 logo 回文档首页
+const isDocsHome = id === '';
+const homeUrl = isDocsHome ? 'https://www.lumen.ax' : siteTitleHref;
+const homeLabel = isDocsHome ? '返回 Lumen 官网' : '返回文档首页';
 ---
 
-<a href={homeUrl} class="site-title sl-flex" target="_self">
+<a href={homeUrl} class="site-title sl-flex" target="_self" title={homeLabel}>
 	{
 		config.logo && logos.dark && (
 			<>

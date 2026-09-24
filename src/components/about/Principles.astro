@@ -1,0 +1,140 @@
+---
+/**
+ * 设计理念：每条先是编号与理念标题，下面两栏——左「常见做法」（弱化），右「Lumen 的做法」（正文，左侧强调线）。
+ * 放在普通文档栏里用（两侧有侧栏和目录），所以标题单占一行、两栏并排，不做成落地页式的大版式。
+ */
+interface Principle {
+	title: string;
+	common: string;
+	lumen: string;
+	href?: string;
+}
+
+interface Props {
+	items: Principle[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="lx-principles not-content">
+	{
+		items.map((item, i) => (
+			<li>
+				<h3>
+					<span class="lx-p-num">{String(i + 1).padStart(2, '0')}</span>
+					{item.title}
+				</h3>
+				<div class="lx-p-grid">
+					<div class="lx-p-common">
+						<span class="lx-p-label">常见做法</span>
+						<p>{item.common}</p>
+					</div>
+					<div class="lx-p-lumen">
+						<span class="lx-p-label">Lumen 的做法</span>
+						<p>
+							{item.lumen}
+							{item.href && (
+								<a href={item.href} class="lx-p-more">
+									了解更多
+								</a>
+							)}
+						</p>
+					</div>
+				</div>
+			</li>
+		))
+	}
+</ol>
+
+<style>
+	.lx-principles {
+		margin: 1.5rem 0 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--sl-color-hairline-light);
+	}
+
+	li {
+		padding-block: 1.5rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+	}
+
+	h3 {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		margin: 0 0 1rem;
+		font-size: var(--sl-text-lg);
+		font-weight: 600;
+		line-height: 1.4;
+		color: var(--sl-color-white);
+	}
+
+	.lx-p-num {
+		font-size: var(--sl-text-sm);
+		font-weight: 400;
+		font-variant-numeric: tabular-nums;
+		color: var(--lumen-accent-text);
+	}
+
+	.lx-p-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 1.75rem;
+	}
+
+	.lx-p-label {
+		display: block;
+		margin-bottom: 0.375rem;
+		font-size: var(--sl-text-2xs);
+		letter-spacing: 0.08em;
+		color: var(--sl-color-gray-3);
+	}
+
+	p {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		line-height: 1.85;
+	}
+
+	.lx-p-common p {
+		color: var(--lumen-muted);
+	}
+
+	.lx-p-lumen {
+		padding-inline-start: 1rem;
+		border-inline-start: 2px solid var(--lumen-accent);
+	}
+
+	.lx-p-lumen .lx-p-label {
+		color: var(--lumen-accent-text);
+	}
+
+	.lx-p-lumen p {
+		color: var(--sl-color-gray-1);
+	}
+
+	.lx-p-more {
+		margin-inline-start: 0.5rem;
+		color: var(--lumen-accent-text);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.lx-p-more::after {
+		content: ' →';
+	}
+
+	.lx-p-more:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	@media (max-width: 40rem) {
+		.lx-p-grid {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 1rem;
+		}
+	}
+</style>

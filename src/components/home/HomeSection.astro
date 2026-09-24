@@ -1,0 +1,56 @@
+---
+/**
+ * 首页分区：英文小标（和落地页的 FEATURES / PRICING 同款）+ 中文标题 + 可选导语。
+ */
+interface Props {
+	eyebrow: string;
+	title: string;
+	lead?: string;
+	id?: string;
+}
+
+const { eyebrow, title, lead, id } = Astro.props;
+---
+
+<section class="lx-section not-content" id={id}>
+	<header class="lx-section-head">
+		<p class="lx-section-eyebrow">{eyebrow}</p>
+		<h2>{title}</h2>
+		{lead && <p class="lx-section-lead">{lead}</p>}
+	</header>
+	<slot />
+</section>
+
+<style>
+	.lx-section {
+		padding-block: clamp(2.5rem, 6vh, 4rem);
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.lx-section-head {
+		margin-bottom: 1.75rem;
+	}
+
+	.lx-section-eyebrow {
+		margin: 0 0 0.625rem;
+		font-size: 0.6875rem;
+		letter-spacing: 0.28em;
+		color: var(--lumen-accent-text);
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		color: var(--sl-color-white);
+	}
+
+	.lx-section-lead {
+		margin: 0.625rem 0 0;
+		max-width: 40rem;
+		color: var(--lumen-muted);
+		font-size: var(--sl-text-sm);
+		line-height: 1.8;
+	}
+</style>

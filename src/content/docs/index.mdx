@@ -1,66 +1,78 @@
 ---
-title: Lumen 影视服务
-description: Lumen（Emby）影视服务使用文档：从注册订阅、客户端安装到问题排查的完整指南。
+title: Lumen 帮助中心
+description: Lumen 帮助中心：开通服务、配置客户端、选择线路、网页观影、自定义媒体库与常见问题的完整说明。
 template: splash
 hero:
-  tagline: 从注册订阅到打开客户端观影，只需要几分钟。这里是 Lumen 影视服务的完整使用手册——清晰、好找、随查随用。
-  image:
-    light: ../../assets/lumen-black.svg
-    dark: ../../assets/lumen-white.svg
-    alt: Lumen
+  title: Lumen <span class="g">帮助中心</span>
+  tagline: 开通服务、配置客户端、选择线路与排查问题所需的全部说明，均可在此查阅。
   actions:
-    - text: 开始使用
-      link: /overview/panel/
-      icon: right-arrow
-    - text: 什么是 Lumen？
-      link: /overview/introduction/
-      icon: information
-      variant: minimal
+    - text: 快速开始
+      link: /start/quickstart/
+    - text: 前往控制台
+      link: https://www.lumen.ax/dashboard
+      variant: secondary
 ---
 
-import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import HomeSection from '../../components/home/HomeSection.astro';
+import StepGrid from '../../components/home/StepGrid.astro';
+import DeviceGrid from '../../components/home/DeviceGrid.astro';
+import LinkList from '../../components/home/LinkList.astro';
+import HelpBand from '../../components/home/HelpBand.astro';
 
-## 三步开始观影
-
-<CardGrid stagger>
-	<Card title="第一步 · 注册并订阅" icon="rocket">
-		在[面板](https://www.lumen.ax)注册账号，充值并订阅套餐，Emby 账号自动开通。
-		完整流程见[面板使用教程](/overview/panel/)。
-	</Card>
-	<Card title="第二步 · 安装客户端" icon="laptop">
-		在[客户端总览](/application/summery/)按设备挑一个顺手的播放器，跟着
-		[Android](/application/android/) · [iOS](/application/ios/) ·
-		[Windows](/application/windows/) 教程安装。
-	</Card>
-	<Card title="第三步 · 登录观影" icon="star">
-		从面板[个人概览](/overview/panel/#个人概览)复制线路地址与 Emby
-		登录信息，填进客户端，开始观影。
-	</Card>
-</CardGrid>
-
-## 遇到问题？按主题直达
-
-<CardGrid>
-	<LinkCard
-		title="账号与登录"
-		description="连不上服务器、收不到验证码、面板账号和 Emby 账号的区别"
-		href="/troubleshooting/account/"
+<HomeSection eyebrow="QUICK START" title="快速开始" lead="首次使用 Lumen，请按以下顺序完成设置。">
+	<StepGrid
+		steps={[
+			{ title: '注册账号', body: '使用邮箱注册 Lumen 账号。该账号同时用于登录控制台与全部客户端。', href: '/start/quickstart/', cta: '查看步骤' },
+			{ title: '开通订阅', body: '通过支付宝或微信为钱包充值，并根据线路与流量需求选择套餐。', href: '/start/plans/', cta: '了解套餐' },
+			{ title: '获取线路地址', body: '在控制台「播放线路」中复制任一地址，作为客户端的服务器地址。', href: '/clients/connect/', cta: '连接信息' },
+			{ title: '配置客户端', body: '在客户端中添加 Emby 服务器，填写服务器地址、用户名与密码。', href: '/clients/', cta: '选择客户端' },
+		]}
 	/>
-	<LinkCard
-		title="播放问题排查"
-		description="卡顿、字幕乱码、HDR 发灰、没有声音，按现象逐条排查"
-		href="/troubleshooting/playback/"
-	/>
-	<LinkCard
-		title="订阅与余额"
-		description="到期与续费、自动续订、充值未到账、兑换码与邀请返利"
-		href="/troubleshooting/billing/"
-	/>
-	<LinkCard
-		title="求片与报错"
-		description="想看的片没有？资源缺集或有错误？在这里提交反馈"
-		href="/troubleshooting/content/"
-	/>
-</CardGrid>
+</HomeSection>
 
-[服务条款](/legal/terms/) · [隐私政策](/legal/privacy/) · [内容与版权声明](/legal/copyright/)
+<HomeSection eyebrow="BY DEVICE" title="按设备查看" lead="Lumen 兼容主流 Emby 客户端，各平台均有成熟方案；您也可以直接在浏览器中观看。">
+	<DeviceGrid
+		devices={[
+			{ name: 'iPhone · iPad · Apple TV', clients: 'Infuse · Forward · SenPlayer', href: '/clients/apple/', icon: 'apple' },
+			{ name: 'Android 手机与平板', clients: 'Yamby · Hills · AfuseKt', href: '/clients/android/', icon: 'android' },
+			{ name: '电视与机顶盒', clients: 'Yamby · Flow · TVxEmby', href: '/clients/android/', icon: 'tv' },
+			{ name: 'Windows 与 Mac', clients: '小幻影视 · Hills Lite · Infuse', href: '/clients/windows/', icon: 'windows' },
+			{ name: '网页播放', clients: '无需安装，在浏览器中观看', href: '/watch/web/', icon: 'web' },
+			{ name: '一起看', clients: '与好友同步播放并发送弹幕', href: '/watch/together/', icon: 'together' },
+		]}
+	/>
+</HomeSection>
+
+<HomeSection eyebrow="GUIDES" title="控制台指南">
+	<LinkList
+		items={[
+			{ title: '套餐、线路与流量', description: '套餐差异、线路选择，以及流量与倍率的计算方式', href: '/start/plans/' },
+			{ title: '订阅与续费', description: '购买、升级、折扣码、自动续订与到期处理', href: '/panel/subscription/' },
+			{ title: '我的媒体库', description: '调整媒体库顺序，按条件或榜单创建自定义媒体库', href: '/watch/libraries/' },
+			{ title: '充值与兑换码', description: '支付宝与微信充值，通过兑换码转赠余额', href: '/panel/wallet/' },
+			{ title: '片库反馈', description: '提交求片与错误反馈，查询处理进度', href: '/panel/feedback/' },
+			{ title: '账号与安全', description: '修改密码、两步验证、设备管理与提醒邮件', href: '/panel/account/' },
+		]}
+	/>
+</HomeSection>
+
+<HomeSection eyebrow="SUPPORT" title="常见问题">
+	<LinkList
+		items={[
+			{ title: '账号与登录', description: '客户端登录失败、登录受限与重新登录', href: '/troubleshooting/account/' },
+			{ title: '播放问题', description: '卡顿、无法播放，以及字幕、画面与声音问题', href: '/troubleshooting/playback/' },
+			{ title: '线路与流量', description: '线路无法连接、晚高峰卡顿与流量消耗异常', href: '/troubleshooting/network/' },
+			{ title: '订阅与余额', description: '自动续订失败、充值未到账、手续费与退款', href: '/troubleshooting/billing/' },
+		]}
+	/>
+</HomeSection>
+
+<HelpBand
+	title="需要进一步协助？"
+	body="如本文档未能解决您的问题，您可以在 Telegram 交流群中咨询。充值、账号等需要核实身份的事项，请联系官方客服。"
+	links={[
+		{ label: 'Telegram 交流群', href: 'https://t.me/Lumen_MediaCN' },
+		{ label: '官方客服', href: 'https://t.me/Lumen_Customer_bot' },
+		{ label: 'Discord', href: 'https://discord.gg/Ry7yDf4ApF' },
+	]}
+/>

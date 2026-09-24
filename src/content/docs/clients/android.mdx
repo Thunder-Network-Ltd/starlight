@@ -1,0 +1,113 @@
+---
+title: Android 与电视
+description: 介绍 Android 手机、平板、电视与机顶盒上推荐的 Emby 客户端（Yamby、Hills 等）的下载方式及添加服务器的步骤。
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import ImageRow from '../../../components/ImageRow.astro';
+
+在 Android 手机上，推荐使用免费且速度快的 **Yamby**。如果您经常观看 4K HDR、杜比视界内容，请选择解码能力更强的 **Hills**。开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、本站用户名（或邮箱）和密码。
+
+## Yamby
+
+Yamby 是基于 Material Design 3 的第三方 Emby 客户端，轻量且速度快，支持手机、平板和 Android TV。可从 [Google Play](https://play.google.com/store/apps/details?id=com.hush.yamby) 或[官方 Telegram 频道](https://t.me/yamby_release)免费下载。
+
+### 添加服务器
+
+<Steps>
+
+1. 在 **媒体库** 页面，点击右下角的 **+**。
+
+2. 在「添加服务器」中填写以下信息：
+
+   | 项目 | 填写 |
+   | --- | --- |
+   | 服务器地址 | 线路域名，**不含** `https://` |
+   | 端口 | `443` |
+   | 协议 | HTTPS |
+   | 路径 | 留空 |
+   | 用户名 / 密码 | 本站用户名（或邮箱）和密码 |
+
+3. 点击 **连接**。
+
+</Steps>
+
+<ImageRow
+	group="android"
+	images={[
+		{ src: 'Yamby_1.png', alt: 'Yamby 媒体库页，点击右下角加号' },
+		{ src: 'Yamby_2.png', alt: 'Yamby 添加服务器表单' },
+	]}
+/>
+
+### 界面预览
+
+<ImageRow
+	group="android"
+	images={[
+		{ src: 'Yamby_3.png', alt: 'Yamby 首页' },
+		{ src: 'Yamby_4.png', alt: 'Yamby 详情页' },
+		{ src: 'Yamby_5.png', alt: 'Yamby 播放页' },
+	]}
+/>
+
+## Hills
+
+Hills 支持 mpv 与 ExoPlayer 双内核，可硬件解码杜比视界、HDR10+ 和 4K 内容，并支持特效字幕、双字幕与跳过片头。可从 [Google Play](https://play.google.com/store/apps/details?id=com.mountains.hills) 或[官方 Telegram 频道](https://t.me/Hills_app)下载，为付费应用。
+
+### 添加服务器
+
+<Steps>
+
+1. 在 **Servers** 页面，点击右下角的 **+**。
+
+2. 在「Server Address」中填写**包含** `https://` 的完整线路地址，在「Port」中填写 `443`，然后点击 **Connect**。
+
+3. 为「Display Name」设置任意名称，在「Username」和「Password」中分别填写本站用户名（或邮箱）和密码，然后点击 **Login**。
+
+</Steps>
+
+<ImageRow
+	group="android"
+	images={[
+		{ src: 'Hills_4.png', alt: 'Hills 连接服务器页，填写地址与端口' },
+		{ src: 'Hills_5.png', alt: 'Hills 登录服务器页，填写用户名与密码' },
+	]}
+/>
+
+<Aside type="note">
+	Yamby 的地址**不含** `https://`（协议需单独选择），Hills 的地址**需包含** `https://`。填写错误时，客户端一般会提示连接失败，请对照截图进行检查。
+</Aside>
+
+### 界面预览
+
+<ImageRow
+	group="android"
+	images={[
+		{ src: 'Hill_1.png', alt: 'Hills 首页' },
+		{ src: 'Hill_2.png', alt: 'Hills 详情页' },
+		{ src: 'Hill_3.png', alt: 'Hills 播放页' },
+	]}
+/>
+
+## 电视与机顶盒
+
+以下客户端可在 Android TV、Google TV 和各类机顶盒上使用：
+
+- **Yamby**：同一应用也支持电视端
+- **Flow**：专为电视大屏设计，[GitHub 下载](https://github.com/Flow-Media-Client/Flow-release)
+- **TVxEmby**：免费的电视端客户端，[Telegram 频道](https://t.me/TVxEmby)
+
+由于在电视上输入较长的地址较为不便，您可以先在手机上复制线路地址，再通过电视输入法的「手机输入」功能粘贴至电视。
+
+<Aside type="tip" title="电视画面撕裂与掉帧">
+	请在客户端设置中开启「自动切换刷新率 / 帧率匹配」，使电视输出的帧率与影片保持一致。
+</Aside>
+
+## 其他客户端
+
+- **AfuseKt**：简洁的 Android 客户端，手机与电视均可使用，[GitHub](https://github.com/AttemptD/AfuseKt-release)
+- **VidHub**：同时支持 Apple 与 Android 平台，[官网](https://www.vidhub.icu/)
+- **CapyPlayer**：跨平台移动客户端，[官网](https://capyplayer.feifeiduck.com/)
+
+完整的客户端清单与价格，请参阅[客户端总览](/clients/)。
