@@ -21,13 +21,13 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 2. ### 充值并订阅
 
-   首先前往 **[余额充值](https://www.lumen.ax/dashboard/wallet)** 页面，使用支付宝或微信为钱包充值（最低 5 元）。然后前往 **[服务订阅](https://www.lumen.ax/dashboard/subscription)** 页面选择套餐，并点击 **选择并订阅**。
+   首先前往 **[余额充值](https://www.lumen.ax/dashboard/wallet)** 页面，使用支付宝或微信为钱包充值（最低 5 元）。充值成功后点击 **去订阅**，或前往 **[服务订阅](https://www.lumen.ax/dashboard/subscription)** 页面选择套餐，并点击 **选择并订阅**。
 
-   各套餐的片库相同，区别在于可用线路和流量额度。如需帮助选择套餐，请参阅[套餐、线路与流量](/start/plans/)。订阅生效后，账号将立即开通，无需等待。
+   各套餐的片库相同，区别在于可用线路和流量额度。如需帮助选择套餐，请参阅[套餐、线路与流量](/start/plans/)。订阅生效后，账号将立即开通，无需等待。首次订阅默认开启[自动续订](/panel/subscription/#自动续订)，可随时关闭。
 
 3. ### 复制线路地址
 
-   返回 **[个人概览](https://www.lumen.ax/dashboard)** 页面，点击 **播放线路** 卡片，复制其中任一地址。该地址即为您需要在客户端中填写的服务器地址。
+   在服务订阅页点击 **查看播放线路**，或返回 **[个人概览](https://www.lumen.ax/dashboard)** 页面点击 **播放线路** 卡片，复制其中任一地址。该地址即为您需要在客户端中填写的服务器地址。
 
    登录客户端时，请使用**本站用户名（或邮箱）和密码**，即您刚刚注册的账号信息。Lumen 不另设 Emby 密码。
 
@@ -39,7 +39,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
    - [Android 与电视](/clients/android/)：推荐 Yamby、Hills
    - [Windows 与 Mac](/clients/windows/)：推荐小幻影视
 
-   端口统一填写 **443**。各客户端在填写方式上的差异，请参阅[连接信息](/clients/connect/)。
+   线路地址不含端口号；如客户端要求单独填写端口，请填写 **443**。各客户端在填写方式上的差异，请参阅[连接信息](/clients/connect/)。
 
 </Steps>
 
@@ -52,4 +52,4 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 - 在[账号设置](/panel/account/)中开启**两步验证**，保护您的钱包安全
 - 确认[自动续订](/panel/subscription/#自动续订)的状态，避免服务在连续观看剧集的过程中停用
 - 通过[我的媒体库](/watch/libraries/)，将常看的类型和榜单整理为您自己的媒体库
-- 如果片库中没有您想观看的影片，可前往[片库反馈](/panel/feedback/)提交求片
+- 如果片库中没有您想观看的影片，可前往[求片与反馈](/panel/feedback/)提交求片

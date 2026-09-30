@@ -50,7 +50,7 @@ import HelpBand from '../../components/home/HelpBand.astro';
 			{ title: '订阅与续费', description: '购买、升级、折扣码、自动续订与到期处理', href: '/panel/subscription/' },
 			{ title: '我的媒体库', description: '调整媒体库顺序，按条件或榜单创建自定义媒体库', href: '/watch/libraries/' },
 			{ title: '充值与兑换码', description: '支付宝与微信充值，通过兑换码转赠余额', href: '/panel/wallet/' },
-			{ title: '片库反馈', description: '提交求片与错误反馈，查询处理进度', href: '/panel/feedback/' },
+			{ title: '求片与反馈', description: '搜索影片并提交求片，反馈片源问题，查询处理进度', href: '/panel/feedback/' },
 			{ title: '账号与安全', description: '修改密码、两步验证、设备管理与提醒邮件', href: '/panel/account/' },
 		]}
 	/>
@@ -69,8 +69,9 @@ import HelpBand from '../../components/home/HelpBand.astro';
 
 <HelpBand
 	title="需要进一步协助？"
-	body="如本文档未能解决您的问题，您可以在 Telegram 交流群中咨询。充值、账号等需要核实身份的事项，请联系官方客服。"
+	body="如本文档未能解决您的问题，您可以在 Telegram 交流群中咨询。充值、订阅、账号等事项，请在控制台「联系客服」中提交工单，或通过 Telegram 联系官方客服。"
 	links={[
+		{ label: '联系客服', href: 'https://www.lumen.ax/dashboard/support' },
 		{ label: 'Telegram 交流群', href: 'https://t.me/Lumen_MediaCN' },
 		{ label: '官方客服', href: 'https://t.me/Lumen_Customer_bot' },
 		{ label: 'Discord', href: 'https://discord.gg/Ry7yDf4ApF' },
