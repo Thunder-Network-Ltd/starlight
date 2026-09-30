@@ -94,6 +94,7 @@ export default defineConfig({
 						{ label: '服务条款', slug: 'legal/terms' },
 						{ label: '隐私政策', slug: 'legal/privacy' },
 						{ label: '内容与版权声明', slug: 'legal/copyright' },
+						{ label: '开源组件与许可', slug: 'legal/open-source' },
 					],
 				},
 			],
