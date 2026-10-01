@@ -28,12 +28,12 @@ Lumen 的网页播放器使用了下列开源组件。感谢这些项目的作�
 - `dist/esm/384.avplayer.js`
 - `dist/esm/630.avplayer.js`
 
-这些修改用于修复 Safari 上的杜比音轨播放、iOS 上的进度与缓冲、图形字幕渲染、音轨选择与字幕安全等问题。WebAssembly 解码器没有修改，与上游 `v1.3.1` 发布的文件一致。
+这些修改用于修复 Safari 上的杜比音轨播放、iOS 上的进度与缓冲、图形字幕渲染、音轨选择、字幕安全与纯文本字幕的样式标签等问题。WebAssembly 解码器没有修改，与上游 `v1.3.1` 发布的文件一致。
 
 修改以补丁文件的形式提供：
 
 - **[下载补丁：libmedia-avplayer-1.3.1-lumen.patch](/downloads/libmedia-avplayer-1.3.1-lumen.patch)**
-- SHA-256：`0be49fc2a9b97c4e35bb078d673a01eee60643adeffddcade1645539afdf1a4e`
+- SHA-256：`912adb74b47cd0a928d55f6eb19c4d65bd34ecdcd0aa41728f1c1f4a052333af`
 
 上游 `v1.3.1` 的源码与发布包加上这份补丁，就是我们网页播放器所用 libmedia 的完整对应源码。复现方法：
 
@@ -43,5 +43,5 @@ Lumen 的网页播放器使用了下列开源组件。感谢这些项目的作�
 ## 三、您的权利
 
 1. libmedia 以 GNU 宽通用公共许可证第 3 版或更新版本（LGPL-3.0-or-later）发布。许可证全文见 [GNU LGPL v3](https://www.gnu.org/licenses/lgpl-3.0.html)，以及它所引用的 [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)。
-2. 网页播放器以独立文件加载 libmedia 与解码器（`/libmedia/js/` 下的脚本与 `/libmedia/decode/` 下的解码器），没有与我们自己的代码合并在一起。您可以依照 LGPL 修改这些库，并用修改后的版本替换使用。
+2. 网页播放器以独立文件加载 libmedia 与解码器（`/libmedia/` 下的脚本与解码器），没有与我们自己的代码合并在一起。您可以依照 LGPL 修改这些库，并用修改后的版本替换使用。
 3. 如果下载链接失效，可以通过客服联系我们索取对应源码。
