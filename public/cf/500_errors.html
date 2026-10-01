@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>暂时无法访问 · Lumen</title>
+<style>:root{
+  color-scheme:light dark;
+  --bg:#f4f4f5;--surface:#fff;--ink:#18181b;--muted:#71717a;--faint:#a1a1aa;
+  --border:#e1e1e4;--meta:#82828b;--accent:#0485f7;--accent-hover:#0374d9;--on-accent:#fff;
+  --glow:rgba(4,133,247,.10);--star:0 0 0;--star-alpha:.18;--ring:rgba(24,24,27,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#050506;--surface:#151518;--ink:#f4f4f5;--muted:#a1a1aa;--faint:#71717a;
+    --border:#26262a;--meta:#6e6e77;--accent-hover:#2b97f8;
+    --glow:rgba(4,133,247,.20);--star:255 255 255;--star-alpha:.55;--ring:rgba(255,255,255,.06);
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  margin:0;min-height:100vh;min-height:100dvh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color:var(--ink);
+  background:radial-gradient(ellipse 70% 45% at 50% -8%,var(--glow),transparent 70%),var(--bg);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:var(--star-alpha);
+  background-image:
+    radial-gradient(1px 1px at 12% 18%,rgb(var(--star)/.7),transparent),
+    radial-gradient(1px 1px at 34% 62%,rgb(var(--star)/.45),transparent),
+    radial-gradient(1px 1px at 58% 14%,rgb(var(--star)/.6),transparent),
+    radial-gradient(1px 1px at 76% 70%,rgb(var(--star)/.4),transparent),
+    radial-gradient(1px 1px at 88% 12%,rgb(var(--star)/.55),transparent),
+    radial-gradient(1px 1px at 22% 84%,rgb(var(--star)/.35),transparent),
+    radial-gradient(1px 1px at 66% 88%,rgb(var(--star)/.45),transparent),
+    radial-gradient(1px 1px at 8% 46%,rgb(var(--star)/.4),transparent),
+    radial-gradient(1px 1px at 94% 44%,rgb(var(--star)/.5),transparent),
+    radial-gradient(1.5px 1.5px at 42% 30%,rgb(var(--star)/.5),transparent);
+}
+a{color:inherit}
+.page{position:relative;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;padding:0 16px}
+.top{display:flex;align-items:center;height:64px;max-width:1120px;width:100%;margin:0 auto}
+.top a{display:inline-flex;color:var(--ink);text-decoration:none;border-radius:6px}
+.logo{display:block;height:20px;width:auto}
+.main{
+  position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;width:100%;max-width:440px;margin:0 auto;padding:24px 0 96px;
+}
+.mark{
+  position:relative;display:grid;place-items:center;width:52px;height:52px;margin-bottom:40px;
+  border-radius:16px;background:var(--surface);color:var(--ink);
+  box-shadow:inset 0 0 0 1px var(--border),0 1px 2px rgba(0,0,0,.04),0 0 0 8px var(--ring),0 0 0 18px color-mix(in srgb,var(--ring) 45%,transparent);
+}
+.mark svg{width:24px;height:24px}
+.spinner{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spinner{animation-duration:2.4s}}
+h1.title{margin:0;font-size:28px;line-height:1.25;font-weight:600;letter-spacing:.01em}
+.lead{margin:12px 0 0;font-size:15px;line-height:1.7;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 20px;border-radius:999px;
+  font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;
+  transition:background-color .15s,box-shadow .15s,color .15s;
+}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-ghost{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--border)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1px var(--faint)}
+.btn:focus-visible,.top a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.details{width:100%;margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+/* Cloudflare 的详情框：英文标题与原因说明不给用户看，只留 Ray ID / IP / 错误号 / 节点几项，排障时报给客服 */
+.cf-error-details h1,.cf-error-details h2,.cf-error-details p{display:none}
+.cf-error-details ul,.meta{
+  list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;
+  font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--meta);
+}
+.cf-error-details li,.meta li{margin:0;word-break:break-all}
+.challenge{display:flex;flex-direction:column;align-items:center;width:100%;margin-top:28px;font-size:14px;line-height:1.6;color:var(--muted)}
+.challenge a{color:var(--accent)}
+@media (max-width:480px){
+  .main{padding-bottom:64px}
+  h1.title{font-size:24px}
+  .lead{font-size:14px}
+}</style>
+</head>
+<body>
+<div class="page">
+  <header class="top"><a href="https://www.lumen.ax/" aria-label="Lumen 首页"><svg class="logo" viewBox="0 0 3528 670" fill="currentColor" role="img" aria-label="Lumen"><g transform="matrix(1,0,0,1,-225.756591,1703.220754)"><path transform="matrix(11.420486,0,0,11.420486,1024.505393,-1399.584289)" d="M0,5.43C3.084,5.842 6.128,6.377 9.13,7.029C10.563,7.341 11.989,7.68 13.404,8.044C22.451,10.376 31.065,13.781 39.106,18.114C31.622,12.044 23.107,7.2 13.864,3.883C13.879,3.495 13.887,3.106 13.887,2.714C13.887,-4.288 11.431,-10.717 7.332,-15.757C1.961,-22.365 -6.235,-26.587 -15.414,-26.587C-27.122,-26.587 -37.226,-19.72 -41.919,-9.794C-43.333,-6.803 -44.256,-3.535 -44.581,-0.092C-43.964,-0.527 -43.341,-0.953 -42.713,-1.367C-42.141,-4.303 -41.08,-7.065 -39.617,-9.562C-35.059,-17.35 -26.605,-22.581 -16.929,-22.581C-10.087,-22.581 -3.854,-19.964 0.821,-15.677C5.761,-11.148 8.962,-4.755 9.309,2.389C2.84,0.468 -3.946,-0.721 -10.951,-1.076C-12.429,-1.152 -13.917,-1.189 -15.414,-1.189C-25.132,-1.189 -34.477,0.411 -43.198,3.361C-43.697,3.531 -44.197,3.704 -44.693,3.883C-48.129,5.116 -51.464,6.56 -54.682,8.201L-54.684,8.202C-60.127,10.973 -65.238,14.303 -69.94,18.116C-66.544,16.286 -63.044,14.621 -59.453,13.132C-54.542,11.096 -49.458,9.39 -44.232,8.044C-41.727,21.683 -29.776,32.017 -15.414,32.017C-3.548,32.017 6.671,24.963 11.28,14.817C10.234,13.784 9.162,12.778 8.064,11.802C4.646,22.341 -5.252,29.959 -16.929,29.959C-30.072,29.959 -40.959,20.309 -42.894,7.708C-34.087,5.55 -24.885,4.407 -15.414,4.407C-10.187,4.407 -5.042,4.756 0,5.43"/><path transform="matrix(16.13203,0,0,16.13203,1909.287834,-1432.33468)" d="M0,10.768C0,11.514 -0.605,12.119 -1.351,12.119L-19.868,12.119C-22.162,12.119 -24.021,10.26 -24.021,7.966L-24.021,0.001C-24.021,-0.746 -23.416,-1.351 -22.67,-1.351C-21.923,-1.351 -21.318,-0.746 -21.318,0.001L-21.318,7.966C-21.318,8.767 -20.669,9.416 -19.868,9.416L-1.351,9.416C-0.605,9.416 0,10.022 0,10.768"/><path transform="matrix(16.13203,0,0,16.13203,3290.397706,-1345.465312)" d="M0,0C0,0.746 -0.605,1.351 -1.351,1.351L-16.817,1.351C-17.564,1.351 -18.169,0.746 -18.169,0C-18.169,-0.747 -17.564,-1.351 -16.817,-1.351L-1.351,-1.351C-0.605,-1.351 0,-0.747 0,0"/><path transform="matrix(16.13203,0,0,16.13203,3298.300788,-1432.320161)" d="M0,10.767C0,11.514 -0.605,12.118 -1.351,12.118L-17.307,12.118C-21.027,12.118 -24.042,9.103 -24.042,5.384C-24.042,1.664 -21.027,-1.351 -17.307,-1.351L-1.351,-1.351C-0.605,-1.351 0,-0.746 0,-0C0,0.747 -0.605,1.352 -1.351,1.352L-17.307,1.352C-19.534,1.352 -21.339,3.157 -21.339,5.384C-21.339,7.611 -19.534,9.416 -17.307,9.416L-1.351,9.416C-0.605,9.416 0,10.021 0,10.767"/><path transform="matrix(16.13203,0,0,16.13203,3381.559808,-1432.325001)" d="M0,10.768L0,2.803C0,0.509 1.859,-1.351 4.153,-1.351L18.877,-1.351C21.171,-1.351 23.031,0.509 23.031,2.803L23.031,10.768C23.031,11.514 22.425,12.119 21.68,12.119C20.933,12.119 20.328,11.514 20.328,10.768L20.328,2.803C20.328,2.002 19.678,1.352 18.877,1.352L4.153,1.352C3.352,1.352 2.703,2.002 2.703,2.803L2.703,10.768C2.703,11.514 2.098,12.119 1.351,12.119C0.605,12.119 0,11.514 0,10.768"/><path transform="matrix(16.13203,0,0,16.13203,2364.244958,-1258.605623)" d="M0,-10.768L0,-2.803C0,-0.509 -1.859,1.351 -4.153,1.351L-18.877,1.351C-21.171,1.351 -23.031,-0.509 -23.031,-2.803L-23.031,-10.768C-23.031,-11.514 -22.425,-12.119 -21.68,-12.119C-20.933,-12.119 -20.328,-11.514 -20.328,-10.768L-20.328,-2.803C-20.328,-2.002 -19.678,-1.352 -18.877,-1.352L-4.153,-1.352C-3.352,-1.352 -2.703,-2.002 -2.703,-2.803L-2.703,-10.768C-2.703,-11.514 -2.098,-12.119 -1.351,-12.119C-0.605,-12.119 0,-11.514 0,-10.768"/><path transform="matrix(16.13203,0,0,16.13203,2835.351857,-1258.613689)" d="M0,-10.768L0,-0.001C0,0.745 -0.605,1.351 -1.351,1.351C-2.098,1.351 -2.703,0.745 -2.703,-0.001L-2.703,-7.434C-5.241,-5.356 -8.485,-4.11 -12.021,-4.11C-15.557,-4.11 -18.801,-5.356 -21.339,-7.434L-21.339,-0.001C-21.339,0.745 -21.944,1.351 -22.691,1.351C-23.437,1.351 -24.042,0.745 -24.042,-0.001L-24.042,-10.768C-24.042,-11.514 -23.437,-12.119 -22.691,-12.119C-22.258,-12.119 -21.874,-11.916 -21.626,-11.601C-21.616,-11.587 -21.606,-11.573 -21.595,-11.559C-19.399,-8.672 -15.928,-6.808 -12.021,-6.808C-8.114,-6.808 -4.642,-8.672 -2.447,-11.559C-2.436,-11.573 -2.426,-11.587 -2.416,-11.601C-2.168,-11.916 -1.784,-12.119 -1.351,-12.119C-0.605,-12.119 0,-11.514 0,-10.768"/><path transform="matrix(16.13203,0,0,16.13203,2660.309652,-1287.130278)" d="M0,1.398L-1.218,2.12C-1.76,2.441 -2.445,2.05 -2.445,1.421L-2.445,-0.023C-2.445,-0.652 -1.76,-1.043 -1.218,-0.722L0,0C0.531,0.314 0.531,1.083 0,1.398"/></g></svg></a></header>
+  <main class="main">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 5 3-3"/><path d="m2 22 3-3"/><path d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"/><path d="M7.5 13.5 10 11"/><path d="M10.5 16.5 13 14"/><path d="m12 6 6 6 2.3-2.3a2.4 2.4 0 0 0 0-3.4l-2.6-2.6a2.4 2.4 0 0 0-3.4 0Z"/></svg></div>
+    <h1 class="title">暂时无法访问</h1>
+    <p class="lead">服务暂时不可用，请稍后刷新重试。</p>
+    <div class="actions"><a class="btn btn-primary" href="">刷新页面</a><a class="btn btn-ghost" href="https://status.lumen.ax/">服务状态</a></div>
+    <div class="details">::CLOUDFLARE_ERROR_500S_BOX::</div>
+  </main>
+</div>
+</body>
+</html>
