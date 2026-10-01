@@ -100,6 +100,7 @@ description: 说明 Lumen 收集哪些信息、如何使用与保护这些信息
 对本政策有任何疑问，或需要行使上述权利，请通过以下渠道联系我们：
 
 - **控制台客服工单**：登录后在[联系客服](https://www.lumen.ax/dashboard/support)中提交工单，账号相关的请求请选择「账号与登录」分类；
-- **官方 Telegram 客服**：[@Lumen_Customer_bot](https://t.me/Lumen_Customer_bot)，无法登录控制台时请使用此渠道。
+- **官方 Telegram 客服**：[@Lumen_Customer_bot](https://t.me/Lumen_Customer_bot)，无法登录控制台时请使用此渠道；
+- **电子邮件**：[abuse@lumen.ax](mailto:abuse@lumen.ax)，用于隐私与个人信息相关的请求，或无法使用上述两种渠道时。
 
 为保护您的隐私，请勿在公开的交流群或 Discord 中发送账号、订单等个人信息。

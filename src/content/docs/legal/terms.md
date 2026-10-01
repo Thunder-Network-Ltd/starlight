@@ -65,4 +65,4 @@ description: 使用 Lumen 服务前请仔细阅读本条款，注册或使用服
 
 ## 九、联系我们
 
-对本条款有任何疑问，请在控制台的[联系客服](https://www.lumen.ax/dashboard/support)中提交工单；无法登录控制台时，请联系官方 Telegram 客服 [@Lumen_Customer_bot](https://t.me/Lumen_Customer_bot)。
+对本条款有任何疑问，请在控制台的[联系客服](https://www.lumen.ax/dashboard/support)中提交工单；无法登录控制台时，请联系官方 Telegram 客服 [@Lumen_Customer_bot](https://t.me/Lumen_Customer_bot)，或发送邮件至 [abuse@lumen.ax](mailto:abuse@lumen.ax)。

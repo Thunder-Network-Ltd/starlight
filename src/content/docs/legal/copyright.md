@@ -19,6 +19,7 @@ Lumen 是会员制媒体整理与访问服务，片库内容仅供订户**个人
 
 我们尊重知识产权。如果您是权利人（或其授权代表），认为片库中的内容侵犯了您的合法权益，请通过以下渠道通知我们：
 
+- **电子邮件**：[abuse@lumen.ax](mailto:abuse@lumen.ax)（权利人通知请优先使用此渠道）；
 - **官方 Telegram 客服**：[@Lumen_Customer_bot](https://t.me/Lumen_Customer_bot)；
 - **控制台客服工单**：如您持有 Lumen 账号，也可登录后在[联系客服](https://www.lumen.ax/dashboard/support)中提交工单，分类请选择「其他」。
 
