@@ -21,19 +21,20 @@ Lumen 的网页播放器使用了下列开源组件。感谢这些项目的作�
 
 ## 二、我们对 libmedia 的修改
 
-我们修改了 `@libmedia/avplayer` 1.3.1 发布包中的四个文件：
+我们修改了 `@libmedia/avplayer` 1.3.1 发布包中的五个文件：
 
 - `dist/esm/avplayer.js`
 - `dist/esm/26.avplayer.js`
 - `dist/esm/384.avplayer.js`
+- `dist/esm/573.avplayer.js`
 - `dist/esm/630.avplayer.js`
 
-这些修改用于修复 Safari 上的杜比音轨播放、iOS 上的进度与缓冲、图形字幕渲染、音轨选择、字幕安全、纯文本字幕的样式标签与 iPhone 上文字字幕不显示等问题。WebAssembly 解码器没有修改，与上游 `v1.3.1` 发布的文件一致。
+这些修改用于修复 Safari 上的杜比音轨播放、iOS 上的进度与缓冲、图形字幕渲染、音轨选择、字幕安全、纯文本字幕的样式标签、iPhone 上文字字幕不显示，以及拖动进度或中途打开字幕后当前这句字幕不显示等问题。WebAssembly 解码器没有修改，与上游 `v1.3.1` 发布的文件一致。
 
 修改以补丁文件的形式提供：
 
 - **[下载补丁：libmedia-avplayer-1.3.1-lumen.patch](/downloads/libmedia-avplayer-1.3.1-lumen.patch)**
-- SHA-256：`2ce447f5bced5637403e515052cbd69c8e2376a05338a36c8b61708aa7020632`
+- SHA-256：`c81ab6f8d3d6018650eb4fdc60b7855c1dfb5a19061e9c468063a8c62943f48d`
 
 上游 `v1.3.1` 的源码与发布包加上这份补丁，就是我们网页播放器所用 libmedia 的完整对应源码。复现方法：
 
