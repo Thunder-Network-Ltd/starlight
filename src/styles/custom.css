@@ -172,3 +172,25 @@ header.header {
 .sl-link-card {
 	border-radius: 6px !important;
 }
+
+/* 右侧「本页内容」：Starlight 默认把宽屏多出来的空间一半分给它，目录本身只有窄窄一列，
+ * 结果右栏大片空白、正文却被推到紧贴右栏的分隔线。这里把右栏定宽，余下的都给正文栏并居中 */
+@media (min-width: 72rem) {
+	:root {
+		--lumen-toc-width: 16rem;
+	}
+
+	.right-sidebar-container {
+		width: var(--lumen-toc-width);
+	}
+
+	[data-has-sidebar][data-has-toc] .main-pane {
+		--sl-content-margin-inline: auto;
+		width: calc(100% - var(--lumen-toc-width));
+	}
+
+	.right-sidebar-panel .sl-container {
+		width: auto;
+		max-width: none;
+	}
+}
