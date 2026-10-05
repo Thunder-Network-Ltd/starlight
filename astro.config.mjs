@@ -43,6 +43,7 @@ export default defineConfig({
 				Hero: './src/components/Hero.astro',
 				SiteTitle: './src/components/SiteTitle.astro',
 				MarkdownContent: './src/components/MarkdownContent.astro',
+				Pagination: './src/components/Pagination.astro',
 			},
 			sidebar: [
 				{

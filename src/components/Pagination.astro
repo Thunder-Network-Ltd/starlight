@@ -1,0 +1,118 @@
+---
+/*
+ * 上一页 / 下一页：Starlight 默认是两块带阴影的大卡片、标题 2xl，手机上竖着叠成两大块，太重。
+ * 改成细边小卡：方向箭头跟「上一页」小字一行，标题正文字号加粗；手机上也并排两列，
+ * 只有一侧时那一块仍然待在自己那半边（下一页靠右）。
+ */
+import { Icon } from '@astrojs/starlight/components';
+
+const { dir, pagination } = Astro.locals.starlightRoute;
+const { prev, next } = pagination;
+const isRtl = dir === 'rtl';
+---
+
+{
+	(prev || next) && (
+		<nav class="pagination print:hidden" dir={dir} aria-label="翻页">
+			{prev && (
+				<a href={prev.href} rel="prev">
+					<span class="hint">
+						<Icon name={isRtl ? 'right-arrow' : 'left-arrow'} size="0.875rem" />
+						{Astro.locals.t('page.previousLink')}
+					</span>
+					<span class="title">{prev.label}</span>
+				</a>
+			)}
+			{next && (
+				<a href={next.href} rel="next">
+					<span class="hint">
+						{Astro.locals.t('page.nextLink')}
+						<Icon name={isRtl ? 'left-arrow' : 'right-arrow'} size="0.875rem" />
+					</span>
+					<span class="title">{next.label}</span>
+				</a>
+			)}
+		</nav>
+	)
+}
+
+<style>
+	.pagination {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	a {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 6px;
+		text-decoration: none;
+		overflow-wrap: anywhere;
+		transition:
+			border-color 0.15s,
+			background-color 0.15s;
+	}
+
+	[rel='next'] {
+		grid-column: 2;
+		align-items: flex-end;
+		text-align: end;
+	}
+
+	.hint {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	.hint :global(svg) {
+		flex-shrink: 0;
+		transition: transform 0.15s;
+	}
+
+	.title {
+		font-size: var(--sl-text-base);
+		font-weight: 600;
+		line-height: 1.4;
+		color: var(--sl-color-white);
+	}
+
+	a:hover {
+		border-color: var(--sl-color-accent);
+		background-color: var(--sl-color-accent-low);
+	}
+
+	a:hover .title {
+		color: var(--sl-color-accent-high);
+	}
+
+	[rel='prev']:hover .hint :global(svg) {
+		transform: translateX(-2px);
+	}
+
+	[rel='next']:hover .hint :global(svg) {
+		transform: translateX(2px);
+	}
+
+	[dir='rtl'] [rel='prev']:hover .hint :global(svg) {
+		transform: translateX(2px);
+	}
+
+	[dir='rtl'] [rel='next']:hover .hint :global(svg) {
+		transform: translateX(-2px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		a,
+		.hint :global(svg) {
+			transition: none;
+		}
+	}
+</style>
