@@ -65,6 +65,7 @@ export default defineConfig({
 						{ label: '网页在线观影', slug: 'watch/web' },
 						{ label: '一起看', slug: 'watch/together' },
 						{ label: '我的媒体库', slug: 'watch/libraries' },
+						{ label: '弹幕', slug: 'watch/danmaku' },
 					],
 				},
 				{
