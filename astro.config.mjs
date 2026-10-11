@@ -4,6 +4,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	// 2026-10-11 站长定：文档站域名换成 docs.lumen.ax（doc.lumen.ax 在 Cloudflare 上 301 过来）；site 同时让 sitemap 与 canonical 有绝对地址
+	site: 'https://docs.lumen.ax',
 	image: {
 		responsiveStyles: true,
 	},
