@@ -4,9 +4,9 @@
  * 标题 / 标语从 index.mdx 的 hero 字段读；hero.actions 不再画成按钮，而是搜索框下面一排「常用」入口
  * （2026-10-14 首页重排：此前是「快速开始 / 前往控制台」两颗按钮，与下面的「开始使用」一节重复；
  * 标题上方「LUMEN DOCS · 帮助中心」那行小字与标题说的是同一件事，也去掉了）。
- * 背景是一道从页面顶上照下来的品牌蓝光束（纯 CSS），落在下面浮出的控制台首页上——像放映机打在银幕上；控制台深浅两版跟主题切换。
- * 2026-10-14 先后试过：第三方客户端截图拼图（「像宣传别人 app」）、浏览器 + 播放器拼图（「图不好看」）、
- * 落地页海报墙截图（「糊」）、自己用原图拼的透视海报墙（「变形了」「海报墙出现的地方有点多了，换一个背景」）。
+ * 背景只有一层很淡的网格（四周渐隐），搜索框下面浮出控制台首页（深浅两版跟主题切换）。
+ * 2026-10-14 先后试过：第三方客户端截图拼图、浏览器 + 播放器拼图、落地页海报墙截图、自拼透视海报墙、页头下一道蓝光——
+ * 最后那道光用户：「光浮在这是什么意思」，不挨着任何东西的装饰光一律不要。
  */
 
 import { Image } from 'astro:assets';
@@ -21,9 +21,7 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 ---
 
 <section class="lx-hero not-content">
-	<div class="lx-backdrop" aria-hidden="true">
-		<div class="lx-beam"></div>
-	</div>
+	<div class="lx-backdrop" aria-hidden="true"></div>
 
 	<h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
 
@@ -84,8 +82,7 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 	}
 
 	/* 网格底纹：全出血、向四周淡出，顶上压一团很淡的蓝光 */
-	/* 背景：全出血。网格放在 ::before 上单独渐隐（遮罩不能挂在整个背景上，否则光束也被一起盖掉）；
-	 * 光束从页头底下中央照下来：锥形渐变 + 向下渐淡，光源处一团亮光，控制台窗口后面再垫一团光——像放映机打在银幕上 */
+	/* 背景：全出血的淡网格，向四周渐隐 */
 	.lx-backdrop {
 		position: absolute;
 		z-index: -1;
@@ -106,34 +103,6 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 			linear-gradient(var(--lumen-grid-line) 1px, transparent 1px) 0 0 / 56px 56px,
 			linear-gradient(90deg, var(--lumen-grid-line) 1px, transparent 1px) 0 0 / 56px 56px;
 		mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 20%, transparent 100%);
-	}
-
-	/* 光源放在页头下沿（背景层从页头上方 nav + 2rem 处开始，所以是 calc(var(--sl-nav-height) + 2rem)）：
-	 * 此前放在背景最顶上，被半透明的页头挡掉一半，只剩一团蓝光糊在导航后面 */
-	.lx-beam {
-		--beam: var(--lumen-accent);
-		--src: calc(var(--sl-nav-height) + 2rem);
-		position: absolute;
-		inset: 0;
-		background:
-			radial-gradient(ellipse 260px 70px at 50% var(--src), color-mix(in srgb, var(--beam) 45%, transparent), transparent 100%),
-			radial-gradient(ellipse 40% 18% at 50% 74%, color-mix(in srgb, var(--beam) 22%, transparent), transparent 100%),
-			conic-gradient(
-				from 180deg at 50% var(--src),
-				transparent 0deg 152deg,
-				color-mix(in srgb, var(--beam) 8%, transparent) 162deg,
-				color-mix(in srgb, var(--beam) 18%, transparent) 172deg,
-				color-mix(in srgb, var(--beam) 24%, transparent) 180deg,
-				color-mix(in srgb, var(--beam) 18%, transparent) 188deg,
-				color-mix(in srgb, var(--beam) 8%, transparent) 198deg,
-				transparent 208deg 360deg
-			);
-		filter: blur(8px);
-		mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--sl-nav-height) + 2rem), #000 55%, transparent 92%);
-	}
-
-	:global([data-theme='light']) .lx-beam {
-		opacity: 0.55;
 	}
 
 	/* 控制台首页：窗口式的框、上沿一道细高光、底部渐隐接下面的内容 */

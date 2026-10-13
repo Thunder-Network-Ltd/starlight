@@ -20,7 +20,6 @@ const { title, body, primary, secondary, more } = Astro.props;
 ---
 
 <aside class="lx-help not-content">
-	<div class="lx-help-glow" aria-hidden="true"></div>
 	<p class="lx-help-title">{title}</p>
 	<p class="lx-help-body">{body}</p>
 	<div class="lx-help-actions">
@@ -56,15 +55,6 @@ const { title, body, primary, secondary, more } = Astro.props;
 		border-radius: 16px;
 		background: var(--lumen-panel);
 		text-align: center;
-	}
-
-	.lx-help-glow {
-		position: absolute;
-		z-index: -1;
-		inset: -40% 10% auto;
-		height: 120%;
-		background: radial-gradient(ellipse at 50% 0%, var(--lumen-glow), transparent 65%);
-		pointer-events: none;
 	}
 
 	.lx-help-title {
