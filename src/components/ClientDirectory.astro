@@ -42,7 +42,7 @@ const sourceIcons: Record<string, { svg: string; stroke?: boolean }> = {
 };
 ---
 
-<div class="client-directory">
+<div class="client-directory not-content">
 	<table>
 		<thead>
 			<tr>
@@ -262,6 +262,12 @@ const sourceIcons: Record<string, { svg: string; stroke?: boolean }> = {
 		text-underline-offset: 3px;
 	}
 
+	/* 手机：一个客户端一张小卡（2026-10-14 用户嫌手机页面乱）——
+	 *   [图标]  名称 [徽章]                 [下载 ↗]
+	 *           描述（完整，不截成「…」）
+	 *           [付费] 支持的平台
+	 * 此前描述一行截断（「功能全面，Windows 与 …」）、平台挤在下载按钮左边折成两行，
+	 * 外层又没标 not-content，正文表格的分隔线和内边距漏进来，单元格下面各多出一截横线。 */
 	@media (max-width: 48rem) {
 		table,
 		tbody {
@@ -273,17 +279,13 @@ const sourceIcons: Record<string, { svg: string; stroke?: boolean }> = {
 			display: none;
 		}
 
-		/* App Store 式列表行:
-		   [图标] 名称+描述        [价格徽章]
-		          平台             [来源按钮]  */
 		tbody tr {
 			display: grid;
-			grid-template-columns: auto minmax(0, 1fr) auto;
-			grid-template-rows: auto auto;
+			grid-template-columns: 2.75rem auto minmax(0, 1fr) auto;
 			column-gap: 0.75rem;
-			row-gap: 0.4rem;
+			row-gap: 0.3rem;
 			align-items: center;
-			padding-block: 0.8rem;
+			padding-block: 1rem;
 			border-bottom: 1px solid var(--sl-color-hairline-light);
 		}
 
@@ -292,55 +294,52 @@ const sourceIcons: Record<string, { svg: string; stroke?: boolean }> = {
 			border: 0;
 		}
 
-		/* 拆掉 td 包装,让图标/文字直接成为网格项 */
 		.client-cell,
-		.client-inner {
+		.client-inner,
+		.client-copy {
 			display: contents;
 		}
 
 		.app-icon,
 		.app-mark {
 			grid-column: 1;
-			grid-row: 1 / span 2;
-			width: 2.9rem;
-			height: 2.9rem;
-			border-radius: 0.7rem;
-			align-self: center;
+			grid-row: 1 / span 3;
+			align-self: start;
+			width: 2.75rem;
+			height: 2.75rem;
+			border-radius: 0.65rem;
 		}
 
-		.client-copy {
-			display: flex;
-			flex-direction: column;
-			gap: 0.1rem;
-			grid-column: 2;
+		.name-line {
+			grid-column: 2 / span 2;
 			grid-row: 1;
 			min-width: 0;
 		}
 
 		.description {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+			grid-column: 2 / span 3;
+			grid-row: 2;
+			margin: 0;
+			line-height: 1.55;
+		}
+
+		.price-cell {
+			grid-column: 2;
+			grid-row: 3;
 		}
 
 		.platform-cell {
-			grid-column: 2;
-			grid-row: 2;
+			grid-column: 3 / span 2;
+			grid-row: 3;
 			min-width: 0;
 			color: var(--sl-color-gray-3);
 			font-size: var(--sl-text-xs, 0.8125rem);
 			line-height: 1.4;
 		}
 
-		.price-cell {
-			grid-column: 3;
-			grid-row: 1;
-			justify-self: end;
-		}
-
 		.price {
 			display: inline-block;
-			padding: 0.14rem 0.55rem;
+			padding: 0.1rem 0.5rem;
 			border-radius: 999px;
 			background: var(--sl-color-gray-6);
 			color: var(--sl-color-gray-2);
@@ -355,15 +354,15 @@ const sourceIcons: Record<string, { svg: string; stroke?: boolean }> = {
 		}
 
 		.source-cell {
-			grid-column: 3;
-			grid-row: 2;
+			grid-column: 4;
+			grid-row: 1;
 			justify-self: end;
 		}
 
 		.source-cell a {
 			gap: 0.3rem;
-			padding: 0.28rem 0.6rem;
-			border: 1px solid var(--sl-color-hairline);
+			padding: 0.25rem 0.6rem;
+			border: 1px solid var(--sl-color-hairline-light);
 			border-radius: 999px;
 			font-size: var(--sl-text-xs, 0.8125rem);
 			white-space: nowrap;

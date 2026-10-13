@@ -3,6 +3,7 @@
  * 控制台截图：同一画面拍深浅两版（`名称-light.webp` / `名称-dark.webp`），跟着文档当前主题只显示一张；
  * 只有一版的（播放器本身不分深浅）直接用 `名称.webp`。2026-10-14 用户：网页截图要适配深浅色模式。
  * 两版必须同尺寸，切主题时版面不跳。
+ * 点图在新标签页打开原图：手机上整页截图缩到 358px 宽，字看不清，打开原图可以双指放大（2026-10-14）。
  */
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
@@ -38,11 +39,17 @@ const widths = (img: ImageMetadata) => [800, img.width].filter((w, i, a) => w <=
 	{
 		light && dark ? (
 			<>
-				<Image class="dark:sl-hidden" src={light} alt={alt} widths={widths(light)} sizes={sizes} loading="lazy" />
-				<Image class="light:sl-hidden" src={dark} alt={alt} widths={widths(dark)} sizes={sizes} loading="lazy" />
+				<a class="dark:sl-hidden" href={light.src} target="_blank" rel="noopener">
+					<Image src={light} alt={alt} widths={widths(light)} sizes={sizes} loading="lazy" />
+				</a>
+				<a class="light:sl-hidden" href={dark.src} target="_blank" rel="noopener">
+					<Image src={dark} alt={alt} widths={widths(dark)} sizes={sizes} loading="lazy" />
+				</a>
 			</>
 		) : (
-			<Image src={single!} alt={alt} widths={widths(single!)} sizes={sizes} loading="lazy" />
+			<a href={single!.src} target="_blank" rel="noopener">
+				<Image src={single!} alt={alt} widths={widths(single!)} sizes={sizes} loading="lazy" />
+			</a>
 		)
 	}
 </figure>
@@ -52,8 +59,12 @@ const widths = (img: ImageMetadata) => [800, img.width].filter((w, i, a) => w <=
 		margin: 1.75rem auto;
 	}
 
-	/* 不能写 display：Starlight 的 light:sl-hidden / dark:sl-hidden 在 cascade layer 里，
+	/* 不能写 display（img 和包着它的 a 都不行）：Starlight 的 light:sl-hidden / dark:sl-hidden 在 cascade layer 里，
 	 * 这里不在 layer 里，写了 display 会把被隐藏的那一版又显示出来 */
+	.lx-shot a {
+		cursor: zoom-in;
+	}
+
 	.lx-shot :global(img) {
 		vertical-align: top;
 		width: 100%;

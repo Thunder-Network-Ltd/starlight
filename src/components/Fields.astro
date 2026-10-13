@@ -67,6 +67,9 @@ const inline = (s: string) =>
 		border-radius: 5px;
 		background: var(--sl-color-bg-inline-code);
 		font-size: 0.875em;
+		/* SHA-256 这种 64 位的串在手机上一行放不下，不断开就被卡片裁掉；
+		 * 用 anywhere 不用 break-all：短的（https://）整段换到下一行，只有一行放不下的长串才从中间断 */
+		overflow-wrap: anywhere;
 	}
 
 	dd :global(strong) {
@@ -82,10 +85,12 @@ const inline = (s: string) =>
 		overflow-wrap: anywhere;
 	}
 
+	/* 手机上仍是左右两栏，只把字段名那栏收窄：上下叠放时每一项占两行，五项就是半屏（2026-10-14） */
 	@media (max-width: 30rem) {
 		.lx-field {
-			grid-template-columns: 1fr;
-			gap: 0.15rem;
+			grid-template-columns: 5.75rem 1fr;
+			gap: 0.75rem;
+			padding: 0.65rem 0.9rem;
 		}
 	}
 </style>

@@ -150,11 +150,19 @@ header.header {
 	margin-top: 0.75rem;
 }
 
-/* 导语：每页正文的第一段说明这页讲什么，大一号、浅一档，和下面的正文拉开层次 */
+/* 导语：每页正文的第一段说明这页讲什么，大一号、浅一档，和下面的正文拉开层次。
+ * 手机上只大半号：18px 在 390 宽的屏上一段导语就占五六行、一屏全是它（2026-10-14 用户：「手机页面简直了」） */
 .sl-markdown-content > p:first-child {
-	font-size: 1.125rem;
-	line-height: 1.8;
+	font-size: 1.0625rem;
+	line-height: 1.75;
 	color: var(--sl-color-gray-2);
+}
+
+@media (min-width: 50rem) {
+	.sl-markdown-content > p:first-child {
+		font-size: 1.125rem;
+		line-height: 1.8;
+	}
 }
 
 .sl-markdown-content strong {
@@ -239,15 +247,12 @@ header.header {
 }
 
 /* 表格（只剩规则表：倍率、续费 / 升级 / 降级、续订结果）：占满正文栏，表头小字浅色，
- * 首列是标签、加粗不折行；不再是宽度随内容忽长忽短、表头和正文一样黑的样子 */
-@media (min-width: 50rem) {
-	.sl-markdown-content table:not(:where(.not-content *)) {
-		display: table;
-		width: 100%;
-	}
-}
-
+ * 首列是标签、加粗；不再是宽度随内容忽长忽短、表头和正文一样黑的样子。
+ * 手机上也占满一栏（Starlight 默认在窄屏把表格改成 display:block 横向滚动，宽度又随内容走），
+ * 首列可以折行、定一个比例，三列以上的表改成一行一条（见下面的 max-width 段） */
 .sl-markdown-content table:not(:where(.not-content *)) {
+	display: table;
+	width: 100%;
 	border-radius: 0;
 	font-size: var(--sl-text-sm);
 }
@@ -269,13 +274,68 @@ header.header {
 .sl-markdown-content td:first-child:not(:where(.not-content *)) {
 	font-weight: 500;
 	color: var(--sl-color-white);
-	white-space: nowrap;
+}
+
+@media (min-width: 50rem) {
+	.sl-markdown-content td:first-child:not(:where(.not-content *)) {
+		white-space: nowrap;
+	}
+}
+
+@media (max-width: 49.99rem) {
+	.sl-markdown-content :is(th, td):first-child:not(:where(.not-content *)) {
+		width: 36%;
+		padding-inline-end: 1rem;
+	}
+
+	/* 三列以上（流量倍率：标签 / 计入方式 / 示例）：窄屏三列每格只剩四五个字宽、一格折三行；
+	 * 改成一行一条：首格是标题，其余格接在下面一行、用「·」隔开 */
+	.sl-markdown-content table:has(th:nth-child(3)):not(:where(.not-content *)) thead {
+		display: none;
+	}
+
+	.sl-markdown-content table:has(th:nth-child(3)):not(:where(.not-content *)) tr {
+		display: block;
+		padding-block: 0.7rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+	}
+
+	.sl-markdown-content table:has(th:nth-child(3)):not(:where(.not-content *)) td {
+		display: inline;
+		width: auto;
+		padding: 0;
+		border: 0;
+		color: var(--sl-color-gray-2);
+	}
+
+	.sl-markdown-content table:has(th:nth-child(3)):not(:where(.not-content *)) td:first-child {
+		display: block;
+		margin-bottom: 0.2rem;
+		color: var(--sl-color-white);
+	}
+
+	.sl-markdown-content table:has(th:nth-child(3)):not(:where(.not-content *)) td:nth-child(n + 3)::before {
+		content: ' · ';
+		color: var(--sl-color-gray-4);
+	}
 }
 
 /* 正文里单独一张的 Markdown 图片（控制台截图已改走 Screenshot 组件）：加细边，不然深色截图和页面底色连成一片 */
 .sl-markdown-content p > img {
 	border: 1px solid var(--sl-color-hairline-light);
 	border-radius: 10px;
+}
+
+/* 手机上的菜单按钮：Starlight 默认是实心圆（深色主题下是一颗白球、浅色下一颗黑球，还带投影），
+ * 比旁边的搜索图标重得多；改成和搜索图标一样的线性图标，展开时给一层淡底 */
+.sl-menu-button {
+	background-color: transparent !important;
+	box-shadow: none !important;
+	color: var(--sl-color-white) !important;
+}
+
+.sl-menu-button:has(~ :popover-open) {
+	background-color: var(--sl-color-gray-6) !important;
 }
 
 /* 步骤：序号圈去掉灰底，只留细圈、序号用强调色，和正文的黑白灰拉开又不抢标题 */

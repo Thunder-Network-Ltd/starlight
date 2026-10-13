@@ -52,12 +52,14 @@ const totalRatio = resolved.reduce((sum, { src }) => sum + src.width / src.heigh
 >
 	{resolved.map(({ src, alt }) => (
 		<figure class="image-card" style={`--ratio: ${src.width / src.height};`}>
-			<Image
-				src={src}
-				alt={alt}
-				loading="lazy"
-				sizes={`(max-width: 50rem) ${Math.round((100 * src.width) / src.height / totalRatio)}vw, ${Math.round((48 * src.width) / src.height / totalRatio)}rem`}
-			/>
+			<a href={src.src} target="_blank" rel="noopener">
+				<Image
+					src={src}
+					alt={alt}
+					loading="lazy"
+					sizes={`(max-width: 50rem) ${Math.round((100 * src.width) / src.height / totalRatio)}vw, ${Math.round((48 * src.width) / src.height / totalRatio)}rem`}
+				/>
+			</a>
 		</figure>
 	))}
 </div>
@@ -81,6 +83,12 @@ const totalRatio = resolved.reduce((sum, { src }) => sum + src.width / src.heigh
 		min-width: 0;
 		max-width: calc(var(--row-max) * var(--ratio));
 		margin: 0;
+	}
+
+	/* 点图在新标签页打开原图，手机上可以双指放大 */
+	.image-card a {
+		display: block;
+		cursor: zoom-in;
 	}
 
 	.image-card img {
