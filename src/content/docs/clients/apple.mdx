@@ -1,12 +1,66 @@
 ---
 title: iPhone · iPad · Apple TV
-description: 介绍 Apple 设备上推荐的 Emby 客户端（Infuse、SenPlayer、Rex）的下载方式及添加服务器的步骤。
+description: 介绍 Apple 设备上推荐的 Emby 客户端（SenPlayer、Infuse、Rex）的下载方式及添加服务器的步骤。
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 import ImageRow from '../../../components/ImageRow.astro';
 
-在 Apple 设备上，推荐首选 **Infuse**，其对画质、HDR 与杜比视界的支持最为完整。**SenPlayer** 是功能全面的原生播放器；**Rex** 播放时会自动加载弹幕，还能自动同步您套餐中的其他线路。三款任选其一即可。开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、Lumen 用户名（或邮箱）和密码。
+在 Apple 设备上，推荐首选 **SenPlayer**：功能全面，支持 iPhone、iPad、Mac 和 Apple TV，播放时会自动加载弹幕。如果您经常观看 HDR、杜比视界内容，**Infuse** 对画质的支持最为完整；**Rex** 能自动同步您套餐中的其他线路。三款任选其一即可。开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、Lumen 用户名（或邮箱）和密码。
+
+## SenPlayer
+
+SenPlayer 是功能全面的原生播放器，支持 iPhone、iPad、Mac 和 Apple TV，可从 [App Store](https://apps.apple.com/us/app/senplayer-media-player/id6443975850) 下载，为付费应用。播放时会自动加载弹幕。
+
+<Aside type="note" title="Windows 与 Android 版即将推出">
+	SenPlayer 的开发者正在制作 Windows 与 Android 版本。推出后，我们会在[Windows 与 Mac](/clients/windows/)和[Android 与电视](/clients/android/)中补充教程。
+</Aside>
+
+### 添加服务器
+
+<Steps>
+
+1. 打开底部的 **资源库**，点击右上角的 **+**。
+
+2. 在菜单中选择 **Emby**。
+
+3. 按下表填写各项信息，然后点击右上角的 **保存**：
+
+   | 项目 | 填写 |
+   | --- | --- |
+   | 名称 | 可自定义，例如 `Lumen` |
+   | 主机 | 线路域名，**不含** `https://` |
+   | 路径 | 留空 |
+   | 端口 | `443` |
+   | https | **打开** |
+   | 用户 / 密码 | Lumen 用户名（或邮箱）和密码 |
+
+</Steps>
+
+<ImageRow
+	group="ios"
+	images={[
+		{ src: 'senplayer_1.webp', alt: 'SenPlayer 资源库页，点击右上角的加号' },
+		{ src: 'senplayer_2.webp', alt: 'SenPlayer 添加菜单，选择 Emby' },
+		{ src: 'senplayer_3.webp', alt: 'SenPlayer 的 Emby 表单，填写主机、端口 443、打开 https 并填写用户名密码，点击保存' },
+	]}
+/>
+
+<Aside type="tip">
+	表单下方的「备用线路」可以再添加其他线路地址，您可以把套餐中的其他线路一并填入。
+</Aside>
+
+### 界面预览
+
+<ImageRow
+	group="ios"
+	images={[
+		{ src: 'senplayer_4.webp', alt: 'SenPlayer 首页' },
+		{ src: 'senplayer_5.webp', alt: 'SenPlayer 详情页' },
+	]}
+/>
+
+<ImageRow group="ios" images={[{ src: 'senplayer_6.webp', alt: 'SenPlayer 播放页' }]} />
 
 ## Infuse
 
@@ -60,56 +114,6 @@ Infuse 适用于 iPhone、iPad、Mac、Apple TV 和 Vision Pro，可从[官网](
 />
 
 <ImageRow group="ios" images={[{ src: 'infuse_7.webp', alt: 'Infuse 播放页' }]} />
-
-## SenPlayer
-
-SenPlayer 是功能全面的原生播放器，支持 iPhone、iPad、Mac 和 Apple TV，可从 [App Store](https://apps.apple.com/us/app/senplayer-media-player/id6443975850) 下载，为付费应用。播放时会自动加载弹幕。
-
-### 添加服务器
-
-<Steps>
-
-1. 打开底部的 **资源库**，点击右上角的 **+**。
-
-2. 在菜单中选择 **Emby**。
-
-3. 按下表填写各项信息，然后点击右上角的 **保存**：
-
-   | 项目 | 填写 |
-   | --- | --- |
-   | 名称 | 可自定义，例如 `Lumen` |
-   | 主机 | 线路域名，**不含** `https://` |
-   | 路径 | 留空 |
-   | 端口 | `443` |
-   | https | **打开** |
-   | 用户 / 密码 | Lumen 用户名（或邮箱）和密码 |
-
-</Steps>
-
-<ImageRow
-	group="ios"
-	images={[
-		{ src: 'senplayer_1.webp', alt: 'SenPlayer 资源库页，点击右上角的加号' },
-		{ src: 'senplayer_2.webp', alt: 'SenPlayer 添加菜单，选择 Emby' },
-		{ src: 'senplayer_3.webp', alt: 'SenPlayer 的 Emby 表单，填写主机、端口 443、打开 https 并填写用户名密码，点击保存' },
-	]}
-/>
-
-<Aside type="tip">
-	表单下方的「备用线路」可以再添加其他线路地址，您可以把套餐中的其他线路一并填入。
-</Aside>
-
-### 界面预览
-
-<ImageRow
-	group="ios"
-	images={[
-		{ src: 'senplayer_4.webp', alt: 'SenPlayer 首页' },
-		{ src: 'senplayer_5.webp', alt: 'SenPlayer 详情页' },
-	]}
-/>
-
-<ImageRow group="ios" images={[{ src: 'senplayer_6.webp', alt: 'SenPlayer 播放页' }]} />
 
 ## Rex
 
