@@ -59,9 +59,9 @@ export default defineConfig({
 					items: [
 						{ label: '客户端总览', slug: 'clients' },
 						{ label: '连接信息', slug: 'clients/connect' },
-						{ label: 'iPhone · iPad · Apple TV', slug: 'clients/apple' },
-						{ label: 'Android 与电视', slug: 'clients/android' },
-						{ label: 'Windows 与 Mac', slug: 'clients/windows' },
+						{ label: 'iPhone · iPad · Mac · Apple TV', slug: 'clients/apple' },
+						{ label: 'Android 与 Android TV', slug: 'clients/android' },
+						{ label: 'Windows', slug: 'clients/windows' },
 					],
 				},
 				{

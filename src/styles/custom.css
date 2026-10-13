@@ -339,3 +339,9 @@ header.header {
 		max-width: none;
 	}
 }
+
+/* 条款页开头的「最后更新」：是元信息，不是导语，小字浅色（否则会被上面的导语样式放大成正文第一句） */
+.sl-markdown-content > p.lx-meta {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}

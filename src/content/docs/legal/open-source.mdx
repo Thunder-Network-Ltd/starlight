@@ -1,0 +1,57 @@
+---
+title: 开源组件与许可
+description: Lumen 网页播放器使用的开源组件与许可证，以及我们修改部分的对应源码。
+---
+
+import Fields from '../../../components/Fields.astro';
+import OssList from '../../../components/OssList.astro';
+
+<p class="lx-meta">最后更新：2026 年 10 月 14 日</p>
+
+Lumen 的网页播放器使用了以下开源组件，感谢这些项目的作者。
+
+## 组件
+
+<OssList
+	items={[
+		{
+			name: 'libmedia',
+			role: '播放器核心，含 avplayer、avcodec 等模块',
+			version: '1.3.1',
+			license: 'LGPL-3.0-or-later',
+			href: 'https://github.com/zhaohappy/libmedia/tree/v1.3.1',
+		},
+		{
+			name: 'libmedia 解码器',
+			role: '基于 FFmpeg 的 WebAssembly 解码器',
+			version: '1.3.1',
+			license: 'LGPL',
+			sourceText: '同 libmedia',
+		},
+		{ name: 'cheap', role: 'libmedia 的依赖', version: '1.3.1', license: 'MIT', href: 'https://github.com/zhaohappy/cheap' },
+		{ name: 'common', role: 'libmedia 的依赖', version: '2.3.0', license: 'MIT', href: 'https://github.com/zhaohappy/common' },
+		{ name: 'libpgs', role: '图形字幕（PGS）渲染', version: '0.9.0', license: 'MIT', href: 'https://github.com/Arcus92/libpgs-js' },
+		{ name: 'ASS.js', role: 'ASS 字幕渲染，libmedia 的依赖', version: '0.1.10', license: 'MIT', href: 'https://github.com/weizhenye/ASS' },
+		{ name: 'ass-compiler', role: 'ASS 字幕解析，libmedia 的依赖', version: '0.1.16', license: 'MIT', href: 'https://github.com/weizhenye/ass-compiler' },
+	]}
+/>
+
+## 我们修改的部分
+
+我们修改了 libmedia 播放器（`@libmedia/avplayer` 1.3.1）发布包中的 5 个文件。解码器未作修改，直接使用上游 `v1.3.1` 发布的文件。
+
+修改以补丁形式提供，上游 `v1.3.1` 发布包加上这份补丁，即为我们所用 libmedia 的完整对应源码：
+
+<Fields
+	rows={[
+		['补丁', '[libmedia-avplayer-1.3.1-lumen.patch](/downloads/libmedia-avplayer-1.3.1-lumen.patch)（1.5 MB）'],
+		['SHA-256', '`f65e0bbdadb31a4d0757402215e855ad7b9c8609a0472c33dfd3e015a6370501`'],
+		['应用方式', '在 npm 包 `@libmedia/avplayer@1.3.1` 的目录中执行 `patch -p1`'],
+	]}
+/>
+
+## 许可
+
+- libmedia 以 GNU 宽通用公共许可证第 3 版或更新版本（LGPL-3.0-or-later）发布，全文见 [GNU LGPL v3](https://www.gnu.org/licenses/lgpl-3.0.html) 及其引用的 [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)。您可以依照该许可证修改 libmedia，并用修改后的版本替换使用。
+- 其余组件以 MIT 许可证发布，版权归各自作者所有。
+- 下载链接失效时，可以[联系客服](/panel/support/)索取对应源码。

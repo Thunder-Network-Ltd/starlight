@@ -1,0 +1,129 @@
+---
+/**
+ * 开源组件清单：每个组件一行——名称与用途、版本、许可证、源码链接。
+ * 以前是四列表格，组件名那列一长，许可证被挤成「LGPL- / 3.0-or- / later」三行（2026-10-14 用户截图）；
+ * 这里改成定宽的版本 / 许可证两列，名称列吃剩下的宽度，窄屏上叠成两行。
+ */
+interface Item {
+	name: string;
+	/** 一句话说它在网页播放器里负责什么 */
+	role: string;
+	version: string;
+	license: string;
+	/** 源码地址；不给时显示 sourceText（例如「同 libmedia」） */
+	href?: string;
+	sourceText?: string;
+}
+
+interface Props {
+	items: Item[];
+}
+
+const { items } = Astro.props;
+const host = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/tree\/.*$/, '');
+---
+
+<ul class="lx-oss not-content">
+	{
+		items.map((it) => (
+			<li>
+				<div class="lx-oss-main">
+					<span class="lx-oss-name">{it.name}</span>
+					<span class="lx-oss-role">{it.role}</span>
+				</div>
+				<span class="lx-oss-version">{it.version}</span>
+				<span class="lx-oss-license">{it.license}</span>
+				<span class="lx-oss-src">
+					{it.href ? <a href={it.href}>{host(it.href)}</a> : <span class="lx-oss-muted">{it.sourceText}</span>}
+				</span>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.lx-oss {
+		margin: 1.25rem 0 1.75rem;
+		padding: 0;
+		list-style: none;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 10px;
+		background: var(--lumen-panel);
+		overflow: hidden;
+	}
+
+	li {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 3.25rem 8.75rem minmax(0, 15rem);
+		gap: 1rem;
+		align-items: baseline;
+		margin: 0;
+		padding: 0.85rem 1.1rem;
+		font-size: var(--sl-text-sm);
+	}
+
+	li + li {
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.lx-oss-main {
+		display: grid;
+		gap: 0.15rem;
+		min-width: 0;
+	}
+
+	.lx-oss-name {
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.lx-oss-role,
+	.lx-oss-muted {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-oss-version {
+		font-family: var(--__sl-font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+	}
+
+	.lx-oss-license {
+		justify-self: start;
+		padding: 0.1rem 0.55rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 999px;
+		font-size: var(--sl-text-xs);
+		white-space: nowrap;
+		color: var(--sl-color-gray-2);
+	}
+
+	.lx-oss-src {
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
+
+	.lx-oss-src a {
+		font-size: var(--sl-text-xs);
+		color: var(--lumen-accent-text);
+		text-decoration: none;
+	}
+
+	.lx-oss-src a:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	@media (max-width: 45rem) {
+		li {
+			grid-template-columns: auto auto 1fr;
+			row-gap: 0.4rem;
+		}
+
+		.lx-oss-main,
+		.lx-oss-src {
+			grid-column: 1 / -1;
+		}
+	}
+</style>

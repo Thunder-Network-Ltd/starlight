@@ -2,7 +2,7 @@
 /**
  * 「照着填」的字段卡：客户端添加服务器、连接信息这类一项对一值的内容。
  * 以前写成两列表格（项目 / 填写），表头是废话、宽度随内容忽长忽短，嵌在步骤里很难看（2026-10-14 用户）。
- * 这里做成表单的样子：左边字段名弱化，右边是要填的值；值里可以写 `代码` 和 **加粗**。
+ * 这里做成表单的样子：左边字段名弱化，右边是要填的值；值里可以写 `代码`、**加粗** 和 [链接](地址)。
  */
 interface Props {
 	rows: [string, string][];
@@ -14,7 +14,8 @@ const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').rep
 const inline = (s: string) =>
 	escape(s)
 		.replace(/`([^`]+)`/g, '<code>$1</code>')
-		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+		.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>');
 ---
 
 <dl class="lx-fields not-content">
@@ -70,6 +71,15 @@ const inline = (s: string) =>
 
 	dd :global(strong) {
 		font-weight: 600;
+	}
+
+	dd :global(a) {
+		color: var(--lumen-accent-text);
+	}
+
+	/* SHA-256 这类长串不能把卡片撑破 */
+	dd {
+		overflow-wrap: anywhere;
 	}
 
 	@media (max-width: 30rem) {
