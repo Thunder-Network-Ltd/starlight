@@ -1,6 +1,6 @@
 ---
 title: 客户端总览
-description: 按设备选择 Emby 客户端：推荐客户端清单、价格与下载渠道，以及选择客户端时最重要的考量因素：解码能力。
+description: 按设备选择 Emby 客户端：客户端清单、价格与下载渠道，以及选择客户端时最重要的考量因素：解码能力。
 ---
 
 import ClientDirectory from '../../../components/ClientDirectory.astro';
@@ -27,7 +27,6 @@ export const clients = [
 		platform: 'iPhone · iPad · Mac · Apple TV',
 		source: 'App Store',
 		href: 'https://apps.apple.com/us/app/senplayer-media-player/id6443975850',
-		badge: 'Apple 设备首选',
 		color: '#6f7c91',
 		icon: senplayerIcon.src,
 	},
@@ -68,7 +67,6 @@ export const clients = [
 		platform: 'Android 手机 · Android TV',
 		source: 'Google Play',
 		href: 'https://play.google.com/store/apps/details?id=com.hush.yamby',
-		badge: 'Android 推荐',
 		color: '#2fb985',
 		icon: yambyIcon.src,
 	},
@@ -155,7 +153,7 @@ export const clients = [
 	},
 ];
 
-Lumen 兼容 Emby 客户端协议，以下为推荐的客户端。请先按设备筛选，再根据价格与使用习惯选择。登录时的填写方式，请参阅[连接信息](/clients/connect/)。
+Lumen 兼容 Emby 客户端协议，以下列出部分可用的客户端。请先按设备筛选，再根据价格与使用习惯选择。登录时的填写方式，请参阅[连接信息](/clients/connect/)。
 
 <ClientDirectory clients={clients} />
 
