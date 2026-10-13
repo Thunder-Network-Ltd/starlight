@@ -4,7 +4,14 @@
  * 标题 / 标语从 index.mdx 的 hero 字段读；hero.actions 不再画成按钮，而是搜索框下面一排「常用」入口
  * （2026-10-14 首页重排：此前是「快速开始 / 前往控制台」两颗按钮，与下面的「开始使用」一节重复；
  * 标题上方「LUMEN DOCS · 帮助中心」那行小字与标题说的是同一件事，也去掉了）。
+ * 底下是 Lumen 自己的界面：一个浏览器窗口（在线观影的详情页，深浅两版跟主题切换），前面叠一个网页播放器窗口（开着弹幕）。
+ * 一稿用的是 SenPlayer / Rex 的 Mac 与 iPhone 截图，用户：「有点像宣传别人 app 了，而不是我的东西」（2026-10-14）——
+ * 首页门面只放我们自己做的界面，第三方客户端留在各自的教程页里。
  */
+import { Image } from 'astro:assets';
+import detailLight from '../assets/panel/web-detail-light.webp';
+import detailDark from '../assets/panel/web-detail-dark.webp';
+import playerShot from '../assets/home/web-player-danmaku.webp';
 
 // Starlight 的「回到顶部」锚点靠这个 id；constants 不在包的公开导出里，只能照抄它的值
 const PAGE_TITLE_ID = '_top';
@@ -39,6 +46,25 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 			</nav>
 		)
 	}
+
+	<div class="lx-showcase" aria-hidden="true">
+		<div class="lx-sc-glow"></div>
+		<div class="lx-win lx-win-main">
+			<div class="lx-win-bar">
+				<span class="lx-dots"><i></i><i></i><i></i></span>
+				<span class="lx-url">www.lumen.ax</span>
+			</div>
+			<div class="lx-win-body">
+				<Image class="dark:sl-hidden" src={detailLight} alt="" widths={[900, 1300, 1600]} sizes="(max-width: 60rem) 80vw, 780px" loading="eager" />
+				<Image class="light:sl-hidden" src={detailDark} alt="" widths={[900, 1300, 1600]} sizes="(max-width: 60rem) 80vw, 780px" loading="eager" />
+			</div>
+		</div>
+		<div class="lx-win lx-win-player">
+			<div class="lx-win-body">
+				<Image src={playerShot} alt="" widths={[600, 900]} sizes="(max-width: 60rem) 48vw, 460px" loading="eager" />
+			</div>
+		</div>
+	</div>
 </section>
 
 <script>
@@ -195,8 +221,116 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 		color: var(--sl-color-white);
 	}
 
+	/* 界面拼图：浏览器窗口占 78% 靠左上，播放器窗口占 50% 压在右下；容器底部渐隐，接到下面的内容。
+	 * 两扇窗都是 CSS 画的框（标题栏 + 圆角 + 阴影），截图本身不带框 */
+	.lx-showcase {
+		position: relative;
+		width: min(100%, 60rem);
+		aspect-ratio: 1 / 0.6;
+		margin-top: clamp(1.5rem, 4vh, 2.75rem);
+		mask-image: linear-gradient(to bottom, #000 74%, transparent 100%);
+	}
+
+	.lx-sc-glow {
+		position: absolute;
+		inset: 6% 10% 22%;
+		background: radial-gradient(ellipse at 50% 45%, var(--lumen-glow), transparent 70%);
+		filter: blur(24px);
+	}
+
+	.lx-win {
+		position: absolute;
+		overflow: hidden;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 12px;
+		background: var(--lumen-panel);
+		box-shadow: 0 30px 70px rgb(0 0 0 / 0.35);
+	}
+
+	.lx-win-main {
+		top: 0;
+		left: 2%;
+		width: 78%;
+		height: 92%;
+	}
+
+	.lx-win-player {
+		right: 2%;
+		bottom: 6%;
+		width: 50%;
+		aspect-ratio: 1600 / 948;
+		border-color: rgb(255 255 255 / 0.14);
+		box-shadow: 0 30px 80px rgb(0 0 0 / 0.55);
+	}
+
+	.lx-win-bar {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		height: 2rem;
+		padding-inline: 0.75rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+		background: var(--sl-color-gray-6);
+	}
+
+	.lx-dots {
+		display: flex;
+		gap: 0.375rem;
+	}
+
+	.lx-dots i {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		background: var(--sl-color-gray-4);
+		opacity: 0.6;
+	}
+
+	.lx-url {
+		flex: 0 1 14rem;
+		margin-inline: auto;
+		padding: 0.15rem 0.75rem;
+		border-radius: 6px;
+		background: var(--lumen-panel);
+		font-size: 0.6875rem;
+		color: var(--sl-color-gray-3);
+		text-align: center;
+	}
+
+	.lx-win-body {
+		position: relative;
+		height: calc(100% - 2rem);
+	}
+
+	.lx-win-player .lx-win-body {
+		height: 100%;
+	}
+
+	.lx-win-body :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+	}
+
 	@media (max-width: 40rem) {
 		.lx-search kbd {
+			display: none;
+		}
+
+		.lx-showcase {
+			width: calc(100% + 1rem);
+		}
+
+		.lx-win-bar {
+			height: 1.25rem;
+		}
+
+		.lx-win-body {
+			height: calc(100% - 1.25rem);
+		}
+
+		.lx-url {
 			display: none;
 		}
 	}

@@ -20,7 +20,8 @@ hero:
 
 import HomeSection from '../../components/home/HomeSection.astro';
 import StepLine from '../../components/home/StepLine.astro';
-import DeviceGrid from '../../components/home/DeviceGrid.astro';
+import DeviceShowcase from '../../components/home/DeviceShowcase.astro';
+import FeatureShowcase from '../../components/home/FeatureShowcase.astro';
 import TopicGrid from '../../components/home/TopicGrid.astro';
 import HelpBand from '../../components/home/HelpBand.astro';
 
@@ -35,17 +36,12 @@ import HelpBand from '../../components/home/HelpBand.astro';
 	/>
 </HomeSection>
 
-<HomeSection title="选择您的设备" more={{ label: '客户端总览', href: '/clients/' }}>
-	<DeviceGrid
-		devices={[
-			{ name: 'iPhone · iPad · Mac · Apple TV', clients: 'SenPlayer · Infuse · Rex', href: '/clients/apple/', icon: 'apple' },
-			{ name: 'Android 手机与平板', clients: 'Yamby · Hills · AfuseKt', href: '/clients/android/', icon: 'android' },
-			{ name: 'Android TV 与机顶盒', clients: 'Yamby · Flow · TVxEmby', href: '/clients/android/#android-tv-与机顶盒', icon: 'tv' },
-			{ name: 'Windows', clients: '小幻影视 · Hills Lite', href: '/clients/windows/', icon: 'windows' },
-			{ name: '浏览器', clients: '不用安装，直接在线观看', href: '/watch/web/', icon: 'web' },
-			{ name: '一起看', clients: '和朋友同步观看、边看边聊', href: '/watch/together/', icon: 'together' },
-		]}
-	/>
+<HomeSection title="选择您的设备" lead="用您熟悉的 Emby 客户端，或者直接在浏览器里看。" more={{ label: '客户端总览', href: '/clients/' }}>
+	<DeviceShowcase />
+</HomeSection>
+
+<HomeSection title="不只是播放">
+	<FeatureShowcase />
 </HomeSection>
 
 <HomeSection title="按主题浏览">

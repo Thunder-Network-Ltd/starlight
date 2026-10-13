@@ -1,0 +1,203 @@
+---
+/**
+ * 首页「不只是播放」：四张功能卡，上面一句话说这个功能能做什么，下面是控制台的真实截图从卡片底部升上来。
+ * 有深浅两版的截图跟主题切换（自定义媒体库、求片）；播放器本身不分深浅，只一张。
+ * 2026-10-14 用户嫌首页「很单调，全是文字」时加的。
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import libLight from '../../assets/panel/library-editor-light.webp';
+import libDark from '../../assets/panel/library-editor-dark.webp';
+import danmaku from '../../assets/panel/danmaku-player.webp';
+import together from '../../assets/panel/together-room.webp';
+import feedbackLight from '../../assets/panel/feedback-search-light.webp';
+import feedbackDark from '../../assets/panel/feedback-search-dark.webp';
+
+interface Feature {
+	title: string;
+	body: string;
+	href: string;
+	light: ImageMetadata;
+	dark?: ImageMetadata;
+	/** 截图露出哪一部分（object-position） */
+	focus?: string;
+	/** 截图放大倍数：要看清的只是截图的一角时用 */
+	zoom?: number;
+}
+
+const features: Feature[] = [
+	{
+		title: '自定义媒体库',
+		body: '按榜单、人物和条件组合出自己的媒体库，所有客户端里都能看到。',
+		href: '/watch/libraries/',
+		light: libLight,
+		dark: libDark,
+	},
+	{
+		title: '弹幕',
+		body: '国内主流平台的弹幕，自动对上正在播放的那一集。',
+		href: '/watch/danmaku/',
+		light: danmaku,
+		focus: '100% 30%',
+	},
+	{
+		title: '一起看',
+		body: '不在一起，也能一起看：画面同步，边看边聊。',
+		href: '/watch/together/',
+		light: together,
+		// 截图右上角是房间面板，左边一大片是星空；放大后对准右上角，面板才看得清
+		focus: '100% 0%',
+		zoom: 1.9,
+	},
+	{
+		title: '求片',
+		body: '想看的还没有？提交求片，上线时邮件通知您。',
+		href: '/panel/feedback/',
+		light: feedbackLight,
+		dark: feedbackDark,
+	},
+];
+const sizes = '(max-width: 50rem) 92vw, 520px';
+---
+
+<ul class="lx-feat">
+	{
+		features.map((f) => (
+			<li>
+				<a href={f.href}>
+					<div class="lx-feat-copy">
+						<h3>{f.title}</h3>
+						<p>{f.body}</p>
+						<span class="lx-feat-more">
+							了解更多 <span aria-hidden="true">→</span>
+						</span>
+					</div>
+					<div class="lx-feat-shot" style={[f.focus && `--focus: ${f.focus}`, f.zoom && `--zoom: ${f.zoom}`].filter(Boolean).join('; ') || undefined}>
+						{f.dark ? (
+							<>
+								<div class="lx-feat-img dark:sl-hidden">
+									<Image src={f.light} alt="" widths={[600, 1000]} {sizes} />
+								</div>
+								<div class="lx-feat-img light:sl-hidden">
+									<Image src={f.dark} alt="" widths={[600, 1000]} {sizes} />
+								</div>
+							</>
+						) : (
+							<div class="lx-feat-img">
+								<Image src={f.light} alt="" widths={[600, 1000]} {sizes} />
+							</div>
+						)}
+					</div>
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.lx-feat {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.875rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		margin: 0;
+	}
+
+	a {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		overflow: hidden;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 16px;
+		background:
+			radial-gradient(ellipse 80% 60% at 50% 100%, var(--lumen-glow), transparent 70%),
+			var(--lumen-panel);
+		color: inherit;
+		text-decoration: none;
+		transition: border-color 0.2s ease;
+	}
+
+	a:hover,
+	a:focus-visible {
+		border-color: color-mix(in srgb, var(--lumen-accent) 60%, transparent);
+	}
+
+	.lx-feat-copy {
+		padding: 1.5rem 1.5rem 1.25rem;
+	}
+
+	h3 {
+		margin: 0 0 0.4rem;
+		font-size: var(--sl-text-lg);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	p {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		line-height: 1.7;
+		color: var(--lumen-muted);
+	}
+
+	.lx-feat-more {
+		display: inline-block;
+		margin-top: 0.75rem;
+		font-size: var(--sl-text-sm);
+		color: var(--lumen-accent-text);
+	}
+
+	/* 截图从卡片底部升上来：左右留边、上圆角、下沿被卡片裁掉 */
+	.lx-feat-shot {
+		position: relative;
+		flex: 1;
+		min-height: 13rem;
+		margin: 0 1.5rem;
+	}
+
+	.lx-feat-img {
+		position: absolute;
+		inset: 0 0 -1px;
+		overflow: hidden;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-bottom: 0;
+		border-radius: 12px 12px 0 0;
+		box-shadow: 0 -10px 40px rgb(0 0 0 / 0.18);
+		transition: transform 0.35s ease;
+	}
+
+	.lx-feat-img :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: var(--focus, 0% 0%);
+		transform: scale(var(--zoom, 1));
+		transform-origin: var(--focus, 0% 0%);
+	}
+
+	a:hover .lx-feat-img {
+		transform: translateY(-4px);
+	}
+
+	@media (max-width: 50rem) {
+		.lx-feat {
+			grid-template-columns: 1fr;
+			gap: 0.625rem;
+		}
+
+		.lx-feat-copy {
+			padding: 1.25rem 1.25rem 1rem;
+		}
+
+		.lx-feat-shot {
+			min-height: 11rem;
+			margin: 0 1.25rem;
+		}
+	}
+</style>

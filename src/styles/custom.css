@@ -83,6 +83,11 @@ html[data-has-hero] body {
 	overflow-x: clip;
 }
 
+/* 首页放宽到 68rem：正文页的 50rem 是给一栏文字定的，首页要放设备拼图和带截图的卡片，720px 宽排不开 */
+html[data-has-hero] {
+	--sl-content-width: 68rem;
+}
+
 /* 首页页头半透明，网格从下面透上来 */
 [data-has-hero] header.header {
 	background-color: color-mix(in srgb, var(--sl-color-bg-nav) 70%, transparent);

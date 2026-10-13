@@ -55,9 +55,10 @@ const icons: Record<TopicIcon, string> = {
 </ul>
 
 <style>
+	/* 首页放宽到 68rem 后一行四张；中等宽度两张，手机一张 */
 	.lx-topics {
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 0.75rem;
 		margin: 0;
 		padding: 0;
@@ -138,6 +139,12 @@ const icons: Record<TopicIcon, string> = {
 	.lx-topic-links a:focus-visible .lx-topic-arrow {
 		color: var(--lumen-accent-text);
 		transform: translateX(2px);
+	}
+
+	@media (max-width: 64rem) {
+		.lx-topics {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 
 	@media (max-width: 40rem) {
