@@ -1,10 +1,10 @@
 ---
 title: Lumen 帮助中心
-description: Lumen 帮助中心：开通服务、配置客户端、选择线路、网页观影、自定义媒体库与常见问题的完整说明。
+description: Lumen 帮助中心：开通、设置客户端、线路与流量、常见问题。
 template: splash
 hero:
   title: Lumen <span class="g">帮助中心</span>
-  tagline: 开通服务、配置客户端、选择线路与排查问题所需的全部说明，均可在此查阅。
+  tagline: 开通服务、设置客户端与排查问题。
   actions:
     - text: 快速开始
       link: /start/quickstart/
@@ -19,18 +19,18 @@ import DeviceGrid from '../../components/home/DeviceGrid.astro';
 import LinkList from '../../components/home/LinkList.astro';
 import HelpBand from '../../components/home/HelpBand.astro';
 
-<HomeSection eyebrow="QUICK START" title="快速开始" lead="首次使用 Lumen，请按以下顺序完成设置。">
+<HomeSection eyebrow="QUICK START" title="快速开始" lead="第一次使用，按顺序完成这四步。">
 	<StepGrid
 		steps={[
-			{ title: '注册账号', body: '使用邮箱注册 Lumen 账号。该账号同时用于登录控制台与全部客户端。', href: '/start/quickstart/', cta: '查看步骤' },
-			{ title: '开通订阅', body: '通过支付宝或微信为钱包充值，并根据线路与流量需求选择套餐。', href: '/start/plans/', cta: '了解套餐' },
-			{ title: '获取线路地址', body: '在控制台「播放线路」中复制任一地址，作为客户端的服务器地址。', href: '/clients/connect/', cta: '连接信息' },
-			{ title: '配置客户端', body: '在客户端中添加 Emby 服务器，填写服务器地址、用户名与密码。', href: '/clients/', cta: '选择客户端' },
+			{ title: '注册账号', body: '用邮箱注册，同一个账号登录控制台和所有客户端。', href: '/start/quickstart/', cta: '查看步骤' },
+			{ title: '开通订阅', body: '用支付宝或微信充值，再选择套餐。', href: '/start/plans/', cta: '了解套餐' },
+			{ title: '获取线路地址', body: '在控制台复制任一播放线路，作为客户端的服务器地址。', href: '/clients/connect/', cta: '连接信息' },
+			{ title: '配置客户端', body: '在客户端中添加 Emby 服务器，填写地址、用户名和密码。', href: '/clients/', cta: '选择客户端' },
 		]}
 	/>
 </HomeSection>
 
-<HomeSection eyebrow="BY DEVICE" title="按设备查看" lead="Lumen 兼容主流 Emby 客户端，各平台均有成熟方案；您也可以直接在浏览器中观看。">
+<HomeSection eyebrow="BY DEVICE" title="按设备查看" lead="使用 Emby 客户端观看，也可以直接在浏览器中观看。">
 	<DeviceGrid
 		devices={[
 			{ name: 'iPhone · iPad · Apple TV', clients: 'SenPlayer · Infuse · Rex', href: '/clients/apple/', icon: 'apple' },
@@ -46,12 +46,12 @@ import HelpBand from '../../components/home/HelpBand.astro';
 <HomeSection eyebrow="GUIDES" title="控制台指南">
 	<LinkList
 		items={[
-			{ title: '套餐、线路与流量', description: '套餐差异、线路选择，以及流量与倍率的计算方式', href: '/start/plans/' },
-			{ title: '订阅与续费', description: '购买、升级、折扣码、自动续订与到期处理', href: '/panel/subscription/' },
-			{ title: '我的媒体库', description: '调整媒体库顺序，按条件或榜单创建自定义媒体库', href: '/watch/libraries/' },
-			{ title: '充值与兑换码', description: '支付宝与微信充值，通过兑换码转赠余额', href: '/panel/wallet/' },
-			{ title: '求片与反馈', description: '搜索影片并提交求片，反馈片源问题，查询处理进度', href: '/panel/feedback/' },
-			{ title: '账号与安全', description: '修改密码、两步验证、设备管理与提醒邮件', href: '/panel/account/' },
+			{ title: '套餐、线路与流量', description: '套餐区别、线路选择与流量', href: '/start/plans/' },
+			{ title: '订阅与续费', description: '续费、升级与自动续订', href: '/panel/subscription/' },
+			{ title: '我的媒体库', description: '调整顺序，按条件或榜单建库', href: '/watch/libraries/' },
+			{ title: '充值与兑换码', description: '充值与转赠余额', href: '/panel/wallet/' },
+			{ title: '求片与反馈', description: '求片与反馈片源问题', href: '/panel/feedback/' },
+			{ title: '账号与安全', description: '密码、两步验证与登录设备', href: '/panel/account/' },
 		]}
 	/>
 </HomeSection>
@@ -59,17 +59,17 @@ import HelpBand from '../../components/home/HelpBand.astro';
 <HomeSection eyebrow="SUPPORT" title="常见问题">
 	<LinkList
 		items={[
-			{ title: '账号与登录', description: '客户端登录失败、登录受限与重新登录', href: '/troubleshooting/account/' },
-			{ title: '播放问题', description: '卡顿、无法播放，以及字幕、画面与声音问题', href: '/troubleshooting/playback/' },
-			{ title: '线路与流量', description: '线路无法连接、晚高峰卡顿与流量消耗异常', href: '/troubleshooting/network/' },
-			{ title: '订阅与余额', description: '自动续订失败、充值未到账、手续费与退款', href: '/troubleshooting/billing/' },
+			{ title: '账号与登录', description: '登录失败与被退出登录', href: '/troubleshooting/account/' },
+			{ title: '播放问题', description: '卡顿、无法播放与片源问题', href: '/troubleshooting/playback/' },
+			{ title: '线路与流量', description: '无法连接、晚高峰卡顿与流量', href: '/troubleshooting/network/' },
+			{ title: '订阅与余额', description: '续订失败、充值未到账与退款', href: '/troubleshooting/billing/' },
 		]}
 	/>
 </HomeSection>
 
 <HelpBand
 	title="需要进一步协助？"
-	body="如本文档未能解决您的问题，您可以在 Telegram 交流群中咨询。充值、订阅、账号等事项，请在控制台「联系客服」中提交工单，或通过 Telegram 联系官方客服。"
+	body="充值、订阅和账号问题，请在控制台「联系客服」提交工单；其他问题可以在 Telegram 交流群提问。"
 	links={[
 		{ label: '联系客服', href: 'https://www.lumen.ax/dashboard/support' },
 		{ label: 'Telegram 交流群', href: 'https://t.me/Lumen_MediaCN' },

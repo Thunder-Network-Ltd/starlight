@@ -4,7 +4,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	// 2026-10-11 站长定：文档站域名换成 docs.lumen.ax（doc.lumen.ax 在 Cloudflare 上 301 过来）；site 同时让 sitemap 与 canonical 有绝对地址
+	// 2026-10-11 用户定：文档站域名换成 docs.lumen.ax（doc.lumen.ax 在 Cloudflare 上 301 过来）；site 同时让 sitemap 与 canonical 有绝对地址
 	site: 'https://docs.lumen.ax',
 	image: {
 		responsiveStyles: true,
@@ -12,7 +12,9 @@ export default defineConfig({
 	// 2026-09 目录重排后的旧地址：控制台侧栏「教程文档」、群公告和收藏夹里都还有这些链接
 	redirects: {
 		'/overview/introduction': '/start/about/',
-		'/overview/panel': '/panel/overview/',
+		'/overview/panel': '/clients/connect/',
+		// 2026-10-14「个人概览」页删除（只是在介绍控制台首页的卡片），播放线路的位置写在连接信息里
+		'/panel/overview': '/clients/connect/',
 		'/application/summery': '/clients/',
 		'/application/ios': '/clients/apple/',
 		'/application/android': '/clients/android/',
@@ -73,7 +75,6 @@ export default defineConfig({
 				{
 					label: '控制台',
 					items: [
-						{ label: '个人概览', slug: 'panel/overview' },
 						{ label: '订阅与续费', slug: 'panel/subscription' },
 						{ label: '充值与兑换码', slug: 'panel/wallet' },
 						{ label: '邀请返利', slug: 'panel/invite' },
