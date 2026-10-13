@@ -81,7 +81,6 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 		padding-block: clamp(4rem, 13vh, 8rem) 0;
 	}
 
-	/* 网格底纹：全出血、向四周淡出，顶上压一团很淡的蓝光 */
 	/* 背景：全出血的淡网格，向四周渐隐 */
 	.lx-backdrop {
 		position: absolute;
@@ -238,6 +237,43 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 	@media (max-width: 40rem) {
 		.lx-search kbd {
 			display: none;
+		}
+
+		/* 手机：常用入口一行横滑，不换行（2026-10-14 用户：「手机页面这里换行了」——390 宽下「常用」+ 四个入口一行、「弹幕」掉到第二行）。
+		   铺到屏幕两边，两头各淡出一个页边距的宽度，看得出还能往右滑 */
+		.lx-popular {
+			flex-wrap: nowrap;
+			align-self: stretch;
+			max-width: none;
+			margin-inline: calc(-1 * var(--sl-content-pad-x));
+			padding: 0.125rem var(--sl-content-pad-x);
+			overflow-x: auto;
+			scrollbar-width: none;
+			-webkit-mask-image: linear-gradient(to right, transparent, #000 var(--sl-content-pad-x), #000 calc(100% - var(--sl-content-pad-x)), transparent);
+			mask-image: linear-gradient(to right, transparent, #000 var(--sl-content-pad-x), #000 calc(100% - var(--sl-content-pad-x)), transparent);
+		}
+
+		.lx-popular::-webkit-scrollbar {
+			display: none;
+		}
+
+		.lx-popular > * {
+			flex: none;
+			white-space: nowrap;
+		}
+
+		/* 靠左排 + 首尾自动外边距：放得下时整排居中，放不下时外边距收成 0、从左边开始；
+		   justify-content: center 在放不下时会把开头的「常用」推到滚动区左边外面，滑不回来 */
+		.lx-popular {
+			justify-content: flex-start;
+		}
+
+		.lx-popular > :first-child {
+			margin-inline-start: auto;
+		}
+
+		.lx-popular > :last-child {
+			margin-inline-end: auto;
 		}
 	}
 </style>
