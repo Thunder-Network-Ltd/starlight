@@ -94,15 +94,53 @@ Hills 支持 mpv 与 ExoPlayer 双内核，可硬件解码杜比视界、HDR10+ 
 
 以下客户端可在 Android TV、Google TV 和各类机顶盒上使用：
 
-- **Yamby**：同一应用也支持电视端
+- **Yamby**：与手机版是同一个应用，安装到电视上会自动切换为电视界面，推荐首选
 - **Flow**：专为电视大屏设计，[GitHub 下载](https://github.com/Flow-Media-Client/Flow-release)
 - **TVxEmby**：免费的电视端客户端，[Telegram 频道](https://t.me/TVxEmby)
+
+### 在电视上添加服务器（Yamby）
+
+<Steps>
+
+1. 打开 Yamby，在「服务器」页选择 **添加服务器**。
+
+2. 在「添加服务器」中填写以下信息，然后选择 **连接**：
+
+   | 项目 | 填写 |
+   | --- | --- |
+   | 服务器地址 | 只填线路域名，前面的 `https://` 与后面的端口已自动带上 |
+   | 协议 | HTTPS |
+   | 端口 | `443` |
+   | 路径 | 留空 |
+   | 用户名 / 密码 | Lumen 用户名（或邮箱）和密码 |
+
+</Steps>
+
+<ImageRow
+	group="android"
+	images={[
+		{ src: 'yamby_tv_1.webp', alt: 'Yamby 电视版服务器页，选择添加服务器' },
+		{ src: 'yamby_tv_2.webp', alt: 'Yamby 电视版添加服务器表单，填写线路域名、用户名和密码，选择连接' },
+	]}
+/>
 
 由于在电视上输入较长的地址较为不便，您可以先在手机上复制线路地址，再通过电视输入法的「手机输入」功能粘贴至电视。
 
 <Aside type="tip" title="电视画面撕裂与掉帧">
 	请在客户端设置中开启「自动切换刷新率 / 帧率匹配」，使电视输出的帧率与影片保持一致。
 </Aside>
+
+### 界面预览
+
+<ImageRow
+	group="android"
+	images={[
+		{ src: 'yamby_tv_3.webp', alt: 'Yamby 电视版首页' },
+		{ src: 'yamby_tv_4.webp', alt: 'Yamby 电视版详情页，可切换版本、音轨与字幕' },
+	]}
+/>
+
+<ImageRow group="android" images={[{ src: 'yamby_tv_5.webp', alt: 'Yamby 电视版播放页' }]} />
 
 ## 其他客户端
 
