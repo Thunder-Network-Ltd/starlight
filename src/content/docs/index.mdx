@@ -3,77 +3,107 @@ title: Lumen 帮助中心
 description: Lumen 帮助中心：开通、设置客户端、线路与流量、常见问题。
 template: splash
 hero:
-  title: Lumen <span class="g">帮助中心</span>
-  tagline: 开通服务、设置客户端与排查问题。
+  title: 有什么可以帮您？
+  tagline: 开通服务、设置客户端、解决播放问题，都可以在这里找到答案。
   actions:
-    - text: 快速开始
-      link: /start/quickstart/
-    - text: 前往控制台
-      link: https://www.lumen.ax/dashboard
-      variant: secondary
+    - text: 选择线路
+      link: /start/plans/#选择线路
+    - text: 流量倍率
+      link: /start/plans/#流量倍率
+    - text: 自动续订
+      link: /panel/subscription/#自动续订
+    - text: 自定义媒体库
+      link: /watch/libraries/#自定义媒体库
+    - text: 弹幕
+      link: /watch/danmaku/
 ---
 
 import HomeSection from '../../components/home/HomeSection.astro';
-import StepGrid from '../../components/home/StepGrid.astro';
+import StepLine from '../../components/home/StepLine.astro';
 import DeviceGrid from '../../components/home/DeviceGrid.astro';
-import LinkList from '../../components/home/LinkList.astro';
+import TopicGrid from '../../components/home/TopicGrid.astro';
 import HelpBand from '../../components/home/HelpBand.astro';
 
-<HomeSection eyebrow="QUICK START" title="快速开始" lead="第一次使用，按顺序完成这四步。">
-	<StepGrid
+<HomeSection title="四步开始观看" lead="第一次使用，按顺序完成即可，大约五分钟。" more={{ label: '完整步骤', href: '/start/quickstart/' }}>
+	<StepLine
 		steps={[
-			{ title: '注册账号', body: '用邮箱注册，同一个账号登录控制台和所有客户端。', href: '/start/quickstart/', cta: '查看步骤' },
-			{ title: '开通订阅', body: '用支付宝或微信充值，再选择套餐。', href: '/start/plans/', cta: '了解套餐' },
-			{ title: '获取线路地址', body: '在控制台复制任一播放线路，作为客户端的服务器地址。', href: '/clients/connect/', cta: '连接信息' },
-			{ title: '配置客户端', body: '在客户端中添加 Emby 服务器，填写地址、用户名和密码。', href: '/clients/', cta: '选择客户端' },
+			{ title: '注册账号', body: '一个 Lumen 账号，登录控制台和所有客户端。', href: '/start/quickstart/' },
+			{ title: '开通订阅', body: '充值后选择套餐，订阅立即生效。', href: '/start/plans/' },
+			{ title: '复制线路地址', body: '在控制台首页的「播放线路」中复制。', href: '/clients/connect/' },
+			{ title: '设置客户端', body: '添加 Emby 服务器，填写地址和账号。', href: '/clients/' },
 		]}
 	/>
 </HomeSection>
 
-<HomeSection eyebrow="BY DEVICE" title="按设备查看" lead="使用 Emby 客户端观看，也可以直接在浏览器中观看。">
+<HomeSection title="选择您的设备" more={{ label: '客户端总览', href: '/clients/' }}>
 	<DeviceGrid
 		devices={[
 			{ name: 'iPhone · iPad · Mac · Apple TV', clients: 'SenPlayer · Infuse · Rex', href: '/clients/apple/', icon: 'apple' },
 			{ name: 'Android 手机与平板', clients: 'Yamby · Hills · AfuseKt', href: '/clients/android/', icon: 'android' },
-			{ name: 'Android TV 与机顶盒', clients: 'Yamby · Flow · TVxEmby', href: '/clients/android/', icon: 'tv' },
+			{ name: 'Android TV 与机顶盒', clients: 'Yamby · Flow · TVxEmby', href: '/clients/android/#android-tv-与机顶盒', icon: 'tv' },
 			{ name: 'Windows', clients: '小幻影视 · Hills Lite', href: '/clients/windows/', icon: 'windows' },
-			{ name: '网页播放', clients: '无需安装，在浏览器中观看', href: '/watch/web/', icon: 'web' },
-			{ name: '一起看', clients: '与好友同步播放并发送弹幕', href: '/watch/together/', icon: 'together' },
+			{ name: '浏览器', clients: '不用安装，直接在线观看', href: '/watch/web/', icon: 'web' },
+			{ name: '一起看', clients: '和朋友同步观看、边看边聊', href: '/watch/together/', icon: 'together' },
 		]}
 	/>
 </HomeSection>
 
-<HomeSection eyebrow="GUIDES" title="使用指南">
-	<LinkList
-		items={[
-			{ title: '套餐、线路与流量', description: '套餐区别、如何选择线路、流量与倍率', href: '/start/plans/' },
-			{ title: '订阅与续费', description: '续费、升级规则与自动续订', href: '/panel/subscription/' },
-			{ title: '我的媒体库', description: '按榜单、人物或条件建立专属媒体库', href: '/watch/libraries/' },
-			{ title: '求片与反馈', description: '提交求片，反馈缺集与字幕问题', href: '/panel/feedback/' },
-			{ title: '账号与安全', description: '两步验证、通行密钥与登录设备', href: '/panel/account/' },
-			{ title: '关于 Lumen', description: '团队理念、自研媒体网关与实测数据', href: '/start/about/' },
-		]}
-	/>
-</HomeSection>
-
-<HomeSection eyebrow="SUPPORT" title="帮助">
-	<LinkList
-		items={[
-			{ title: '账号与登录', description: '登录失败与被退出登录', href: '/troubleshooting/account/' },
-			{ title: '播放问题', description: '卡顿、无法播放与片源问题', href: '/troubleshooting/playback/' },
-			{ title: '线路与流量', description: '无法连接、晚高峰卡顿与流量', href: '/troubleshooting/network/' },
-			{ title: '订阅与余额', description: '续订失败、充值未到账与退款', href: '/troubleshooting/billing/' },
+<HomeSection title="按主题浏览">
+	<TopicGrid
+		topics={[
+			{
+				title: '开通与付费',
+				icon: 'card',
+				links: [
+					{ label: '套餐、线路与流量', href: '/start/plans/' },
+					{ label: '订阅与续费', href: '/panel/subscription/' },
+					{ label: '充值与兑换码', href: '/panel/wallet/' },
+					{ label: '邀请返利', href: '/panel/invite/' },
+				],
+			},
+			{
+				title: '观看与片库',
+				icon: 'play',
+				links: [
+					{ label: '网页在线观影', href: '/watch/web/' },
+					{ label: '我的媒体库', href: '/watch/libraries/' },
+					{ label: '弹幕', href: '/watch/danmaku/' },
+					{ label: '求片与反馈', href: '/panel/feedback/' },
+				],
+			},
+			{
+				title: '账号与连接',
+				icon: 'user',
+				links: [
+					{ label: '连接信息', href: '/clients/connect/' },
+					{ label: '账号与安全', href: '/panel/account/' },
+					{ label: '客户端总览', href: '/clients/' },
+					{ label: '关于 Lumen', href: '/start/about/' },
+				],
+			},
+			{
+				title: '遇到问题',
+				icon: 'help',
+				links: [
+					{ label: '账号与登录', href: '/troubleshooting/account/' },
+					{ label: '播放问题', href: '/troubleshooting/playback/' },
+					{ label: '线路与流量', href: '/troubleshooting/network/' },
+					{ label: '订阅与余额', href: '/troubleshooting/billing/' },
+				],
+			},
 		]}
 	/>
 </HomeSection>
 
 <HelpBand
-	title="需要进一步协助？"
-	body="充值、订阅和账号问题，请在控制台「联系客服」提交工单；其他问题可以在 Telegram 交流群提问。"
-	links={[
-		{ label: '联系客服', href: 'https://www.lumen.ax/dashboard/support' },
-		{ label: 'Telegram 交流群', href: 'https://t.me/Lumen_MediaCN' },
+	title="还没找到答案？"
+	body="充值、订阅和账号问题，请在控制台提交工单；其他问题可以在 Telegram 交流群里提问。"
+	primary={{ label: '联系客服', href: 'https://www.lumen.ax/dashboard/support' }}
+	secondary={{ label: 'Telegram 交流群', href: 'https://t.me/Lumen_MediaCN' }}
+	more={[
 		{ label: '官方客服', href: 'https://t.me/Lumen_Customer_bot' },
+		{ label: '通知频道', href: 'https://t.me/Lumen_Media' },
 		{ label: 'Discord', href: 'https://discord.gg/Ry7yDf4ApF' },
+		{ label: '前往控制台', href: 'https://www.lumen.ax/dashboard' },
 	]}
 />

@@ -1,21 +1,32 @@
 ---
 /**
- * 首页分区：英文小标（和落地页的 FEATURES / PRICING 同款）+ 中文标题 + 可选导语。
+ * 首页分区：中文标题 + 可选导语 + 可选右侧「查看全部」链接。
+ * 2026-10-14 去掉英文小标（QUICK START / BY DEVICE …）：中文站上像模板，四个分区一个样、节奏单调（用户：首页「不够好」）。
+ * 分区之间只靠留白分开，不再每节一条横线；每节里的内容形态各不相同（步骤线、卡片、主题卡），节奏靠它们拉开。
  */
 interface Props {
-	eyebrow: string;
 	title: string;
 	lead?: string;
+	more?: { label: string; href: string };
 	id?: string;
 }
 
-const { eyebrow, title, lead, id } = Astro.props;
+const { title, lead, more, id } = Astro.props;
 ---
 
 <section class="lx-section not-content" id={id}>
 	<header class="lx-section-head">
-		<p class="lx-section-eyebrow">{eyebrow}</p>
-		<h2>{title}</h2>
+		<div class="lx-section-title">
+			<h2>{title}</h2>
+			{
+				more && (
+					<a class="lx-section-more" href={more.href}>
+						{more.label}
+						<span aria-hidden="true">→</span>
+					</a>
+				)
+			}
+		</div>
 		{lead && <p class="lx-section-lead">{lead}</p>}
 	</header>
 	<slot />
@@ -23,34 +34,52 @@ const { eyebrow, title, lead, id } = Astro.props;
 
 <style>
 	.lx-section {
-		padding-block: clamp(2.5rem, 6vh, 4rem);
-		border-top: 1px solid var(--sl-color-hairline);
+		padding-block: clamp(1.75rem, 4vh, 3rem);
 	}
 
 	.lx-section-head {
-		margin-bottom: 1.75rem;
+		margin-bottom: 1.5rem;
 	}
 
-	.lx-section-eyebrow {
-		margin: 0 0 0.625rem;
-		font-size: 0.6875rem;
-		letter-spacing: 0.28em;
-		color: var(--lumen-accent-text);
+	/* 「查看全部」跟标题同一行、靠右：放在导语旁边时，手机上导语被挤得在词中间断行 */
+	.lx-section-title {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
 	}
 
 	h2 {
 		margin: 0;
-		font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
-		font-weight: 500;
-		letter-spacing: -0.02em;
+		font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+		font-weight: 600;
+		letter-spacing: -0.01em;
 		color: var(--sl-color-white);
 	}
 
 	.lx-section-lead {
-		margin: 0.625rem 0 0;
+		margin: 0.5rem 0 0;
 		max-width: 40rem;
 		color: var(--lumen-muted);
 		font-size: var(--sl-text-sm);
-		line-height: 1.8;
+		line-height: 1.75;
+	}
+
+	.lx-section-more {
+		flex: none;
+		display: inline-flex;
+		gap: 0.375rem;
+		font-size: var(--sl-text-sm);
+		color: var(--lumen-accent-text);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.lx-section-more span {
+		transition: transform 0.15s ease;
+	}
+
+	.lx-section-more:hover span {
+		transform: translateX(2px);
 	}
 </style>

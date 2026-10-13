@@ -1,0 +1,148 @@
+---
+/**
+ * 「按主题浏览」：四张主题卡，每张一个图标 + 主题名 + 四五个页面链接。
+ * 取代原来的「使用指南」「帮助」两张长链接列表（两张长得一样，叠在一起占半页、一眼找不到东西）。
+ * 窄屏一列。
+ */
+type TopicIcon = 'card' | 'play' | 'user' | 'help';
+
+interface Topic {
+	title: string;
+	icon: TopicIcon;
+	links: { label: string; href: string }[];
+}
+
+interface Props {
+	topics: Topic[];
+}
+
+const { topics } = Astro.props;
+
+// 24×24 线框
+const icons: Record<TopicIcon, string> = {
+	card: 'M3 7.5A1.5 1.5 0 0 1 4.5 6h15A1.5 1.5 0 0 1 21 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 16.5zM3 10h18M7 14.5h4',
+	play: 'M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5zM10 9v6l5-3z',
+	user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20a7.5 7.5 0 0 1 15 0',
+	help: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9.5 9.25a2.5 2.5 0 1 1 3.5 2.3c-.6.27-1 .86-1 1.52v.43M12 17h.01',
+};
+---
+
+<ul class="lx-topics">
+	{
+		topics.map((topic) => (
+			<li class="lx-topic">
+				<div class="lx-topic-head">
+					<span class="lx-topic-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+							<path d={icons[topic.icon]} />
+						</svg>
+					</span>
+					<h3>{topic.title}</h3>
+				</div>
+				<ul class="lx-topic-links">
+					{topic.links.map((link) => (
+						<li>
+							<a href={link.href}>
+								<span>{link.label}</span>
+								<span class="lx-topic-arrow" aria-hidden="true">→</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.lx-topics {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.lx-topic {
+		margin: 0;
+		padding: 1.25rem 1.25rem 0.75rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 12px;
+		background: var(--lumen-panel);
+	}
+
+	.lx-topic-head {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.lx-topic-icon {
+		display: grid;
+		place-items: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		border-radius: 9px;
+		background: var(--sl-color-accent-low);
+		color: var(--lumen-accent-text);
+	}
+
+	h3 {
+		margin: 0;
+		font-size: var(--sl-text-base);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.lx-topic-links {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.lx-topic-links li {
+		margin: 0;
+	}
+
+	.lx-topic-links li + li {
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.lx-topic-links a {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.6rem 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+
+	.lx-topic-arrow {
+		color: var(--sl-color-gray-4);
+		transition:
+			color 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.lx-topic-links a:hover,
+	.lx-topic-links a:focus-visible {
+		color: var(--sl-color-white);
+	}
+
+	.lx-topic-links a:hover .lx-topic-arrow,
+	.lx-topic-links a:focus-visible .lx-topic-arrow {
+		color: var(--lumen-accent-text);
+		transform: translateX(2px);
+	}
+
+	@media (max-width: 40rem) {
+		.lx-topics {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

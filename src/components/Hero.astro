@@ -1,9 +1,10 @@
 ---
 /**
- * 首页 Hero：替换 Starlight 默认的「左文右图」版式，改成居中大标题 + 网格底纹 + 控制台蓝强调。
- * 标题 / 标语 / 按钮仍从 index.mdx 的 hero 字段读。
+ * 首页 Hero：替换 Starlight 默认的「左文右图」版式，改成居中大标题 + 网格底纹 + 大搜索框。
+ * 标题 / 标语从 index.mdx 的 hero 字段读；hero.actions 不再画成按钮，而是搜索框下面一排「常用」入口
+ * （2026-10-14 首页重排：此前是「快速开始 / 前往控制台」两颗按钮，与下面的「开始使用」一节重复；
+ * 标题上方「LUMEN DOCS · 帮助中心」那行小字与标题说的是同一件事，也去掉了）。
  */
-import { LinkButton } from '@astrojs/starlight/components';
 
 // Starlight 的「回到顶部」锚点靠这个 id；constants 不在包的公开导出里，只能照抄它的值
 const PAGE_TITLE_ID = '_top';
@@ -14,10 +15,6 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 
 <section class="lx-hero not-content">
 	<div class="lx-backdrop" aria-hidden="true"></div>
-
-	<p class="lx-eyebrow">
-		<span class="lx-rule"></span>LUMEN DOCS · 帮助中心<span class="lx-rule"></span>
-	</p>
 
 	<h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
 
@@ -34,13 +31,12 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 
 	{
 		actions.length > 0 && (
-			<div class="lx-actions">
-				{actions.map(({ attrs = {}, icon, link: href, text, variant }) => (
-					<LinkButton {href} {variant} icon={icon?.name} {...attrs}>
-						{text}
-					</LinkButton>
+			<nav class="lx-popular" aria-label="常用">
+				<span class="lx-popular-label">常用</span>
+				{actions.map(({ link: href, text }) => (
+					<a href={href}>{text}</a>
 				))}
-			</div>
+			</nav>
 		)
 	}
 </section>
@@ -70,7 +66,7 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 		align-items: center;
 		text-align: center;
 		gap: 1.25rem;
-		padding-block: clamp(3.5rem, 12vh, 8rem) clamp(2.5rem, 8vh, 5rem);
+		padding-block: clamp(3rem, 11vh, 7rem) clamp(1rem, 3vh, 2rem);
 	}
 
 	/* 网格底纹：全出血、向四周淡出，顶上压一团很淡的蓝光 */
@@ -90,27 +86,10 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 		mask-image: radial-gradient(ellipse 70% 75% at 50% 35%, #000 35%, transparent 100%);
 	}
 
-	.lx-eyebrow {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.875rem;
-		margin: 0;
-		font-size: 0.6875rem;
-		letter-spacing: 0.28em;
-		color: var(--lumen-accent-text);
-	}
-
-	.lx-rule {
-		width: 2rem;
-		height: 1px;
-		background: currentColor;
-		opacity: 0.5;
-	}
-
 	h1 {
 		margin: 0;
-		font-size: clamp(2.25rem, 1.2rem + 4.2vw, 4rem);
-		font-weight: 500;
+		font-size: clamp(2rem, 1.2rem + 3.4vw, 3.5rem);
+		font-weight: 600;
 		line-height: 1.18;
 		letter-spacing: -0.03em;
 		color: var(--sl-color-white);
@@ -181,27 +160,39 @@ const { title = data.title, tagline, actions = [] } = data.hero || {};
 		color: var(--sl-color-gray-3);
 	}
 
-	.lx-actions {
+	.lx-popular {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		gap: 0.75rem;
-		margin-top: 0.5rem;
+		align-items: center;
+		gap: 0.5rem;
+		max-width: 36rem;
+		margin-top: 0.25rem;
 	}
 
-	.lx-actions :global(.sl-link-button) {
-		padding: 0.625rem 1.25rem;
-		font-size: var(--sl-text-sm);
+	.lx-popular-label {
+		margin-inline-end: 0.25rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
 	}
 
-	.lx-actions :global(.sl-link-button.secondary) {
-		border-color: var(--sl-color-hairline-light);
-		background: transparent;
-		color: var(--sl-color-gray-1);
+	.lx-popular a {
+		padding: 0.3rem 0.75rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--lumen-panel) 70%, transparent);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		transition:
+			border-color 0.15s ease,
+			color 0.15s ease;
 	}
 
-	.lx-actions :global(.sl-link-button.secondary:hover) {
-		border-color: var(--sl-color-gray-4);
+	.lx-popular a:hover,
+	.lx-popular a:focus-visible {
+		border-color: var(--lumen-accent);
+		color: var(--sl-color-white);
 	}
 
 	@media (max-width: 40rem) {
