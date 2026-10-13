@@ -113,6 +113,13 @@ header.header {
 	letter-spacing: 0.02em;
 }
 
+/* 导语：每页正文的第一段说明这页讲什么，字号略大、颜色略浅，和下面的正文拉开层次 */
+.sl-markdown-content > p:first-child {
+	font-size: 1.0625rem;
+	line-height: 1.75;
+	color: var(--sl-color-gray-2);
+}
+
 /* 正文标题：略收字距 */
 .sl-markdown-content :is(h1, h2, h3) {
 	letter-spacing: -0.01em;
@@ -166,6 +173,12 @@ header.header {
 /* 表格首列的粗体是短标签（「当前订阅」「豆瓣 Top250」），窄栏里被拆成两行很难看 */
 .sl-markdown-content td:first-child strong {
 	white-space: nowrap;
+}
+
+/* 卡片图标：Starlight 默认按位置轮换橙 / 紫 / 绿 / 红四色，和全站只用控制台蓝的配色打架，统一成强调色 */
+.card {
+	--sl-card-border: var(--sl-color-accent);
+	--sl-card-bg: var(--sl-color-accent-low);
 }
 
 .card,

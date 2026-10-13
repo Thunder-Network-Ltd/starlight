@@ -65,32 +65,32 @@ export default defineConfig({
 					],
 				},
 				{
-					label: '附加功能',
+					label: '观看与片库',
 					items: [
 						{ label: '网页在线观影', slug: 'watch/web' },
 						{ label: '一起看', slug: 'watch/together' },
-						{ label: '我的媒体库', slug: 'watch/libraries' },
 						{ label: '弹幕', slug: 'watch/danmaku' },
+						{ label: '我的媒体库', slug: 'watch/libraries' },
+						{ label: '求片与反馈', slug: 'panel/feedback' },
 					],
 				},
 				{
-					label: '控制台',
+					label: '账户',
 					items: [
 						{ label: '订阅与续费', slug: 'panel/subscription' },
 						{ label: '充值与兑换码', slug: 'panel/wallet' },
 						{ label: '邀请返利', slug: 'panel/invite' },
-						{ label: '求片与反馈', slug: 'panel/feedback' },
-						{ label: '联系客服', slug: 'panel/support' },
 						{ label: '账号与安全', slug: 'panel/account' },
 					],
 				},
 				{
-					label: '常见问题',
+					label: '帮助',
 					items: [
 						{ label: '账号与登录', slug: 'troubleshooting/account' },
 						{ label: '播放问题', slug: 'troubleshooting/playback' },
 						{ label: '线路与流量', slug: 'troubleshooting/network' },
 						{ label: '订阅与余额', slug: 'troubleshooting/billing' },
+						{ label: '联系客服', slug: 'panel/support' },
 					],
 				},
 				{

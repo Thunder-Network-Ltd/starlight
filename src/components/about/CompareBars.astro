@@ -1,0 +1,188 @@
+---
+/**
+ * 「关于 Lumen」的实测对比：每个指标一行，Emby Server 与 Lumen 媒体网关各一根横条，
+ * 条长按这一行里较大的那个值等比缩放（同一行内可比，不同行之间不可比），右侧写原始数值。
+ * lowerIsBetter 时在指标名后标出 Lumen 快 / 少多少。
+ */
+interface Row {
+	label: string;
+	emby: number;
+	lumen: number;
+	/** 显示用文字；不给时用数值 + unit */
+	embyText?: string;
+	lumenText?: string;
+	unit?: string;
+	/** 指标名下方的「快 / 少多少」；不给时按两值算整数百分比 */
+	gainText?: string;
+}
+
+interface Props {
+	rows: Row[];
+	caption?: string;
+	better?: 'faster' | 'less';
+}
+
+const { rows, caption, better = 'faster' } = Astro.props;
+
+const pct = (a: number, b: number) => Math.round((1 - b / a) * 100);
+const fmt = (v: number, unit = '') => `${v.toLocaleString('zh-CN')}${unit ? ` ${unit}` : ''}`;
+---
+
+<figure class="compare not-content">
+	<div class="legend" aria-hidden="true">
+		<span><i class="sw emby"></i>Emby Server</span>
+		<span><i class="sw lumen"></i>Lumen 媒体网关</span>
+	</div>
+	<dl>
+		{
+			rows.map((r) => {
+				const max = Math.max(r.emby, r.lumen);
+				const d = pct(r.emby, r.lumen);
+				return (
+					<div class="row">
+						<dt>
+							{r.label}
+							{d > 0 && <span class="gain">{r.gainText ?? (better === 'less' ? `少 ${d}%` : `快 ${d}%`)}</span>}
+						</dt>
+						<dd>
+							<div class="bar-line">
+								<span class="bar emby" style={`--w: ${(r.emby / max) * 100}%`} />
+								<span class="val">{r.embyText ?? fmt(r.emby, r.unit)}</span>
+							</div>
+							<div class="bar-line">
+								<span class="bar lumen" style={`--w: ${(r.lumen / max) * 100}%`} />
+								<span class="val strong">{r.lumenText ?? fmt(r.lumen, r.unit)}</span>
+							</div>
+						</dd>
+					</div>
+				);
+			})
+		}
+	</dl>
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+	.compare {
+		margin: 1.5rem 0 2rem;
+		padding: 1.25rem 1.5rem 1rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 10px;
+	}
+
+	.legend {
+		display: flex;
+		gap: 1.25rem;
+		margin-bottom: 1rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	.legend span {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.sw {
+		width: 0.75rem;
+		height: 0.5rem;
+		border-radius: 2px;
+	}
+
+	dl {
+		margin: 0;
+	}
+
+	.row {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 1rem;
+		align-items: center;
+		padding: 0.7rem 0;
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.row:first-child {
+		border-top: 0;
+	}
+
+	dt {
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--sl-color-white);
+		line-height: 1.4;
+	}
+
+	.gain {
+		display: block;
+		margin-top: 0.15rem;
+		font-size: var(--sl-text-xs);
+		font-weight: 500;
+		color: var(--sl-color-accent-high);
+	}
+
+	dd {
+		margin: 0;
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.bar-line {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		min-width: 0;
+	}
+
+	.bar {
+		flex: 0 1 auto;
+		width: calc(var(--w) * 0.78);
+		min-width: 3px;
+		height: 0.6rem;
+		border-radius: 3px;
+	}
+
+	.emby,
+	.sw.emby {
+		background: var(--sl-color-gray-4);
+	}
+
+	.lumen,
+	.sw.lumen {
+		background: var(--sl-color-accent);
+	}
+
+	.val {
+		flex: none;
+		font-size: var(--sl-text-xs);
+		font-variant-numeric: tabular-nums;
+		color: var(--sl-color-gray-3);
+		white-space: nowrap;
+	}
+
+	.val.strong {
+		color: var(--sl-color-white);
+		font-weight: 600;
+	}
+
+	figcaption {
+		margin-top: 0.75rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--sl-color-hairline);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		line-height: 1.6;
+	}
+
+	@media (max-width: 40rem) {
+		.compare {
+			padding: 1rem;
+		}
+
+		.row {
+			grid-template-columns: 1fr;
+			gap: 0.4rem;
+		}
+	}
+</style>
