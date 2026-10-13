@@ -190,8 +190,9 @@ header.header {
 	color: var(--sl-color-gray-4);
 }
 
-/* .not-content 自己也要排除：组件里的 ul / ol（理念、功能网格）有自己的版式；Astro 的作用域样式是 :where()，比这里弱 */
-.sl-markdown-content :is(ul, ol):not(.not-content, :where(.not-content *)) {
+/* .not-content 自己也要排除：组件里的 ul / ol（理念、功能网格）有自己的版式；Astro 的作用域样式是 :where()，比这里弱。
+ * 步骤（.sl-steps）也排除：它靠序号圈自己缩进，再叠这 1.25rem，步骤里的字和卡片整体右移 20px（2026-10-14 用户：「明显偏右」） */
+.sl-markdown-content :is(ul, ol):not(.not-content, .sl-steps, :where(.not-content *)) {
 	padding-inline-start: 1.25rem;
 }
 
@@ -336,6 +337,25 @@ header.header {
 
 .sl-menu-button:has(~ :popover-open) {
 	background-color: var(--sl-color-gray-6) !important;
+}
+
+/* 手机上的步骤：序号圈收小、字离圈近一点（默认圈 28.8px + 16px 间距，390 宽的屏上每一步的字都被推进去 45px）；
+ * 步骤里的字段卡撑满整栏、左右对称——跟着字缩进时左边空一大截、右边贴边，看上去明显偏右（2026-10-14 用户截图）。
+ * 卡片要 position: relative + z-index，不然步骤左侧那条竖线（绝对定位的伪元素，排在卡片之后）会从卡片上穿过去 */
+@media (max-width: 49.99rem) {
+	.sl-steps {
+		--bullet-size: 1.625rem;
+	}
+
+	.sl-steps > li {
+		padding-inline-start: calc(var(--bullet-size) + 0.75rem);
+	}
+
+	.sl-steps > li .lx-fields {
+		position: relative;
+		z-index: 1;
+		margin-inline-start: calc(-1 * (var(--bullet-size) + 0.75rem));
+	}
 }
 
 /* 步骤：序号圈去掉灰底，只留细圈、序号用强调色，和正文的黑白灰拉开又不抢标题 */
