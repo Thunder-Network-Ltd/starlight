@@ -1,41 +1,29 @@
 ---
 title: iPhone · iPad · Apple TV
-description: 介绍 Apple 设备上可用的 Emby 客户端（SenPlayer、Infuse、Rex）的下载方式及添加服务器的步骤。
+description: SenPlayer、Infuse、Rex 在 Apple 设备上添加 Lumen 服务器的步骤。
 ---
 
-import { Aside, Steps } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
 import ImageRow from '../../../components/ImageRow.astro';
 
-在 Apple 设备上，SenPlayer、Infuse 和 Rex 都可以连接 Lumen，均支持 iPhone、iPad、Mac 和 Apple TV。可以按使用场景选择：
-
-- 经常观看 HDR、杜比视界内容，或在 Vision Pro 上观看：**Infuse** 对画质与设备的支持较为完整
-- 观看时想看弹幕：**SenPlayer** 与 **Rex** 播放时会自动加载弹幕，无需额外设置
-
-开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、Lumen 用户名（或邮箱）和密码。
+SenPlayer、Infuse、Rex 都支持 iPhone、iPad、Mac 和 Apple TV。经常观看 HDR、杜比视界内容或使用 Vision Pro，适合 Infuse；想看弹幕，SenPlayer 与 Rex 会自动加载。线路地址与账号见[连接信息](/clients/connect/)。
 
 ## SenPlayer
 
-SenPlayer 是功能全面的原生播放器，支持 iPhone、iPad、Mac 和 Apple TV，可从 [App Store](https://apps.apple.com/us/app/senplayer-media-player/id6443975850) 下载，为付费应用。播放时会自动加载弹幕。
-
-<Aside type="note" title="Windows 与 Android 版即将推出">
-	SenPlayer 的开发者正在制作 Windows 与 Android 版本。推出后，我们会在[Windows 与 Mac](/clients/windows/)和[Android 与电视](/clients/android/)中补充教程。
-</Aside>
-
-### 添加服务器
+从 [App Store](https://apps.apple.com/us/app/senplayer-media-player/id6443975850) 下载，付费。Windows 与 Android 版正在开发中，推出后补充教程。
 
 <Steps>
 
 1. 打开底部的 **资源库**，点击右上角的 **+**。
 
-2. 在菜单中选择 **Emby**。
+2. 选择 **Emby**。
 
-3. 按下表填写各项信息，然后点击右上角的 **保存**：
+3. 按下表填写，点击右上角的 **保存**：
 
    | 项目 | 填写 |
    | --- | --- |
-   | 名称 | 可自定义，例如 `Lumen` |
+   | 名称 | 任意，例如 `Lumen` |
    | 主机 | 线路域名，**不含** `https://` |
-   | 路径 | 留空 |
    | 端口 | `443` |
    | https | **打开** |
    | 用户 / 密码 | Lumen 用户名（或邮箱）和密码 |
@@ -51,12 +39,6 @@ SenPlayer 是功能全面的原生播放器，支持 iPhone、iPad、Mac 和 App
 	]}
 />
 
-<Aside type="tip">
-	表单下方的「备用线路」可以再添加其他线路地址，您可以把套餐中的其他线路一并填入。
-</Aside>
-
-### 界面预览
-
 <ImageRow
 	group="ios"
 	images={[
@@ -69,9 +51,7 @@ SenPlayer 是功能全面的原生播放器，支持 iPhone、iPad、Mac 和 App
 
 ## Infuse
 
-Infuse 适用于 iPhone、iPad、Mac、Apple TV 和 Vision Pro，可从[官网](https://firecore.com/infuse)或 App Store 下载。部分高级功能需要订阅 Infuse Pro。
-
-### 添加服务器
+从[官网](https://firecore.com/infuse)或 App Store 下载，部分功能需订阅 Infuse Pro。
 
 <Steps>
 
@@ -79,18 +59,18 @@ Infuse 适用于 iPhone、iPad、Mac、Apple TV 和 Vision Pro，可从[官网](
 
 2. 在「已储存的共享」下点击 **添加…**。
 
-3. 在「媒体服务器」中选择 **添加 Emby**（请勿选择「通过 Emby Connect 账号添加」或 Jellyfin）。
+3. 选择 **添加 Emby**（不要选 Emby Connect 或 Jellyfin）。
 
-4. 按下表填写各项信息，然后点击底部的 **新增**：
+4. 按下表填写，点击底部的 **新增**：
 
    | 项目 | 填写 |
    | --- | --- |
-   | 名称 | 可自定义，例如 `Lumen` |
+   | 名称 | 任意，例如 `Lumen` |
    | 位址 | 线路域名，**不含** `https://` |
    | 用户名 / 密码 | Lumen 用户名（或邮箱）和密码 |
    | 高级 → 端口 | `443` |
    | 高级 → HTTPS | 自动 |
-   | 高级 → 媒体库模式 | **保持关闭** |
+   | 高级 → 媒体库模式 | **关闭**（开启后会把整个片库扫描到本地，首次很慢） |
 
 </Steps>
 
@@ -104,12 +84,6 @@ Infuse 适用于 iPhone、iPad、Mac、Apple TV 和 Vision Pro，可从[官网](
 	]}
 />
 
-<Aside type="caution" title="关于媒体库模式">
-	请保持媒体库模式关闭。开启后，Infuse 会将整个片库扫描至本地，首次扫描耗时较长。关闭该模式时，Infuse 直接浏览服务器上的片库，打开后即可使用。
-</Aside>
-
-### 界面预览
-
 <ImageRow
 	group="ios"
 	images={[
@@ -122,23 +96,17 @@ Infuse 适用于 iPhone、iPad、Mac、Apple TV 和 Vision Pro，可从[官网](
 
 ## Rex
 
-Rex 由 Forward 团队重新开发（Forward 已下架），支持 iPhone、iPad、Mac 和 Apple TV，可从 [App Store](https://apps.apple.com/cn/app/id6801583759) 下载。应用免费下载，App 内提供订阅与买断。播放时会自动加载弹幕。
-
-### 添加服务器
+Forward 团队的新作（Forward 已下架）。从 [App Store](https://apps.apple.com/cn/app/id6801583759) 免费下载，App 内订阅或买断。
 
 <Steps>
 
-1. 打开底部的 **资源库**，点击 **添加资源库**（也可以点击右下角的按钮）。
+1. 打开底部的 **资源库**，点击 **添加资源库**。
 
-2. 在「媒体服务器」中选择 **Emby**。
+2. 选择 **Emby**。
 
-3. 在「连接」页填写以下信息，然后点击右上角的 **保存**：
+3. 在「连接」页填写后点击右上角的 **保存**：连接地址填线路域名（**不含** `https://`），冒号后的端口填 `443`，路径留空；**开启 HTTPS** 保持打开；用户名和密码填 Lumen 用户名（或邮箱）和密码。
 
-   - **连接地址**：冒号前填写线路域名（**不含** `https://`），冒号后的端口填写 `443`，斜杠后的路径留空
-   - **开启 HTTPS**：保持打开
-   - **用户名 / 密码**：Lumen 用户名（或邮箱）和密码
-
-4. 如需备用线路，请在保存前切换到底部的 **线路** 页，打开 **自动同步线路**。Rex 会自动获取您套餐中的其他线路，作为备用服务器。
+4. （可选）保存前切到 **线路** 页，打开 **自动同步线路**，套餐中的其他线路会作为备用服务器加入。
 
 </Steps>
 
@@ -152,8 +120,6 @@ Rex 由 Forward 团队重新开发（Forward 已下架），支持 iPhone、iPad
 	]}
 />
 
-### 界面预览
-
 <ImageRow
 	group="ios"
 	images={[
@@ -166,9 +132,4 @@ Rex 由 Forward 团队重新开发（Forward 已下架），支持 iPhone、iPad
 
 ## 其他客户端
 
-以下客户端添加服务器的步骤相近：新建服务器 → 类型选择 **Emby** → 填写地址、用户名和密码。
-
-- **VidHub**：同时支持 Apple 与 Android 平台，适合多平台用户，[官网](https://www.vidhub.icu/)
-- **Lenna**：免费、轻量，支持多服务器管理，未在中国区上架，[App Store](https://apps.apple.com/us/app/lenna-video-library-player/id6502967807)
-
-完整的客户端清单与价格，请参阅[客户端总览](/clients/)。
+[VidHub](https://www.vidhub.icu/)、[Lenna](https://apps.apple.com/us/app/lenna-video-library-player/id6502967807)（未在中国区上架）等也可以使用，添加服务器时类型选 **Emby**。价格与下载渠道见[客户端总览](/clients/)。
