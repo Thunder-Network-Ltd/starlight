@@ -4,18 +4,22 @@ description: 在 Emby 客户端中登录 Lumen 需要的三项信息：服务器
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../components/Screenshot.astro';
+import Fields from '../../../components/Fields.astro';
 
 在任意 Emby 客户端中添加服务器时，类型选择 **Emby**，填写以下三项：
 
-| 项目 | 填写 | 获取位置 |
-| --- | --- | --- |
-| **服务器地址** | 任一线路地址，格式为 `https://域名` | 控制台首页的 **播放线路**（地址默认隐藏，悬停或轻点后显示，可一键复制） |
-| **用户名** | Lumen 用户名或注册邮箱 | 与登录控制台相同 |
-| **密码** | Lumen 密码 | 与登录控制台相同 |
+<Fields
+	rows={[
+		['服务器地址', '任一线路地址，格式为 `https://域名`'],
+		['用户名', 'Lumen 用户名或注册邮箱'],
+		['密码', 'Lumen 密码'],
+	]}
+/>
 
-没有单独的 Emby 密码，客户端登录也不需要两步验证码。
+线路地址在控制台首页的 **播放线路** 中复制，地址默认模糊显示，悬停或轻点即可看到。用户名和密码与登录控制台相同，没有单独的 Emby 密码，也不需要两步验证码。
 
-![控制台首页的「播放线路」窗口：列出当前套餐可用的每条线路及其用途，地址默认模糊显示，右侧按钮可一键复制](../../../assets/panel/lines.webp)
+<Screenshot name="lines" alt="控制台首页的「播放线路」窗口：列出当前套餐可用的每条线路及其用途，地址默认模糊显示，右侧按钮可一键复制" />
 
 <Aside type="caution">
 	订阅生效后才能登录客户端。

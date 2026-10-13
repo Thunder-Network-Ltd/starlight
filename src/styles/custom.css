@@ -113,20 +113,84 @@ header.header {
 	letter-spacing: 0.02em;
 }
 
-/* 导语：每页正文的第一段说明这页讲什么，字号略大、颜色略浅，和下面的正文拉开层次 */
-.sl-markdown-content > p:first-child {
-	font-size: 1.0625rem;
-	line-height: 1.75;
-	color: var(--sl-color-gray-2);
-}
+/* ---------- 正文排版 ----------
+ * 2026-10-14 用户：「我希望文档有设计、有品位，尤其是排版」。
+ * Starlight 的字号是给英文定的：宽屏下二级标题 35px、一级 42px，中文粗体一放大就又黑又笨（「开始一起看」「同步规则」）。
+ * 这里按中文正文重排层级：标题收小、靠留白分段；正文 16px / 1.8 行高；导语大一号、颜色浅一档。 */
 
-/* 正文标题：略收字距 */
-.sl-markdown-content :is(h1, h2, h3) {
-	letter-spacing: -0.01em;
+:root {
+	--sl-text-h1: 2rem;
+	--sl-text-h2: 1.375rem;
+	--sl-text-h3: 1.125rem;
+	--sl-text-h4: 1rem;
+	--sl-line-height: 1.8;
+	--sl-line-height-headings: 1.4;
 }
 
 [data-page-title] {
-	letter-spacing: -0.02em;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+
+.sl-markdown-content :is(h2, h3, h4):not(:where(.not-content *)) {
+	font-weight: 600;
+	letter-spacing: 0;
+}
+
+/* 标题靠留白分段：二级标题上方空出一大段，三级标题小一档 */
+.sl-markdown-content :not(h1, h2, h3, h4, h5, h6) + h2:not(:where(.not-content *)) {
+	margin-top: 2.75rem;
+}
+
+.sl-markdown-content :not(h1, h2, h3, h4, h5, h6) + h3:not(:where(.not-content *)) {
+	margin-top: 2rem;
+}
+
+.sl-markdown-content :is(h2, h3) + :not(:where(.not-content *)) {
+	margin-top: 0.75rem;
+}
+
+/* 导语：每页正文的第一段说明这页讲什么，大一号、浅一档，和下面的正文拉开层次 */
+.sl-markdown-content > p:first-child {
+	font-size: 1.125rem;
+	line-height: 1.8;
+	color: var(--sl-color-gray-2);
+}
+
+.sl-markdown-content strong {
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+
+/* 正文链接：细下划线、离字远一点，不抢字 */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.25em;
+	text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration-color: currentColor;
+}
+
+/* 列表：条目之间留一点呼吸，圆点弱化 */
+.sl-markdown-content li + li:not(:where(.not-content *)) {
+	margin-top: 0.4rem;
+}
+
+.sl-markdown-content ul:not(:where(.not-content *)) > li::marker {
+	color: var(--sl-color-gray-4);
+}
+
+/* .not-content 自己也要排除：组件里的 ul / ol（理念、功能网格）有自己的版式；Astro 的作用域样式是 :where()，比这里弱 */
+.sl-markdown-content :is(ul, ol):not(.not-content, :where(.not-content *)) {
+	padding-inline-start: 1.25rem;
+}
+
+/* 行内代码：浅底小圆角，不加边框 */
+.sl-markdown-content code:not(:where(.not-content *)) {
+	padding: 0.125em 0.4em;
+	border-radius: 5px;
 }
 
 /* 主按钮：实心控制台蓝、6px 圆角，不用 Starlight 的胶囊 */
@@ -141,9 +205,17 @@ header.header {
 }
 
 /* 提示框：默认的蓝（note）和紫（tip）跟单一强调色打架。
- * note 改成中性灰、tip 用控制台蓝；caution / danger 保留橙红，因为颜色本身带警示含义 */
+ * note 改成中性灰、tip 用控制台蓝；caution / danger 保留橙红，因为颜色本身带警示含义。
+ * 形状跟正文里的卡片（字段卡、示例卡、截图）一致：四边细线 + 10px 圆角 + 淡底，不用左侧粗竖条 */
 .starlight-aside {
-	border-radius: 0 6px 6px 0;
+	padding: 0.9rem 1.1rem;
+	border: 1px solid color-mix(in srgb, var(--sl-color-asides-border) 35%, transparent);
+	border-radius: 10px;
+	font-size: var(--sl-text-sm);
+}
+
+.starlight-aside__title {
+	font-size: var(--sl-text-sm);
 }
 
 .starlight-aside--note {
@@ -158,21 +230,60 @@ header.header {
 	background-color: var(--sl-color-accent-low);
 }
 
-/* 卡片、表格、提示框统一方角细边 */
-.sl-markdown-content table {
-	border-radius: 0;
+.starlight-aside--caution {
+	background-color: color-mix(in srgb, var(--sl-color-orange-low) 70%, transparent);
 }
 
-/* 正文里单独一张的界面截图：控制台截图的底色和页面几乎一样黑，不加边框就看不出图的边界。
- * 只作用于 Markdown 图片（<p> 里的 <img>），客户端教程的手机截图走 ImageRow，不受影响 */
+.starlight-aside--danger {
+	background-color: color-mix(in srgb, var(--sl-color-red-low) 70%, transparent);
+}
+
+/* 表格（只剩规则表：倍率、续费 / 升级 / 降级、续订结果）：占满正文栏，表头小字浅色，
+ * 首列是标签、加粗不折行；不再是宽度随内容忽长忽短、表头和正文一样黑的样子 */
+@media (min-width: 50rem) {
+	.sl-markdown-content table:not(:where(.not-content *)) {
+		display: table;
+		width: 100%;
+	}
+}
+
+.sl-markdown-content table:not(:where(.not-content *)) {
+	border-radius: 0;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+	padding-block: 0 0.6rem;
+	border-bottom: 1px solid var(--sl-color-hairline-light);
+	font-size: var(--sl-text-xs);
+	font-weight: 500;
+	color: var(--sl-color-gray-3);
+	text-align: start;
+}
+
+.sl-markdown-content td:not(:where(.not-content *)) {
+	padding-block: 0.7rem;
+	border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content td:first-child:not(:where(.not-content *)) {
+	font-weight: 500;
+	color: var(--sl-color-white);
+	white-space: nowrap;
+}
+
+/* 正文里单独一张的 Markdown 图片（控制台截图已改走 Screenshot 组件）：加细边，不然深色截图和页面底色连成一片 */
 .sl-markdown-content p > img {
 	border: 1px solid var(--sl-color-hairline-light);
-	border-radius: 8px;
+	border-radius: 10px;
 }
 
-/* 表格首列的粗体是短标签（「当前订阅」「豆瓣 Top250」），窄栏里被拆成两行很难看 */
-.sl-markdown-content td:first-child strong {
-	white-space: nowrap;
+/* 步骤：序号圈去掉灰底，只留细圈、序号用强调色，和正文的黑白灰拉开又不抢标题 */
+.sl-steps > li::before {
+	background-color: transparent;
+	box-shadow: inset 0 0 0 1px var(--sl-color-hairline-light);
+	color: var(--lumen-accent-text);
+	font-variant-numeric: tabular-nums;
 }
 
 /* 卡片图标：Starlight 默认按位置轮换橙 / 紫 / 绿 / 红四色，和全站只用控制台蓝的配色打架，统一成强调色 */
@@ -181,9 +292,30 @@ header.header {
 	--sl-card-bg: var(--sl-color-accent-low);
 }
 
+/* 链接卡、卡片与正文里的字段卡 / 示例卡 / 截图同一套：细边、无投影、10px 圆角；标题回到正文字号 */
 .card,
 .sl-link-card {
-	border-radius: 6px !important;
+	border-radius: 10px !important;
+}
+
+.sl-link-card {
+	padding: 1rem 1.15rem;
+	border-color: var(--sl-color-hairline-light);
+	box-shadow: none;
+	transition: border-color 0.15s, background-color 0.15s;
+}
+
+.sl-link-card:hover {
+	border-color: var(--sl-color-gray-4);
+	background-color: var(--lumen-panel);
+}
+
+.sl-link-card .title {
+	font-size: var(--sl-text-base);
+}
+
+.sl-link-card .description {
+	font-size: var(--sl-text-sm);
 }
 
 /* 右侧「本页内容」：Starlight 默认把宽屏多出来的空间一半分给它，目录本身只有窄窄一列，

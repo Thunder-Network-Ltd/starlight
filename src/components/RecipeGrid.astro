@@ -1,0 +1,24 @@
+---
+/** 一两个条件就能完成的示例卡并排两列；窄屏一列 */
+---
+
+<div class="lx-recipe-grid not-content"><slot /></div>
+
+<style>
+	.lx-recipe-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin: 1rem 0 1.5rem;
+	}
+
+	.lx-recipe-grid :global(.lx-recipe) {
+		margin: 0;
+	}
+
+	@media (max-width: 40rem) {
+		.lx-recipe-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

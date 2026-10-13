@@ -4,6 +4,7 @@ description: 片库里没有想看的影片时提交求片；片源有缺集、�
 ---
 
 import { Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../components/Screenshot.astro';
 
 片库里没有想看的影片，或者片源有缺集、无法播放、字幕不对等问题，都在控制台的 **[求片与反馈](https://www.lumen.ax/dashboard/feedback)** 中处理。影片上线、问题处理完成后，我们会发邮件通知您。充值、订阅和账号问题请[联系客服](/panel/support/)。
 
@@ -11,7 +12,7 @@ import { Steps } from '@astrojs/starlight/components';
 
 在搜索框中输入片名或原名，也可以直接粘贴 [TMDB](https://www.themoviedb.org/) 或[豆瓣](https://movie.douban.com/)的详情页链接。同名影片较多时，粘贴链接可以准确定位到您要的那一部。
 
-![在「求片与反馈」中搜索「沙丘」：已上线的影片可以观看或反馈问题，剧集注明已上线的季，暂未上线的《沙丘3》可以求片](../../../assets/panel/feedback-search.webp)
+<Screenshot name="feedback-search" alt="在「求片与反馈」中搜索「沙丘」：已上线的影片可以观看或反馈问题，剧集注明已上线的季，暂未上线的《沙丘3》可以求片" />
 
 在[在线观影](/watch/web/)中搜不到影片时，结果页的 **提交求片** 会带着片名跳到这里。
 

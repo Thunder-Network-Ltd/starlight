@@ -1,0 +1,81 @@
+---
+/**
+ * 「照着填」的字段卡：客户端添加服务器、连接信息这类一项对一值的内容。
+ * 以前写成两列表格（项目 / 填写），表头是废话、宽度随内容忽长忽短，嵌在步骤里很难看（2026-10-14 用户）。
+ * 这里做成表单的样子：左边字段名弱化，右边是要填的值；值里可以写 `代码` 和 **加粗**。
+ */
+interface Props {
+	rows: [string, string][];
+}
+
+const { rows } = Astro.props;
+
+const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const inline = (s: string) =>
+	escape(s)
+		.replace(/`([^`]+)`/g, '<code>$1</code>')
+		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+---
+
+<dl class="lx-fields not-content">
+	{
+		rows.map(([label, value]) => (
+			<div class="lx-field">
+				<dt>{label}</dt>
+				<dd set:html={inline(value)} />
+			</div>
+		))
+	}
+</dl>
+
+<style>
+	.lx-fields {
+		margin: 1rem 0 1.25rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 10px;
+		background: var(--lumen-panel);
+		overflow: hidden;
+	}
+
+	.lx-field {
+		display: grid;
+		grid-template-columns: 8.5rem 1fr;
+		gap: 1rem;
+		padding: 0.7rem 1.1rem;
+		align-items: baseline;
+	}
+
+	.lx-field + .lx-field {
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	dt {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+
+	dd {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		line-height: 1.6;
+		color: var(--sl-color-white);
+	}
+
+	dd :global(code) {
+		padding: 0.1em 0.45em;
+		border-radius: 5px;
+		background: var(--sl-color-bg-inline-code);
+		font-size: 0.875em;
+	}
+
+	dd :global(strong) {
+		font-weight: 600;
+	}
+
+	@media (max-width: 30rem) {
+		.lx-field {
+			grid-template-columns: 1fr;
+			gap: 0.15rem;
+		}
+	}
+</style>

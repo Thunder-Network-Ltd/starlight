@@ -3,27 +3,21 @@ title: 关于 Lumen
 description: Lumen 的团队理念、为什么自研媒体网关、它带来了什么，以及与 Emby Server 的实测对比。
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
 import CompareBars from '../../../components/about/CompareBars.astro';
+import Principles from '../../../components/about/Principles.astro';
 
 Lumen 是一项私人流媒体服务：两万多部电影与剧集，持续更新，用您熟悉的 Emby 客户端观看，也可以直接在浏览器中观看。支撑这一切的服务端，是我们自己研发的 **Lumen 媒体网关**。
 
 ## 我们的理念
 
-<CardGrid>
-	<Card title="每一秒等待都是问题" icon="rocket">
-		所以我们从服务端开始重写：拖动 25 毫秒内响应，高码率原盘不到 1 秒开播，继续观看几乎即时。
-	</Card>
-	<Card title="片库应该由您来组织" icon="list-format">
-		榜单、人物、条件随您组合成自己的媒体库；想看的还没有，就提交求片，进度一路可查，上线时通知您。
-	</Card>
-	<Card title="您应该看得到每一项用量" icon="magnifier">
-		每条线路的用途和流量倍率、本期用量、每一笔扣款、每一条求片的进度，都能在控制台里看到。
-	</Card>
-	<Card title="问题应该从根本上解决" icon="setting">
-		所以服务端由我们自己编写和维护，遇到问题直接改代码，不用等别人更新。
-	</Card>
-</CardGrid>
+<Principles
+	items={[
+		{ title: '每一秒等待都是问题', body: '所以我们从服务端开始重写：拖动 25 毫秒内响应，高码率原盘不到 1 秒开播，继续观看几乎即时。' },
+		{ title: '片库应该由您来组织', body: '榜单、人物、条件随您组合成自己的媒体库；想看的还没有，就提交求片，进度一路可查，上线时通知您。' },
+		{ title: '您应该看得到每一项用量', body: '每条线路的用途和流量倍率、本期用量、每一笔扣款、每一条求片的进度，都能在控制台里看到。' },
+		{ title: '问题应该从根本上解决', body: '所以服务端由我们自己编写和维护，遇到问题直接改代码，不用等别人更新。' },
+	]}
+/>
 
 ## 为什么自研媒体网关
 

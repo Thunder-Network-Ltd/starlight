@@ -1,0 +1,219 @@
+---
+/**
+ * 自定义媒体库示例卡：照着控制台「新建自定义媒体库」窗口的样子画——名称与内容类型在上，
+ * 下面一条条条件（字段 / 比较方式 / 选中的值做成标签），条件组之间用「或」隔开。
+ * 以前每个示例是一张「设置项 / 填写内容」表格，读者要在脑子里把表格翻译成界面上的操作（2026-10-14 用户嫌丑）。
+ */
+interface Rule {
+	field: string;
+	op?: string;
+	/** 多选的值，画成标签 */
+	values?: string[];
+	/** 单个数值或一句话，例如 7.5、「连载中」 */
+	value?: string;
+}
+
+interface Props {
+	name: string;
+	type?: string;
+	rules?: Rule[];
+	/** 条件组：组内同时满足，组与组之间满足其一 */
+	groups?: Rule[][];
+	/** 条件以外要填的项，例如封面副标题、榜单更新频率、手动调整 */
+	extras?: [string, string][];
+}
+
+const { name, type, rules = [], groups, extras = [] } = Astro.props;
+
+const mode = groups ? '满足任一组条件' : rules.length > 1 ? '同时满足全部条件' : rules.length === 0 ? '不设筛选条件' : null;
+---
+
+<figure class="lx-recipe not-content">
+	<header>
+		<span class="lx-r-name">{name}</span>
+		{type && <span class="lx-r-type">{type}</span>}
+	</header>
+	<div class="lx-r-body">
+		{mode && <p class="lx-r-mode">{mode}</p>}
+		{
+			groups
+				? groups.map((g, i) => (
+						<>
+							{i > 0 && <div class="lx-r-or">或</div>}
+							<div class="lx-r-group">
+								<span class="lx-r-glabel">条件组 {i + 1}</span>
+								<ul class="lx-r-rules">
+									{g.map((r) => (
+										<li>
+											<span class="lx-r-field">{r.field}</span>
+											{r.op && <span class="lx-r-op">{r.op}</span>}
+											{r.values?.map((v) => <span class="lx-r-chip">{v}</span>)}
+											{r.value && <span class="lx-r-value">{r.value}</span>}
+										</li>
+									))}
+								</ul>
+							</div>
+						</>
+					))
+				: rules.length > 0 && (
+						<ul class="lx-r-rules">
+							{rules.map((r) => (
+								<li>
+									<span class="lx-r-field">{r.field}</span>
+									{r.op && <span class="lx-r-op">{r.op}</span>}
+									{r.values?.map((v) => <span class="lx-r-chip">{v}</span>)}
+									{r.value && <span class="lx-r-value">{r.value}</span>}
+								</li>
+							))}
+						</ul>
+					)
+		}
+		{
+			extras.length > 0 && (
+				<dl class="lx-r-extras">
+					{extras.map(([k, v]) => (
+						<div>
+							<dt>{k}</dt>
+							<dd>{v}</dd>
+						</div>
+					))}
+				</dl>
+			)
+		}
+	</div>
+</figure>
+
+<style>
+	.lx-recipe {
+		margin: 1rem 0 1.5rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 12px;
+		background: var(--lumen-panel);
+		overflow: hidden;
+	}
+
+	header {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.8rem 1.1rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+	}
+
+	.lx-r-name {
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.lx-r-type {
+		padding: 0.1rem 0.55rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 999px;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-r-body {
+		display: grid;
+		gap: 0.5rem;
+		padding: 0.9rem 1.1rem 1rem;
+	}
+
+	.lx-r-mode {
+		margin: 0;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-r-rules {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.lx-r-rules li {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0.5rem 0.75rem;
+		border-radius: 8px;
+		background: var(--sl-color-black);
+		font-size: var(--sl-text-sm);
+	}
+
+	.lx-r-field {
+		margin-right: 0.15rem;
+		font-weight: 500;
+		color: var(--sl-color-white);
+	}
+
+	.lx-r-op {
+		padding: 0.05rem 0.5rem;
+		border-radius: 999px;
+		background: var(--sl-color-gray-6);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+	}
+
+	.lx-r-chip {
+		padding: 0.05rem 0.55rem;
+		border-radius: 999px;
+		background: var(--sl-color-accent-low);
+		font-size: var(--sl-text-xs);
+		font-weight: 500;
+		color: var(--sl-color-accent-high);
+	}
+
+	.lx-r-value {
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.lx-r-group {
+		display: grid;
+		gap: 0.4rem;
+		padding: 0.6rem;
+		border: 1px dashed var(--sl-color-hairline-light);
+		border-radius: 10px;
+	}
+
+	.lx-r-glabel {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-r-or {
+		justify-self: center;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-r-extras {
+		display: grid;
+		gap: 0.3rem;
+		margin: 0.35rem 0 0;
+		padding-top: 0.7rem;
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.lx-r-extras div {
+		display: grid;
+		grid-template-columns: 7rem 1fr;
+		gap: 0.75rem;
+		font-size: var(--sl-text-sm);
+	}
+
+	.lx-r-extras dt {
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-r-extras dd {
+		margin: 0;
+		color: var(--sl-color-white);
+	}
+</style>

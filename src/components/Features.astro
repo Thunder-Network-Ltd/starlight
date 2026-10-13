@@ -1,0 +1,82 @@
+---
+/**
+ * 功能一览：两列网格，每项一个短标题加一句话，有专页的标题直接链过去。
+ * 取代「**粗体**：长句；长句」式的列表（2026-10-14 用户嫌文档没设计感），版式与「关于」页的理念一致：顶部细线、无框。
+ */
+interface Feature {
+	title: string;
+	body: string;
+	href?: string;
+}
+
+interface Props {
+	items: Feature[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="lx-features not-content">
+	{
+		items.map((f) => (
+			<li>
+				<h3>{f.href ? <a href={f.href}>{f.title}</a> : f.title}</h3>
+				<p>{f.body}</p>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.lx-features {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 2.5rem;
+		row-gap: 1.5rem;
+		margin: 1.25rem 0 1.75rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		margin: 0;
+		padding-top: 0.9rem;
+		border-top: 1px solid var(--sl-color-hairline-light);
+	}
+
+	h3 {
+		margin: 0 0 0.35rem;
+		font-size: var(--sl-text-base);
+		font-weight: 600;
+		line-height: 1.5;
+		color: var(--sl-color-white);
+	}
+
+	h3 a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	h3 a::after {
+		content: ' →';
+		color: var(--lumen-accent-text);
+	}
+
+	h3 a:hover {
+		color: var(--lumen-accent-text);
+	}
+
+	p {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		line-height: 1.75;
+		color: var(--sl-color-gray-2);
+	}
+
+	@media (max-width: 40rem) {
+		.lx-features {
+			grid-template-columns: 1fr;
+			row-gap: 1.1rem;
+		}
+	}
+</style>

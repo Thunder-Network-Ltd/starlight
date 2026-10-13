@@ -5,6 +5,7 @@ description: Yamby、Hills 在 Android 手机与电视上添加 Lumen 服务器�
 
 import { Steps } from '@astrojs/starlight/components';
 import ImageRow from '../../../components/ImageRow.astro';
+import Fields from '../../../components/Fields.astro';
 
 Yamby 轻量，手机和电视通用；经常观看 4K HDR、杜比视界内容，适合 Hills。线路地址与账号见[连接信息](/clients/connect/)。
 
@@ -16,14 +17,16 @@ Yamby 轻量，手机和电视通用；经常观看 4K HDR、杜比视界内容�
 
 1. 打开底部的 **媒体库**，在「服务器」页点击 **添加服务器**（已有服务器时点右下角的 **+**）。
 
-2. 按下表填写，点击 **连接**：
+2. 填写以下内容，点击 **连接**：
 
-   | 项目 | 填写 |
-   | --- | --- |
-   | 服务器地址 | 线路域名，**不含** `https://` |
-   | 协议 | HTTPS |
-   | 端口 | `443` |
-   | 用户名 / 密码 | Lumen 用户名（或邮箱）和密码 |
+   <Fields
+   	rows={[
+   		['服务器地址', '线路域名，**不含** `https://`'],
+   		['协议', 'HTTPS'],
+   		['端口', '`443`'],
+   		['用户名 / 密码', 'Lumen 用户名（或邮箱）和密码'],
+   	]}
+   />
 
 </Steps>
 

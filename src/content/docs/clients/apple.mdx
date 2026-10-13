@@ -5,6 +5,7 @@ description: SenPlayer、Infuse、Rex 在 Apple 设备上添加 Lumen 服务器�
 
 import { Steps } from '@astrojs/starlight/components';
 import ImageRow from '../../../components/ImageRow.astro';
+import Fields from '../../../components/Fields.astro';
 
 SenPlayer、Infuse、Rex 都支持 iPhone、iPad、Mac 和 Apple TV。经常观看 HDR、杜比视界内容或使用 Vision Pro，适合 Infuse；想看弹幕，SenPlayer 与 Rex 会自动加载。线路地址与账号见[连接信息](/clients/connect/)。
 
@@ -18,15 +19,17 @@ SenPlayer、Infuse、Rex 都支持 iPhone、iPad、Mac 和 Apple TV。经常观�
 
 2. 选择 **Emby**。
 
-3. 按下表填写，点击右上角的 **保存**：
+3. 填写以下内容，点击右上角的 **保存**：
 
-   | 项目 | 填写 |
-   | --- | --- |
-   | 名称 | 任意，例如 `Lumen` |
-   | 主机 | 线路域名，**不含** `https://` |
-   | 端口 | `443` |
-   | https | **打开** |
-   | 用户 / 密码 | Lumen 用户名（或邮箱）和密码 |
+   <Fields
+   	rows={[
+   		['名称', '任意，例如 `Lumen`'],
+   		['主机', '线路域名，**不含** `https://`'],
+   		['端口', '`443`'],
+   		['https', '**打开**'],
+   		['用户 / 密码', 'Lumen 用户名（或邮箱）和密码'],
+   	]}
+   />
 
 </Steps>
 
@@ -61,16 +64,18 @@ SenPlayer、Infuse、Rex 都支持 iPhone、iPad、Mac 和 Apple TV。经常观�
 
 3. 选择 **添加 Emby**（不要选 Emby Connect 或 Jellyfin）。
 
-4. 按下表填写，点击底部的 **新增**：
+4. 填写以下内容，点击底部的 **新增**：
 
-   | 项目 | 填写 |
-   | --- | --- |
-   | 名称 | 任意，例如 `Lumen` |
-   | 位址 | 线路域名，**不含** `https://` |
-   | 用户名 / 密码 | Lumen 用户名（或邮箱）和密码 |
-   | 高级 → 端口 | `443` |
-   | 高级 → HTTPS | 自动 |
-   | 高级 → 媒体库模式 | **关闭**（开启后会把整个片库扫描到本地，首次很慢） |
+   <Fields
+   	rows={[
+   		['名称', '任意，例如 `Lumen`'],
+   		['位址', '线路域名，**不含** `https://`'],
+   		['用户名 / 密码', 'Lumen 用户名（或邮箱）和密码'],
+   		['高级 → 端口', '`443`'],
+   		['高级 → HTTPS', '自动'],
+   		['高级 → 媒体库模式', '**关闭**（开启后会把整个片库扫描到本地，首次很慢）'],
+   	]}
+   />
 
 </Steps>
 
@@ -104,7 +109,17 @@ Forward 团队的新作（Forward 已下架）。从 [App Store](https://apps.ap
 
 2. 选择 **Emby**。
 
-3. 在「连接」页填写后点击右上角的 **保存**：连接地址填线路域名（**不含** `https://`），冒号后的端口填 `443`，路径留空；**开启 HTTPS** 保持打开；用户名和密码填 Lumen 用户名（或邮箱）和密码。
+3. 在「连接」页填写以下内容，点击右上角的 **保存**：
+
+   <Fields
+   	rows={[
+   		['连接地址', '线路域名，**不含** `https://`'],
+   		['端口', '`443`（冒号后那一格）'],
+   		['路径', '留空'],
+   		['开启 HTTPS', '**打开**'],
+   		['用户名 / 密码', 'Lumen 用户名（或邮箱）和密码'],
+   	]}
+   />
 
 4. （可选）保存前切到 **线路** 页，打开 **自动同步线路**，套餐中的其他线路会作为备用服务器加入。
 
