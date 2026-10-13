@@ -1,97 +1,202 @@
 ---
 /**
- * 首页「不只是播放」：四张功能卡，上面一句话说这个功能能做什么，下面是控制台的真实截图从卡片底部升上来。
- * 有深浅两版的截图跟主题切换（自定义媒体库、求片）；播放器本身不分深浅，只一张。
- * 2026-10-14 用户嫌首页「很单调，全是文字」时加的。
+ * 首页「不只是播放」：四张功能卡，上面一句话说这个功能能做什么，下面一幅我们自己用 CSS 渲染的画面（不放截图）：
+ *   · 自定义媒体库：三张库封面排成一排（中间那张完整、两侧被卡片边裁掉一截，同大小、同一条底线、不旋转），
+ *     下面一行「豆瓣 Top250 + 科幻 + 评分 ≥ 8」说明中间那个库是怎么组合出来的；
+ *   · 弹幕：夜景画面上四条轨道的弹幕从右往左飘，底部一条播放控制栏；
+ *   · 一起看：放映机光束打底，左边三条带头像和名字的聊天，右边房间面板（房间码、成员、房主）；
+ *   · 求片：搜索框 +「沙丘」的结果，真实海报，已上线 / 已有人想看 / 可以求片三种状态。
+ * 2026-10-14 迭代：截图版用户嫌「两个太相似」；扇形叠放的封面「变形了」「堆叠的不好看」；一起看的弹幕「太紧、不均匀、看不出谁发的」。
  */
-import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import libLight from '../../assets/panel/library-editor-light.webp';
-import libDark from '../../assets/panel/library-editor-dark.webp';
-import danmaku from '../../assets/panel/danmaku-player.webp';
-import together from '../../assets/panel/together-room.webp';
-import feedbackLight from '../../assets/panel/feedback-search-light.webp';
-import feedbackDark from '../../assets/panel/feedback-search-dark.webp';
+import scifi from '../../assets/home/cover-scifi.webp';
+import anime from '../../assets/home/cover-anime.webp';
+import cdrama from '../../assets/home/cover-cdrama.webp';
+import projector from '../../assets/home/projector.webp';
+import dune2021 from '../../assets/home/dune-2021.webp';
+import duneProphecy from '../../assets/home/dune-prophecy.webp';
+import dune3 from '../../assets/home/dune-3.webp';
 
-interface Feature {
-	title: string;
-	body: string;
-	href: string;
-	light: ImageMetadata;
-	dark?: ImageMetadata;
-	/** 截图露出哪一部分（object-position） */
-	focus?: string;
-	/** 截图放大倍数：要看清的只是截图的一角时用 */
-	zoom?: number;
-}
-
-const features: Feature[] = [
-	{
-		title: '自定义媒体库',
-		body: '按榜单、人物和条件组合出自己的媒体库，所有客户端里都能看到。',
-		href: '/watch/libraries/',
-		light: libLight,
-		dark: libDark,
-	},
-	{
-		title: '弹幕',
-		body: '国内主流平台的弹幕，自动对上正在播放的那一集。',
-		href: '/watch/danmaku/',
-		light: danmaku,
-		focus: '100% 30%',
-	},
-	{
-		title: '一起看',
-		body: '不在一起，也能一起看：画面同步，边看边聊。',
-		href: '/watch/together/',
-		light: together,
-		// 截图右上角是房间面板，左边一大片是星空；放大后对准右上角，面板才看得清
-		focus: '100% 0%',
-		zoom: 1.9,
-	},
-	{
-		title: '求片',
-		body: '想看的还没有？提交求片，上线时邮件通知您。',
-		href: '/panel/feedback/',
-		light: feedbackLight,
-		dark: feedbackDark,
-	},
+const shelf = [
+	{ src: cdrama, title: '华语好剧', en: 'C-DRAMA', pos: 'left' },
+	{ src: scifi, title: '高分科幻', en: 'SCI-FI', pos: 'center' },
+	{ src: anime, title: '本季追番', en: 'ANIME', pos: 'right' },
 ];
-const sizes = '(max-width: 50rem) 92vw, 520px';
+
+// 弹幕：四条轨道，各自的速度与起点错开（负延迟，页面一打开就是飘到一半的样子）
+const danmaku = [
+	{ text: '这一段的作画太绝了', lane: 0, dur: 13, delay: -2, color: '#ffffff' },
+	{ text: '名场面来了', lane: 1, dur: 11, delay: -7, color: '#7dd3fc' },
+	{ text: 'BGM 一响就泪目', lane: 2, dur: 14, delay: -4, color: '#ffffff' },
+	{ text: '二刷依旧好看', lane: 3, dur: 12, delay: -9, color: '#fde68a' },
+	{ text: '前方高能 ⚡', lane: 0, dur: 13, delay: -8.5, color: '#fda4af' },
+	{ text: '每一帧都能当壁纸', lane: 2, dur: 14, delay: -11, color: '#c4b5fd' },
+	{ text: '终于更新了！', lane: 1, dur: 11, delay: -1.5, color: '#ffffff' },
+];
+
+const members = [
+	{ name: '林夕', initial: '林', color: '#f59e0b', host: true },
+	{ name: 'Kevin', initial: 'K', color: '#22c55e' },
+	{ name: '小满', initial: '满', color: '#a855f7' },
+];
+
+const chats = [
+	{ who: members[1], text: '这段太好看了' },
+	{ who: members[2], text: '前方高能 ⚡' },
+	{ who: members[0], text: '等我倒回去再看一遍' },
+];
+
+const results = [
+	{ src: dune2021, title: '沙丘', meta: '电影 · 2021', status: 'live' },
+	{ src: duneProphecy, title: '沙丘：预言', meta: '剧集 · 2024 · 第 1 季已上线', status: 'live' },
+	{ src: dune3, title: '沙丘3', meta: '电影 · 2026', status: 'request' },
+];
 ---
 
 <ul class="lx-feat">
-	{
-		features.map((f) => (
-			<li>
-				<a href={f.href}>
-					<div class="lx-feat-copy">
-						<h3>{f.title}</h3>
-						<p>{f.body}</p>
-						<span class="lx-feat-more">
-							了解更多 <span aria-hidden="true">→</span>
+	<li>
+		<a href="/watch/libraries/">
+			<div class="lx-copy">
+				<h3>自定义媒体库</h3>
+				<p>按榜单、人物和条件组合出自己的媒体库，所有客户端里都能看到。</p>
+			</div>
+			<div class="lx-stage lx-lib">
+				<div class="lx-shelf">
+					{
+						shelf.map((c) => (
+							<figure class={`lx-cover lx-cover-${c.pos}`}>
+								<Image src={c.src} alt="" widths={[480, 720]} sizes="(max-width: 50rem) 70vw, 320px" />
+								<figcaption>
+									<span class="lx-cover-mark">LUMEN</span>
+									<strong>{c.title}</strong>
+									<span class="lx-cover-en">{c.en}</span>
+								</figcaption>
+							</figure>
+						))
+					}
+				</div>
+				<div class="lx-rules">
+					<span class="lx-rule">豆瓣 Top250</span>
+					<span class="lx-plus">+</span>
+					<span class="lx-rule">科幻</span>
+					<span class="lx-plus">+</span>
+					<span class="lx-rule">评分 ≥ 8</span>
+				</div>
+			</div>
+		</a>
+	</li>
+
+	<li>
+		<a href="/watch/danmaku/">
+			<div class="lx-copy">
+				<h3>弹幕</h3>
+				<p>国内主流平台的弹幕，自动对上正在播放的那一集。</p>
+			</div>
+			<div class="lx-stage lx-video lx-dm">
+				<Image class="lx-scene" src={anime} alt="" widths={[600, 960]} sizes="(max-width: 50rem) 92vw, 540px" />
+				<div class="lx-dm-lanes" aria-hidden="true">
+					{
+						danmaku.map((d) => (
+							<span style={`--lane: ${d.lane}; --dur: ${d.dur}s; --delay: ${d.delay}s; color: ${d.color}`}>{d.text}</span>
+						))
+					}
+				</div>
+				<div class="lx-controls" aria-hidden="true">
+					<svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor" /></svg>
+					<span class="lx-progress"><i></i></span>
+					<span class="lx-time">06:39 / 25:59</span>
+					<span class="lx-dm-toggle">弹</span>
+				</div>
+			</div>
+		</a>
+	</li>
+
+	<li>
+		<a href="/watch/together/">
+			<div class="lx-copy">
+				<h3>一起看</h3>
+				<p>不在一起，也能一起看：画面同步，边看边聊。</p>
+			</div>
+			<div class="lx-stage lx-video lx-together">
+				<Image class="lx-scene" src={projector} alt="" widths={[600, 960]} sizes="(max-width: 50rem) 92vw, 540px" />
+				<ul class="lx-chat" aria-hidden="true">
+					{
+						chats.map((c) => (
+							<li>
+								<span class="lx-avatar" style={`--c: ${c.who.color}`}>{c.who.initial}</span>
+								<span class="lx-bubble">
+									<span class="lx-who" style={`color: ${c.who.color}`}>{c.who.name}</span>
+									{c.text}
+								</span>
+							</li>
+						))
+					}
+				</ul>
+				<div class="lx-room" aria-hidden="true">
+					<div class="lx-room-head">
+						<span>一起看</span>
+						<span class="lx-sync"><i></i>已同步</span>
+					</div>
+					<div class="lx-room-code">Y72Y58</div>
+					<ul class="lx-room-members">
+						{
+							members.map((m) => (
+								<li>
+									<span class="lx-avatar lx-avatar-sm" style={`--c: ${m.color}`}>{m.initial}</span>
+									<span>{m.name}</span>
+									{m.host && <span class="lx-host">房主</span>}
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</a>
+	</li>
+
+	<li>
+		<a href="/panel/feedback/">
+			<div class="lx-copy">
+				<h3>求片</h3>
+				<p>想看的还没有？提交求片，上线时邮件通知您。</p>
+			</div>
+			<div class="lx-stage lx-req">
+				<div class="lx-window">
+					<div class="lx-search-row">
+						<span class="lx-search-box">
+							<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+								<circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+								<path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							</svg>
+							沙丘
 						</span>
+						<span class="lx-search-btn">搜索</span>
 					</div>
-					<div class="lx-feat-shot" style={[f.focus && `--focus: ${f.focus}`, f.zoom && `--zoom: ${f.zoom}`].filter(Boolean).join('; ') || undefined}>
-						{f.dark ? (
-							<>
-								<div class="lx-feat-img dark:sl-hidden">
-									<Image src={f.light} alt="" widths={[600, 1000]} {sizes} />
-								</div>
-								<div class="lx-feat-img light:sl-hidden">
-									<Image src={f.dark} alt="" widths={[600, 1000]} {sizes} />
-								</div>
-							</>
-						) : (
-							<div class="lx-feat-img">
-								<Image src={f.light} alt="" widths={[600, 1000]} {sizes} />
-							</div>
-						)}
-					</div>
-				</a>
-			</li>
-		))
-	}
+					<ul class="lx-results">
+						{
+							results.map((r) => (
+								<li class={r.status === 'request' ? 'is-request' : undefined}>
+									<Image src={r.src} alt="" widths={[80, 120]} sizes="40px" />
+									<span class="lx-res-text">
+										<strong>{r.title}</strong>
+										<span>{r.meta}</span>
+									</span>
+									{r.status === 'live' ? (
+										<span class="lx-badge lx-badge-live">已上线</span>
+									) : (
+										<span class="lx-res-actions">
+											<span class="lx-badge">3 人想看</span>
+											<span class="lx-req-btn">求片</span>
+										</span>
+									)}
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</a>
+	</li>
 </ul>
 
 <style>
@@ -104,31 +209,29 @@ const sizes = '(max-width: 50rem) 92vw, 520px';
 		list-style: none;
 	}
 
-	li {
+	.lx-feat > li {
 		margin: 0;
 	}
 
-	a {
+	.lx-feat > li > a {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 		overflow: hidden;
 		border: 1px solid var(--sl-color-hairline-light);
-		border-radius: 16px;
-		background:
-			radial-gradient(ellipse 80% 60% at 50% 100%, var(--lumen-glow), transparent 70%),
-			var(--lumen-panel);
+		border-radius: 18px;
+		background: var(--lumen-panel);
 		color: inherit;
 		text-decoration: none;
 		transition: border-color 0.2s ease;
 	}
 
-	a:hover,
-	a:focus-visible {
+	.lx-feat > li > a:hover,
+	.lx-feat > li > a:focus-visible {
 		border-color: color-mix(in srgb, var(--lumen-accent) 60%, transparent);
 	}
 
-	.lx-feat-copy {
+	.lx-copy {
 		padding: 1.5rem 1.5rem 1.25rem;
 	}
 
@@ -139,50 +242,510 @@ const sizes = '(max-width: 50rem) 92vw, 520px';
 		color: var(--sl-color-white);
 	}
 
-	p {
+	.lx-copy p {
 		margin: 0;
 		font-size: var(--sl-text-sm);
 		line-height: 1.7;
 		color: var(--lumen-muted);
 	}
 
-	.lx-feat-more {
-		display: inline-block;
-		margin-top: 0.75rem;
-		font-size: var(--sl-text-sm);
+	.lx-stage {
+		position: relative;
+		height: 16rem;
+		margin-top: auto;
+		overflow: hidden;
+		container-type: inline-size;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li li {
+		margin: 0;
+	}
+
+	/* ———— 自定义媒体库：一排封面 ———— */
+	.lx-lib {
+		background: radial-gradient(ellipse 60% 70% at 50% 45%, var(--lumen-glow), transparent 70%);
+	}
+
+	.lx-shelf {
+		position: absolute;
+		inset: 1rem 0 auto;
+		height: calc(58cqw * 9 / 16);
+	}
+
+	.lx-cover {
+		position: absolute;
+		top: 0;
+		width: 58cqw;
+		margin: 0;
+		overflow: hidden;
+		border-radius: 12px;
+		box-shadow: 0 16px 36px rgb(0 0 0 / 0.35);
+		transition:
+			transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+			opacity 0.5s ease;
+	}
+
+	.lx-cover-center {
+		z-index: 1;
+		left: 21cqw;
+	}
+
+	.lx-cover-left {
+		left: calc(21cqw - 58cqw - 0.75rem);
+		opacity: 0.5;
+	}
+
+	.lx-cover-right {
+		left: calc(79cqw + 0.75rem);
+		opacity: 0.5;
+	}
+
+	.lx-feat > li > a:hover .lx-cover-center {
+		transform: translateY(-4px) scale(1.02);
+	}
+
+	.lx-feat > li > a:hover .lx-cover-left {
+		transform: translateX(10px);
+		opacity: 0.75;
+	}
+
+	.lx-feat > li > a:hover .lx-cover-right {
+		transform: translateX(-10px);
+		opacity: 0.75;
+	}
+
+	.lx-cover :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	figcaption {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		padding: 0.9rem 1rem;
+		background: linear-gradient(to top, rgb(0 0 0 / 0.62), transparent 62%);
+		color: #fff;
+	}
+
+	.lx-cover-mark {
+		position: absolute;
+		top: 0.75rem;
+		left: 1rem;
+		font-size: 0.5625rem;
+		letter-spacing: 0.32em;
+		opacity: 0.85;
+	}
+
+	figcaption strong {
+		font-size: 1.125rem;
+		font-weight: 700;
+		line-height: 1.25;
+	}
+
+	.lx-cover-en {
+		font-size: 0.5625rem;
+		letter-spacing: 0.22em;
+		opacity: 0.75;
+	}
+
+	.lx-rules {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 1.25rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.375rem;
+	}
+
+	.lx-rule {
+		padding: 0.25rem 0.7rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 999px;
+		background: var(--sl-color-black);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-1);
+		white-space: nowrap;
+	}
+
+	.lx-plus {
+		font-size: var(--sl-text-xs);
 		color: var(--lumen-accent-text);
 	}
 
-	/* 截图从卡片底部升上来：左右留边、上圆角、下沿被卡片裁掉 */
-	.lx-feat-shot {
-		position: relative;
-		flex: 1;
-		min-height: 13rem;
-		margin: 0 1.5rem;
+	/* ———— 弹幕、一起看：画面 ———— */
+	.lx-video {
+		background: #000;
+		color: #fff;
 	}
 
-	.lx-feat-img {
+	.lx-video :global(.lx-scene) {
 		position: absolute;
-		inset: 0 0 -1px;
-		overflow: hidden;
-		border: 1px solid var(--sl-color-hairline-light);
-		border-bottom: 0;
-		border-radius: 12px 12px 0 0;
-		box-shadow: 0 -10px 40px rgb(0 0 0 / 0.18);
-		transition: transform 0.35s ease;
-	}
-
-	.lx-feat-img :global(img) {
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: var(--focus, 0% 0%);
-		transform: scale(var(--zoom, 1));
-		transform-origin: var(--focus, 0% 0%);
 	}
 
-	a:hover .lx-feat-img {
+	.lx-dm :global(.lx-scene) {
+		object-position: 50% 30%;
+	}
+
+	.lx-dm-lanes {
+		position: absolute;
+		inset: 0.875rem 0 auto;
+		height: 7.5rem;
+	}
+
+	.lx-dm-lanes span {
+		position: absolute;
+		top: calc(var(--lane) * 1.875rem);
+		left: 100%;
+		font-size: 0.875rem;
+		font-weight: 600;
+		white-space: nowrap;
+		text-shadow:
+			0 0 2px rgb(0 0 0 / 0.9),
+			0 1px 3px rgb(0 0 0 / 0.7);
+		animation: lx-dm-fly var(--dur) linear var(--delay) infinite;
+	}
+
+	@keyframes lx-dm-fly {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(calc(-100cqw - 100%));
+		}
+	}
+
+	.lx-controls {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 2.25rem 1rem 0.875rem;
+		background: linear-gradient(to top, rgb(0 0 0 / 0.75), transparent);
+		font-size: 0.6875rem;
+	}
+
+	.lx-progress {
+		position: relative;
+		flex: 1;
+		height: 3px;
+		border-radius: 3px;
+		background: rgb(255 255 255 / 0.25);
+	}
+
+	.lx-progress i {
+		position: absolute;
+		inset: 0 74% 0 0;
+		border-radius: inherit;
+		background: var(--lumen-accent);
+	}
+
+	.lx-progress i::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: -5px;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #fff;
+		transform: translateY(-50%);
+	}
+
+	.lx-time {
+		font-variant-numeric: tabular-nums;
+		opacity: 0.85;
+	}
+
+	.lx-dm-toggle {
+		display: grid;
+		place-items: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 6px;
+		background: var(--lumen-accent);
+		font-weight: 700;
+	}
+
+	/* 一起看：左下聊天、右上房间面板 */
+	.lx-together :global(.lx-scene) {
+		object-position: 20% 50%;
+	}
+
+	.lx-together::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to right, rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.55));
+	}
+
+	.lx-chat,
+	.lx-room {
+		position: absolute;
+		z-index: 1;
+	}
+
+	.lx-chat {
+		left: 1.25rem;
+		bottom: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+	}
+
+	.lx-chat li {
+		display: flex;
+		align-items: flex-end;
+		gap: 0.5rem;
+	}
+
+	.lx-avatar {
+		display: grid;
+		place-items: center;
+		flex: none;
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 50%;
+		background: var(--c);
+		font-size: 0.6875rem;
+		font-weight: 700;
+		color: #fff;
+	}
+
+	.lx-avatar-sm {
+		width: 1.375rem;
+		height: 1.375rem;
+		font-size: 0.625rem;
+	}
+
+	.lx-bubble {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		padding: 0.4rem 0.75rem 0.45rem;
+		border-radius: 12px 12px 12px 4px;
+		background: rgb(16 16 18 / 0.66);
+		backdrop-filter: blur(10px);
+		font-size: 0.8125rem;
+		line-height: 1.35;
+		white-space: nowrap;
+	}
+
+	.lx-who {
+		font-size: 0.625rem;
+		font-weight: 600;
+	}
+
+	.lx-room {
+		top: 1.25rem;
+		right: 1.25rem;
+		width: 10.5rem;
+		padding: 0.85rem 0.95rem;
+		border: 1px solid rgb(255 255 255 / 0.12);
+		border-radius: 14px;
+		background: rgb(16 16 18 / 0.72);
+		backdrop-filter: blur(14px);
+		box-shadow: 0 18px 40px rgb(0 0 0 / 0.35);
+	}
+
+	.lx-room-head {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.6875rem;
+		color: rgb(255 255 255 / 0.7);
+	}
+
+	.lx-sync {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		color: #4ade80;
+	}
+
+	.lx-sync i {
+		width: 0.375rem;
+		height: 0.375rem;
+		border-radius: 50%;
+		background: currentColor;
+	}
+
+	.lx-room-code {
+		margin: 0.3rem 0 0.6rem;
+		font-size: 1.25rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+	}
+
+	.lx-room-members {
+		display: grid;
+		gap: 0.4rem;
+	}
+
+	.lx-room-members li {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-size: 0.75rem;
+	}
+
+	.lx-host {
+		margin-left: auto;
+		padding: 0.05rem 0.4rem;
+		border-radius: 999px;
+		background: rgb(245 158 11 / 0.2);
+		font-size: 0.625rem;
+		color: #fbbf24;
+	}
+
+	/* ———— 求片：一扇从底部升上来的小窗 ———— */
+	.lx-req {
+		background: radial-gradient(ellipse 70% 80% at 50% 100%, var(--lumen-glow), transparent 70%);
+	}
+
+	.lx-window {
+		position: absolute;
+		inset: 0 1.5rem -1px;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 0.75rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-bottom: 0;
+		border-radius: 14px 14px 0 0;
+		background: var(--sl-color-black);
+		box-shadow: 0 -10px 40px rgb(0 0 0 / 0.15);
+		transition: transform 0.35s ease;
+	}
+
+	.lx-feat > li > a:hover .lx-window {
 		transform: translateY(-4px);
+	}
+
+	.lx-search-row {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.lx-search-box {
+		display: flex;
+		flex: 1;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.4rem 0.75rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 10px;
+		background: var(--lumen-panel);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-white);
+	}
+
+	.lx-search-box svg {
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-search-btn,
+	.lx-req-btn {
+		display: grid;
+		place-items: center;
+		padding: 0 0.9rem;
+		border-radius: 10px;
+		background: var(--lumen-accent);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		color: #fff;
+	}
+
+	.lx-req-btn {
+		padding: 0.3rem 0.75rem;
+		border-radius: 999px;
+	}
+
+	.lx-results {
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.lx-results li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.35rem 0.5rem;
+		border-radius: 10px;
+	}
+
+	.lx-results li.is-request {
+		background: var(--sl-color-accent-low);
+	}
+
+	.lx-results :global(img) {
+		flex: none;
+		width: 1.875rem;
+		height: auto;
+		aspect-ratio: 2 / 3;
+		border-radius: 5px;
+		object-fit: cover;
+	}
+
+	.lx-res-text {
+		display: grid;
+		flex: 1;
+		min-width: 0;
+		gap: 0.1rem;
+	}
+
+	.lx-res-text strong {
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+
+	.lx-res-text span {
+		overflow: hidden;
+		font-size: var(--sl-text-xs);
+		color: var(--lumen-muted);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.lx-res-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.lx-badge {
+		flex: none;
+		padding: 0.15rem 0.55rem;
+		border-radius: 999px;
+		background: var(--sl-color-gray-6);
+		font-size: 0.6875rem;
+		color: var(--sl-color-gray-2);
+		white-space: nowrap;
+	}
+
+	.lx-badge-live {
+		background: color-mix(in srgb, #22c55e 16%, transparent);
+		color: #22c55e;
 	}
 
 	@media (max-width: 50rem) {
@@ -191,13 +754,35 @@ const sizes = '(max-width: 50rem) 92vw, 520px';
 			gap: 0.625rem;
 		}
 
-		.lx-feat-copy {
+		.lx-copy {
 			padding: 1.25rem 1.25rem 1rem;
 		}
 
-		.lx-feat-shot {
-			min-height: 11rem;
-			margin: 0 1.25rem;
+		.lx-stage {
+			height: 15rem;
+		}
+
+		.lx-together {
+			height: 17.5rem;
+		}
+
+		.lx-req {
+			height: 16.5rem;
+		}
+
+		.lx-window {
+			inset-inline: 1rem;
+		}
+
+		.lx-cover-left,
+		.lx-cover-right {
+			opacity: 0.4;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.lx-dm-lanes span {
+			animation-play-state: paused;
 		}
 	}
 </style>
