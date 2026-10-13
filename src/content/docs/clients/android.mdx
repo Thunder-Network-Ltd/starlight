@@ -6,7 +6,7 @@ description: 介绍 Android 手机、平板、电视与机顶盒上推荐的 Emb
 import { Aside, Steps } from '@astrojs/starlight/components';
 import ImageRow from '../../../components/ImageRow.astro';
 
-在 Android 手机上，推荐使用免费且速度快的 **Yamby**。如果您经常观看 4K HDR、杜比视界内容，请选择解码能力更强的 **Hills**。开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、本站用户名（或邮箱）和密码。
+在 Android 手机上，推荐使用免费且速度快的 **Yamby**。如果您经常观看 4K HDR、杜比视界内容，请选择解码能力更强的 **Hills**。开始之前，请先在控制台准备好[连接信息](/clients/connect/)：线路地址、Lumen 用户名（或邮箱）和密码。
 
 ## Yamby
 
@@ -16,27 +16,25 @@ Yamby 是基于 Material Design 3 的第三方 Emby 客户端，轻量且速度�
 
 <Steps>
 
-1. 在 **媒体库** 页面，点击右下角的 **+**。
+1. 打开底部的 **媒体库**，在「服务器」页点击 **添加服务器**（已添加过服务器时，点击右下角的 **+**）。
 
-2. 在「添加服务器」中填写以下信息：
+2. 在「添加服务器」中填写以下信息，然后点击 **连接**：
 
    | 项目 | 填写 |
    | --- | --- |
    | 服务器地址 | 线路域名，**不含** `https://` |
-   | 端口 | `443` |
    | 协议 | HTTPS |
+   | 端口 | `443` |
    | 路径 | 留空 |
-   | 用户名 / 密码 | 本站用户名（或邮箱）和密码 |
-
-3. 点击 **连接**。
+   | 用户名 / 密码 | Lumen 用户名（或邮箱）和密码 |
 
 </Steps>
 
 <ImageRow
 	group="android"
 	images={[
-		{ src: 'Yamby_1.png', alt: 'Yamby 媒体库页，点击右下角加号' },
-		{ src: 'Yamby_2.png', alt: 'Yamby 添加服务器表单' },
+		{ src: 'yamby_1.webp', alt: 'Yamby 服务器页，点击添加服务器' },
+		{ src: 'yamby_2.webp', alt: 'Yamby 添加服务器表单，填写服务器地址、端口 443、用户名和密码，点击连接' },
 	]}
 />
 
@@ -45,11 +43,12 @@ Yamby 是基于 Material Design 3 的第三方 Emby 客户端，轻量且速度�
 <ImageRow
 	group="android"
 	images={[
-		{ src: 'Yamby_3.png', alt: 'Yamby 首页' },
-		{ src: 'Yamby_4.png', alt: 'Yamby 详情页' },
-		{ src: 'Yamby_5.png', alt: 'Yamby 播放页' },
+		{ src: 'yamby_3.webp', alt: 'Yamby 首页' },
+		{ src: 'yamby_4.webp', alt: 'Yamby 详情页' },
 	]}
 />
+
+<ImageRow group="android" images={[{ src: 'yamby_5.webp', alt: 'Yamby 播放页' }]} />
 
 ## Hills
 
@@ -59,19 +58,18 @@ Hills 支持 mpv 与 ExoPlayer 双内核，可硬件解码杜比视界、HDR10+ 
 
 <Steps>
 
-1. 在 **Servers** 页面，点击右下角的 **+**。
+1. 在 **服务器** 页点击右下角的 **+**。
 
-2. 在「Server Address」中填写**包含** `https://` 的完整线路地址，在「Port」中填写 `443`，然后点击 **Connect**。
+2. 在「连接服务器」中，服务器地址填写**包含** `https://` 的完整线路地址，端口填写 `443`，路径留空，然后点击 **连接**。
 
-3. 为「Display Name」设置任意名称，在「Username」和「Password」中分别填写本站用户名（或邮箱）和密码，然后点击 **Login**。
+3. 在登录页填写 Lumen 用户名（或邮箱）和密码，完成登录。
 
 </Steps>
 
 <ImageRow
 	group="android"
 	images={[
-		{ src: 'Hills_4.png', alt: 'Hills 连接服务器页，填写地址与端口' },
-		{ src: 'Hills_5.png', alt: 'Hills 登录服务器页，填写用户名与密码' },
+		{ src: 'hills_1.webp', alt: 'Hills 连接服务器对话框，服务器地址填写含 https 的线路地址、端口 443，点击连接' },
 	]}
 />
 
@@ -84,11 +82,12 @@ Hills 支持 mpv 与 ExoPlayer 双内核，可硬件解码杜比视界、HDR10+ 
 <ImageRow
 	group="android"
 	images={[
-		{ src: 'Hill_1.png', alt: 'Hills 首页' },
-		{ src: 'Hill_2.png', alt: 'Hills 详情页' },
-		{ src: 'Hill_3.png', alt: 'Hills 播放页' },
+		{ src: 'hills_2.webp', alt: 'Hills 首页' },
+		{ src: 'hills_3.webp', alt: 'Hills 详情页' },
 	]}
 />
+
+<ImageRow group="android" images={[{ src: 'hills_4.webp', alt: 'Hills 播放页' }]} />
 
 ## 电视与机顶盒
 

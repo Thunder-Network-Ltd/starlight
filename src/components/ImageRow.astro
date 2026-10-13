@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { group, images } = Astro.props;
-const imageCount = Math.max(images.length, 1);
 
 const assetModules = import.meta.glob('../assets/application/**/*.{png,PNG,jpg,JPG,jpeg,JPEG,webp,WEBP,avif,AVIF}', {
 	eager: true,
@@ -35,16 +34,29 @@ function resolveImage(src: ImageMetadata | string) {
 
 	return image;
 }
+
+const resolved = images.map((image) => ({ alt: image.alt, src: resolveImage(image.src) }));
+const totalRatio = resolved.reduce((sum, { src }) => sum + src.width / src.height, 0);
 ---
 
-<div class="image-row" style={`--image-count: ${imageCount};`}>
-	{images.map((image) => (
-		<figure class="image-card">
+<!--
+	Each figure grows in proportion to its aspect ratio, so every image in a row
+	ends up the same height (a landscape player shot sits level with portrait
+	ones). --row-max caps that height so one or two phone screenshots don't fill
+	the whole viewport; a capped row is centred.
+-->
+<div
+	class="image-row"
+	data-many={resolved.length > 2 ? '' : undefined}
+	data-wide={resolved.length === 1 && totalRatio > 1 ? '' : undefined}
+>
+	{resolved.map(({ src, alt }) => (
+		<figure class="image-card" style={`--ratio: ${src.width / src.height};`}>
 			<Image
-				src={resolveImage(image.src)}
-				alt={image.alt}
+				src={src}
+				alt={alt}
 				loading="lazy"
-				sizes={`${Math.max(Math.floor(100 / imageCount), 1)}vw`}
+				sizes={`(max-width: 50rem) ${Math.round((100 * src.width) / src.height / totalRatio)}vw, ${Math.round((48 * src.width) / src.height / totalRatio)}rem`}
 			/>
 		</figure>
 	))}
@@ -52,13 +64,22 @@ function resolveImage(src: ImageMetadata | string) {
 
 <style>
 	.image-row {
-		display: grid;
-		grid-template-columns: repeat(var(--image-count), minmax(0, 1fr));
+		--row-max: 28rem;
+		display: flex;
+		justify-content: center;
 		gap: 0.75rem;
 		margin: 1rem 0 1.5rem;
 	}
 
+	/* A lone landscape shot (a player screen) would otherwise span the full column and dwarf the phones above it. */
+	.image-row[data-wide] {
+		--row-max: 21rem;
+	}
+
 	.image-card {
+		flex: var(--ratio) 1 0;
+		min-width: 0;
+		max-width: calc(var(--row-max) * var(--ratio));
 		margin: 0;
 	}
 
@@ -66,5 +87,20 @@ function resolveImage(src: ImageMetadata | string) {
 		display: block;
 		width: 100%;
 		height: auto;
+	}
+
+	/* On a phone, three or four portrait shots side by side are too small to read; wrap to two per line. */
+	@media (max-width: 40rem) {
+		.image-row {
+			--row-max: 24rem;
+		}
+
+		.image-row[data-many] {
+			flex-wrap: wrap;
+		}
+
+		.image-row[data-many] .image-card {
+			flex: 0 0 calc(50% - 0.375rem);
+		}
 	}
 </style>
