@@ -34,7 +34,7 @@ Lumen 的网页播放器使用了下列开源组件。感谢这些项目的作�
 修改以补丁文件的形式提供：
 
 - **[下载补丁：libmedia-avplayer-1.3.1-lumen.patch](/downloads/libmedia-avplayer-1.3.1-lumen.patch)**
-- SHA-256：`1056401436d370184fb27f9c277a3264338d882dfddc9940b48951749baced18`
+- SHA-256：`f65e0bbdadb31a4d0757402215e855ad7b9c8609a0472c33dfd3e015a6370501`
 
 上游 `v1.3.1` 的源码与发布包加上这份补丁，就是我们网页播放器所用 libmedia 的完整对应源码。复现方法：
 
