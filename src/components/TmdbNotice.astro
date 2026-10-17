@@ -1,0 +1,55 @@
+---
+/**
+ * TMDB 署名：官方标识 + 条款要求的那句声明（TMDB API 使用条款：用标识标明数据来源，
+ * 并写明未经 TMDB 认可或认证）。标识是 themoviedb.org/about/logos-attribution 的原版短标识，不改色。
+ */
+---
+
+<div class="lx-tmdb not-content">
+	<a href="https://www.themoviedb.org" rel="noopener" aria-label="The Movie Database（TMDB）">
+		<img src="/brand/tmdb.svg" alt="TMDB" width="108" height="14" />
+	</a>
+	<div>
+		<p>影视条目的海报、简介、演职员等信息来自 The Movie Database（TMDB）。本产品使用了 TMDB API，但未经 TMDB 认可或认证。</p>
+		<p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+	</div>
+</div>
+
+<style>
+	.lx-tmdb {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 1.25rem;
+		align-items: center;
+		margin: 1.25rem 0 1.75rem;
+		padding: 1rem 1.1rem;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 10px;
+		background: var(--lumen-panel);
+	}
+
+	a {
+		display: block;
+		line-height: 0;
+	}
+
+	p {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		line-height: 1.7;
+		color: var(--sl-color-gray-2);
+	}
+
+	p + p {
+		margin-top: 0.25rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	@media (max-width: 30rem) {
+		.lx-tmdb {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 0.75rem;
+		}
+	}
+</style>
