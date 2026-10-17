@@ -40,15 +40,13 @@ Lumen 建立在许多开源项目和公开数据之上，感谢这些项目的�
 
 ### 我们修改的部分
 
-我们修改了 libmedia 播放器（`@libmedia/avplayer` 1.3.1）发布包中的 5 个文件。解码器未作修改，直接使用上游 `v1.3.1` 发布的文件。
-
-修改以补丁形式提供，上游 `v1.3.1` 发布包加上这份补丁，即为我们所用 libmedia 的完整对应源码：
+我们改了 `@libmedia/avplayer` 1.3.1 发布包中的 5 个文件，解码器未改。上游发布包加上这份补丁，即为完整对应源码。
 
 <Fields
 	rows={[
 		['补丁', '[libmedia-avplayer-1.3.1-lumen.patch](/downloads/libmedia-avplayer-1.3.1-lumen.patch)（1.5 MB）'],
 		['SHA-256', '`f65e0bbdadb31a4d0757402215e855ad7b9c8609a0472c33dfd3e015a6370501`'],
-		['应用方式', '在 npm 包 `@libmedia/avplayer@1.3.1` 的目录中执行 `patch -p1`'],
+		['用法', '在 `@libmedia/avplayer@1.3.1` 包目录中执行 `patch -p1`'],
 	]}
 />
 

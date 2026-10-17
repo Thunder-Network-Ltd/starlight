@@ -235,7 +235,6 @@ header.header {
 .starlight-aside--note {
 	--sl-color-asides-text-accent: var(--sl-color-white);
 	--sl-color-asides-border: var(--sl-color-gray-4);
-	background-color: var(--lumen-panel);
 }
 
 .starlight-aside--tip {
