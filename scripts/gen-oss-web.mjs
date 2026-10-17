@@ -31,37 +31,38 @@ const EXCLUDE_TREE = /^(@heroui-pro\/|sharp$|@img\/|@next\/swc-)/;
 
 // 页面上只列主要项目，一个项目一行（2026-10-17 用户嫌页面太长）：同一项目的多个包（Tiptap 八个、React 与 react-dom…）
 // 合成一行，版本取写在最前的那个包；值为 null 的是小工具，只进许可证全文、不上页面。
+// 每项是 [项目名, 用途, 版权人]；版权人照该项目许可证里的 Copyright 行手写——自动取会取到 Apache 模板里的套话。
 // 新增直接依赖没在这里登记时脚本会报出来，补一行即可。
 const PROJECTS = {
-	react: ['React', '界面框架'],
-	'react-dom': ['React', '界面框架'],
-	next: ['Next.js', '网页应用框架'],
-	'@heroui/react': ['HeroUI', '界面组件库'],
-	'@heroui/styles': ['HeroUI', '界面组件库'],
-	'react-aria-components': ['React Aria', '无障碍交互组件'],
-	tailwindcss: ['Tailwind CSS', '样式框架'],
-	'@fontsource-variable/inter': ['Inter', '字体'],
-	'lucide-react': ['Lucide', '图标'],
-	motion: ['Motion', '动画'],
-	'@tiptap/core': ['Tiptap', '富文本编辑器'],
-	'@tiptap/react': ['Tiptap', '富文本编辑器'],
-	'@tiptap/pm': ['Tiptap', '富文本编辑器'],
-	'@tiptap/starter-kit': ['Tiptap', '富文本编辑器'],
-	'@tiptap/extensions': ['Tiptap', '富文本编辑器'],
-	'@tiptap/extension-link': ['Tiptap', '富文本编辑器'],
-	'@tiptap/extension-underline': ['Tiptap', '富文本编辑器'],
-	'@tiptap/suggestion': ['Tiptap', '富文本编辑器'],
-	recharts: ['Recharts', '图表'],
-	'react-markdown': ['react-markdown', 'Markdown 渲染'],
-	'remark-gfm': ['react-markdown', 'Markdown 渲染'],
-	'remark-breaks': ['react-markdown', 'Markdown 渲染'],
-	marked: ['marked', 'Markdown 解析'],
-	streamdown: ['Streamdown', 'Markdown 渲染'],
-	shiki: ['Shiki', '代码高亮'],
-	'embla-carousel': ['Embla Carousel', '横滑轮播'],
-	'embla-carousel-react': ['Embla Carousel', '横滑轮播'],
-	swr: ['SWR', '数据请求'],
-	'@simplewebauthn/browser': ['SimpleWebAuthn', '通行密钥登录'],
+	react: ['React', '界面框架', 'Meta Platforms, Inc.'],
+	'react-dom': ['React', '界面框架', 'Meta Platforms, Inc.'],
+	next: ['Next.js', '网页应用框架', 'Vercel, Inc.'],
+	'@heroui/react': ['HeroUI', '界面组件库', 'HeroUI Inc.'],
+	'@heroui/styles': ['HeroUI', '界面组件库', 'HeroUI Inc.'],
+	'react-aria-components': ['React Aria', '无障碍交互组件', 'Adobe'],
+	tailwindcss: ['Tailwind CSS', '样式框架', 'Tailwind Labs, Inc.'],
+	'@fontsource-variable/inter': ['Inter', '字体', 'The Inter Project Authors'],
+	'lucide-react': ['Lucide', '图标', 'Lucide Contributors'],
+	motion: ['Motion', '动画', 'Motion B.V.'],
+	'@tiptap/core': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/react': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/pm': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/starter-kit': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/extensions': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/extension-link': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/extension-underline': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	'@tiptap/suggestion': ['Tiptap', '富文本编辑器', 'Tiptap GmbH'],
+	recharts: ['Recharts', '图表', 'Recharts Group'],
+	'react-markdown': ['react-markdown', 'Markdown 渲染', 'Espen Hovlandsdal'],
+	'remark-gfm': ['react-markdown', 'Markdown 渲染', 'Espen Hovlandsdal'],
+	'remark-breaks': ['react-markdown', 'Markdown 渲染', 'Espen Hovlandsdal'],
+	marked: ['marked', 'Markdown 解析', 'MarkedJS'],
+	streamdown: ['Streamdown', 'Markdown 渲染', 'Vercel, Inc.'],
+	shiki: ['Shiki', '代码高亮', 'Pine Wu, Anthony Fu'],
+	'embla-carousel': ['Embla Carousel', '横滑轮播', 'David Jerleke'],
+	'embla-carousel-react': ['Embla Carousel', '横滑轮播', 'David Jerleke'],
+	swr: ['SWR', '数据请求', 'Vercel, Inc.'],
+	'@simplewebauthn/browser': ['SimpleWebAuthn', '通行密钥登录', 'Matthew Miller'],
 	'maplibre-gl': null,
 	'@number-flow/react': null,
 	'react-resizable-panels': null,
@@ -148,8 +149,9 @@ for (const name of ordered) {
 	if (!(name in PROJECTS)) unknown.push(name);
 	const proj = PROJECTS[name];
 	if (!proj || groups.has(proj[0])) continue;
-	const pkg = JSON.parse(fs.readFileSync(path.join(resolvePkg(name, webDir), 'package.json'), 'utf8'));
-	groups.set(proj[0], { name: proj[0], role: proj[1], version: pkg.version, license: licenseOf(pkg), href: repoUrl(pkg) ?? undefined });
+	const dir = resolvePkg(name, webDir);
+	const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8'));
+	groups.set(proj[0], { name: proj[0], role: proj[1], version: pkg.version, license: licenseOf(pkg), holder: proj[2], href: repoUrl(pkg) ?? undefined });
 }
 const items = [...groups.values()];
 if (unknown.length) console.warn('这些直接依赖还没在 PROJECTS 登记：', unknown.join(', '));

@@ -20,6 +20,7 @@
 			"role": "界面框架",
 			"version": "19.3.0",
 			"license": "MIT",
+			"holder": "Meta Platforms, Inc.",
 			"href": "https://github.com/react/react"
 		},
 		{
@@ -27,6 +28,7 @@
 			"role": "网页应用框架",
 			"version": "16.3.8",
 			"license": "MIT",
+			"holder": "Vercel, Inc.",
 			"href": "https://github.com/vercel/next.js"
 		},
 		{
@@ -34,6 +36,7 @@
 			"role": "界面组件库",
 			"version": "3.2.6",
 			"license": "MIT",
+			"holder": "HeroUI Inc.",
 			"href": "https://github.com/heroui-inc/heroui"
 		},
 		{
@@ -41,6 +44,7 @@
 			"role": "无障碍交互组件",
 			"version": "1.21.1",
 			"license": "Apache-2.0",
+			"holder": "Adobe",
 			"href": "https://github.com/adobe/react-spectrum"
 		},
 		{
@@ -48,6 +52,7 @@
 			"role": "样式框架",
 			"version": "4.3.3",
 			"license": "MIT",
+			"holder": "Tailwind Labs, Inc.",
 			"href": "https://github.com/tailwindlabs/tailwindcss"
 		},
 		{
@@ -55,6 +60,7 @@
 			"role": "字体",
 			"version": "5.3.0",
 			"license": "OFL-1.1",
+			"holder": "The Inter Project Authors",
 			"href": "https://github.com/fontsource/font-files"
 		},
 		{
@@ -62,6 +68,7 @@
 			"role": "图标",
 			"version": "1.52.0",
 			"license": "ISC",
+			"holder": "Lucide Contributors",
 			"href": "https://github.com/lucide-icons/lucide"
 		},
 		{
@@ -69,6 +76,7 @@
 			"role": "动画",
 			"version": "12.42.2",
 			"license": "MIT",
+			"holder": "Motion B.V.",
 			"href": "https://github.com/motiondivision/motion"
 		},
 		{
@@ -76,6 +84,7 @@
 			"role": "富文本编辑器",
 			"version": "3.31.4",
 			"license": "MIT",
+			"holder": "Tiptap GmbH",
 			"href": "https://github.com/ueberdosis/tiptap"
 		},
 		{
@@ -83,6 +92,7 @@
 			"role": "图表",
 			"version": "3.10.1",
 			"license": "MIT",
+			"holder": "Recharts Group",
 			"href": "https://github.com/recharts/recharts"
 		},
 		{
@@ -90,6 +100,7 @@
 			"role": "Markdown 渲染",
 			"version": "10.1.0",
 			"license": "MIT",
+			"holder": "Espen Hovlandsdal",
 			"href": "https://github.com/remarkjs/react-markdown"
 		},
 		{
@@ -97,6 +108,7 @@
 			"role": "Markdown 解析",
 			"version": "18.1.0",
 			"license": "MIT",
+			"holder": "MarkedJS",
 			"href": "https://github.com/markedjs/marked"
 		},
 		{
@@ -104,6 +116,7 @@
 			"role": "Markdown 渲染",
 			"version": "2.7.0",
 			"license": "Apache-2.0",
+			"holder": "Vercel, Inc.",
 			"href": "https://github.com/vercel/streamdown"
 		},
 		{
@@ -111,6 +124,7 @@
 			"role": "代码高亮",
 			"version": "4.5.0",
 			"license": "MIT",
+			"holder": "Pine Wu, Anthony Fu",
 			"href": "https://github.com/shikijs/shiki"
 		},
 		{
@@ -118,6 +132,7 @@
 			"role": "横滑轮播",
 			"version": "8.6.0",
 			"license": "MIT",
+			"holder": "David Jerleke",
 			"href": "https://github.com/davidjerleke/embla-carousel"
 		},
 		{
@@ -125,6 +140,7 @@
 			"role": "数据请求",
 			"version": "2.5.1",
 			"license": "MIT",
+			"holder": "Vercel, Inc.",
 			"href": "https://github.com/vercel/swr"
 		},
 		{
@@ -132,6 +148,7 @@
 			"role": "通行密钥登录",
 			"version": "14.0.0",
 			"license": "MIT",
+			"holder": "Matthew Miller",
 			"href": "https://github.com/MasterKale/SimpleWebAuthn"
 		}
 	]

@@ -3,8 +3,8 @@
  * 开源组件清单：一个组件一格——名称（链到源码）、许可证，下面一行是用途与版本。
  * 2026-10-14 起是一行四列（名称 / 版本 / 许可证圆角标签 / 源码网址）；10-17 用户嫌不好看：
  * 一长串蓝色网址抢眼、许可证胶囊显得廉价、每行很高，17 行拉得很长。
- * 现在网址收进名称的链接里，宽的时候两格一排，窄的时候一格一排（按列表自身宽度，不按视口——
- * 视口 720–1000 px 时左边还有侧栏，正文只剩约 480 px）。
+ * 现在网址收进名称的链接里；不填灰底，加一列版权人（同日用户嫌灰、内容少空白多）。试过两格 / 三格一排，
+ * 用户要回一行一个。宽窄按列表自身宽度切换，不按视口——视口 720–1000 px 时左边还有侧栏，正文只剩约 480 px。
  */
 interface Item {
 	name: string;
@@ -12,6 +12,8 @@ interface Item {
 	role: string;
 	version: string;
 	license: string;
+	/** 版权人，照该项目许可证里的 Copyright 行 */
+	holder?: string;
 	/** 源码地址；不给时名称不带链接，在用途后面显示 sourceText（例如「源码同 libmedia」） */
 	href?: string;
 	sourceText?: string;
@@ -29,23 +31,22 @@ const { items } = Astro.props;
 	{
 		items.map((it) => (
 			<li>
-				<div class="lx-oss-top">
+				<div class="lx-oss-main">
 					{it.href ? (
 						<a class="lx-oss-name" href={it.href} rel="noopener">
 							{it.name}
-							<svg aria-hidden="true" viewBox="0 0 16 16" width="11" height="11">
+							<svg aria-hidden="true" viewBox="0 0 16 16" width="10" height="10">
 								<path d="M5 3h8v8M13 3 3 13" fill="none" stroke="currentColor" stroke-width="1.6" />
 							</svg>
 						</a>
 					) : (
 						<span class="lx-oss-name">{it.name}</span>
 					)}
-					<span class="lx-oss-license">{it.license}</span>
+					<span class="lx-oss-role">{it.sourceText ? `${it.role}，${it.sourceText}` : it.role}</span>
 				</div>
-				<div class="lx-oss-meta">
-					<span>{it.sourceText ? `${it.role}，${it.sourceText}` : it.role}</span>
-					<span class="lx-oss-version">{it.version}</span>
-				</div>
+				<span class="lx-oss-holder">{it.holder ? `© ${it.holder}` : ''}</span>
+				<span class="lx-oss-version">{it.version}</span>
+				<span class="lx-oss-license">{it.license}</span>
 			</li>
 		))
 	}
@@ -53,41 +54,36 @@ const { items } = Astro.props;
 </div>
 
 <style>
-	/* 容器查询只能改容器里面的元素，所以宽度按外面这层量，两格一排写在 ul 上 */
 	.lx-oss-wrap {
 		container-type: inline-size;
-		margin: 1.25rem 0 1.75rem;
+		margin: 1.25rem 0 2rem;
 	}
 
+	/* 不填底色，只留 1px 细边和行间分隔线 */
 	.lx-oss {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 1px;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 		border: 1px solid var(--sl-color-hairline-light);
 		border-radius: 10px;
-		/* 格与格之间的 1px 间隙露出这层底色，当作分隔线 */
-		background: var(--sl-color-hairline);
-		overflow: hidden;
 	}
 
 	li {
 		display: grid;
-		gap: 0.3rem;
-		align-content: start;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 11rem) 3.5rem 7.5rem;
+		gap: 1rem;
+		align-items: center;
 		margin: 0;
-		padding: 0.8rem 1rem;
-		background: var(--lumen-panel);
+		padding: 0.7rem 1.1rem;
 	}
 
-	.lx-oss-top,
-	.lx-oss-meta {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 0.75rem;
+	li + li {
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+
+	.lx-oss-main {
+		display: grid;
+		gap: 0.1rem;
 		min-width: 0;
 	}
 
@@ -95,7 +91,7 @@ const { items } = Astro.props;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.3rem;
-		min-width: 0;
+		justify-self: start;
 		font-size: var(--sl-text-sm);
 		font-weight: 600;
 		color: var(--sl-color-white);
@@ -116,32 +112,39 @@ const { items } = Astro.props;
 		color: currentColor;
 	}
 
-	.lx-oss-license {
-		flex: none;
-		font-size: var(--sl-text-xs);
-		color: var(--sl-color-gray-3);
-		white-space: nowrap;
-	}
-
-	.lx-oss-meta {
+	.lx-oss-role,
+	.lx-oss-holder {
 		font-size: var(--sl-text-xs);
 		line-height: 1.5;
 		color: var(--sl-color-gray-3);
 	}
 
-	.lx-oss-version {
-		flex: none;
-		font-family: var(--__sl-font-mono);
-		color: var(--sl-color-gray-4);
+	.lx-oss-holder {
+		min-width: 0;
 	}
 
-	@container (min-width: 34rem) {
-		.lx-oss {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+	.lx-oss-version {
+		font-family: var(--__sl-font-mono);
+		font-size: 0.6875rem;
+		color: var(--sl-color-gray-3);
+	}
+
+	.lx-oss-license {
+		justify-self: end;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+		white-space: nowrap;
+	}
+
+	/* 窄的时候：名称与用途一行，下面一行放版权人、版本、许可证 */
+	@container (max-width: 36rem) {
+		li {
+			grid-template-columns: minmax(0, 1fr) auto auto;
+			gap: 0.3rem 0.75rem;
+			padding: 0.75rem 1rem;
 		}
 
-		/* 单数个时最后一格占满一排，免得右下角露出一块分隔线底色 */
-		li:last-child:nth-child(odd) {
+		.lx-oss-main {
 			grid-column: 1 / -1;
 		}
 	}
