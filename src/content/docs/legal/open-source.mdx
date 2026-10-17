@@ -1,6 +1,6 @@
 ---
 title: 开源组件与许可
-description: Lumen 使用的开源组件、各自的许可证、我们修改部分的对应源码，以及数据来源声明。
+description: Lumen 网页与播放器使用的开源组件、许可证与对应源码，以及数据来源声明。
 ---
 
 import Fields from '../../../components/Fields.astro';
@@ -53,37 +53,9 @@ Lumen 建立在许多开源项目和公开数据之上，感谢这些项目的�
 
 ## 网页与控制台
 
-Lumen 网页与控制台直接使用的开源组件如下。连同它们的间接依赖共 {web.total} 个软件包，各自的版权声明与许可证全文见 [第三方许可声明](/downloads/third-party-notices-web.txt)。
+主要组件如下。全部 {web.total} 个软件包（含间接依赖）的版权声明与许可证全文见 [第三方许可声明](/downloads/third-party-notices-web.txt)。
 
 <OssList items={web.items} />
-
-## 服务端
-
-以下组件运行在 Lumen 的服务器上。
-
-<OssList
-	items={[
-		{ name: 'Go', role: '媒体网关的编程语言与标准库', version: '1.27', license: 'BSD-3-Clause', href: 'https://github.com/golang/go' },
-		{ name: 'chi', role: 'HTTP 路由', version: '5.3.2', license: 'MIT', href: 'https://github.com/go-chi/chi' },
-		{ name: 'pgx', role: 'PostgreSQL 驱动', version: '5.10.0', license: 'MIT', href: 'https://github.com/jackc/pgx' },
-		{ name: 'goose', role: '数据库迁移', version: '3.28.0', license: 'MIT', href: 'https://github.com/pressly/goose' },
-		{ name: 'Prometheus Go client', role: '运行指标', version: '1.24.1', license: 'Apache-2.0', href: 'https://github.com/prometheus/client_golang' },
-		{ name: 'nativewebp', role: 'WebP 图片编码', version: '1.3.0', license: 'MIT', href: 'https://github.com/HugoSmits86/nativewebp' },
-		{ name: 'websocket', role: 'WebSocket 连接', version: '1.8.15', license: 'ISC', href: 'https://github.com/coder/websocket' },
-		{ name: 'SQLite（modernc.org）', role: '嵌入式数据库', version: '1.58.0', license: 'BSD-3-Clause', href: 'https://gitlab.com/cznic/sqlite' },
-		{ name: 'FFmpeg', role: '音视频分析与转码', version: '7.1.1', license: 'GPL-3.0-or-later', href: 'https://ffmpeg.org' },
-		{ name: 'Node.js', role: '控制台后端运行环境', version: '24', license: 'MIT', href: 'https://github.com/nodejs/node' },
-		{ name: 'NestJS', role: '控制台后端框架', version: '12.1.2', license: 'MIT', href: 'https://github.com/nestjs/nest' },
-		{ name: 'Prisma', role: '数据库访问', version: '6.19.3', license: 'Apache-2.0', href: 'https://github.com/prisma/prisma' },
-		{ name: 'ioredis', role: 'Redis 客户端', version: '6.0.0', license: 'MIT', href: 'https://github.com/redis/ioredis' },
-		{ name: 'Nodemailer', role: '邮件发送', version: '10.0.15', license: 'MIT-0', href: 'https://github.com/nodemailer/nodemailer' },
-		{ name: 'SimpleWebAuthn', role: '通行密钥验证', version: '14.0.3', license: 'MIT', href: 'https://github.com/MasterKale/SimpleWebAuthn' },
-		{ name: 'PostgreSQL', role: '数据库', version: '16 / 18', license: 'PostgreSQL', href: 'https://www.postgresql.org' },
-		{ name: 'rclone', role: '云端存储读写', version: '1.75.1', license: 'MIT', href: 'https://github.com/rclone/rclone' },
-		{ name: 'danmu_api', role: '弹幕聚合', version: '—', license: 'MIT', href: 'https://github.com/huangxd-/danmu_api' },
-		{ name: 'Astro Starlight', role: '本文档站', version: '0.42', license: 'MIT', href: 'https://github.com/withastro/starlight' },
-	]}
-/>
 
 ## 数据来源
 
@@ -92,9 +64,7 @@ Lumen 网页与控制台直接使用的开源组件如下。连同它们的间�
 本产品使用了 TMDB API，但未经 TMDB 认可或认证。<br />
 <span lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</span>
 
-- 影视条目的海报、简介、演职员等信息来自 [The Movie Database（TMDB）](https://www.themoviedb.org)。
-- 片头片尾时间点来自 [IntroDB](https://introdb.app) 与 [TheIntroDB](https://theintrodb.org)。
-- 地图数据 © [OpenStreetMap](https://www.openstreetmap.org/copyright) 贡献者，瓦片由 [OpenFreeMap](https://openfreemap.org) 提供。
+影视条目的海报、简介、演职员等信息来自 [The Movie Database（TMDB）](https://www.themoviedb.org)。
 
 ## 许可
 

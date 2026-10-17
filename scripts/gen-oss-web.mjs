@@ -29,46 +29,48 @@ const EXCLUDE_DIRECT = new Set(['@heroui-pro/react', '@libmedia/avplayer', 'libp
 // 与 @next/swc-*（编译器）。它们按平台装不同的二进制，留着的话在 Mac 和 Linux 上生成的清单会不一样。
 const EXCLUDE_TREE = /^(@heroui-pro\/|sharp$|@img\/|@next\/swc-)/;
 
-// 页面上每行的一句话用途；新增直接依赖没写用途时脚本会报出来，补一行即可。
-const ROLES = {
-	react: '界面框架',
-	'react-dom': '界面框架的网页渲染',
-	next: '网页应用框架',
-	'@heroui/react': '界面组件库',
-	'@heroui/styles': '界面组件库的样式',
-	'react-aria-components': '无障碍交互组件',
-	'@fontsource-variable/inter': 'Inter 字体',
-	'lucide-react': '图标',
-	motion: '动画',
-	'@number-flow/react': '数字滚动动画',
-	'embla-carousel': '横滑轮播',
-	'embla-carousel-react': '横滑轮播的 React 封装',
-	'react-resizable-panels': '可拖动分栏',
-	'react-easy-crop': '头像裁剪',
-	recharts: '图表',
-	'maplibre-gl': '地图渲染',
-	swr: '数据请求与缓存',
-	clsx: '样式类名拼接',
-	'tailwind-merge': '样式类名合并',
-	'tailwind-variants': '样式变体',
-	'@tiptap/core': '富文本编辑器',
-	'@tiptap/react': '富文本编辑器的 React 封装',
-	'@tiptap/pm': '富文本编辑器底层（ProseMirror）',
-	'@tiptap/starter-kit': '富文本编辑器常用功能',
-	'@tiptap/extensions': '富文本编辑器扩展',
-	'@tiptap/extension-link': '富文本编辑器的链接',
-	'@tiptap/extension-underline': '富文本编辑器的下划线',
-	'@tiptap/suggestion': '富文本编辑器的输入提示',
-	marked: 'Markdown 解析',
-	'react-markdown': 'Markdown 渲染',
-	'remark-gfm': 'Markdown 表格与删除线等扩展',
-	'remark-breaks': 'Markdown 换行',
-	streamdown: '流式 Markdown 渲染',
-	shiki: '代码高亮',
-	'qr-code-styling': '二维码生成',
-	'@simplewebauthn/browser': '通行密钥登录',
-	tailwindcss: '样式框架',
-	'tw-animate-css': '样式动画',
+// 页面上只列主要项目，一个项目一行（2026-10-17 用户嫌页面太长）：同一项目的多个包（Tiptap 八个、React 与 react-dom…）
+// 合成一行，版本取写在最前的那个包；值为 null 的是小工具，只进许可证全文、不上页面。
+// 新增直接依赖没在这里登记时脚本会报出来，补一行即可。
+const PROJECTS = {
+	react: ['React', '界面框架'],
+	'react-dom': ['React', '界面框架'],
+	next: ['Next.js', '网页应用框架'],
+	'@heroui/react': ['HeroUI', '界面组件库'],
+	'@heroui/styles': ['HeroUI', '界面组件库'],
+	'react-aria-components': ['React Aria', '无障碍交互组件'],
+	tailwindcss: ['Tailwind CSS', '样式框架'],
+	'@fontsource-variable/inter': ['Inter', '字体'],
+	'lucide-react': ['Lucide', '图标'],
+	motion: ['Motion', '动画'],
+	'@tiptap/core': ['Tiptap', '富文本编辑器'],
+	'@tiptap/react': ['Tiptap', '富文本编辑器'],
+	'@tiptap/pm': ['Tiptap', '富文本编辑器'],
+	'@tiptap/starter-kit': ['Tiptap', '富文本编辑器'],
+	'@tiptap/extensions': ['Tiptap', '富文本编辑器'],
+	'@tiptap/extension-link': ['Tiptap', '富文本编辑器'],
+	'@tiptap/extension-underline': ['Tiptap', '富文本编辑器'],
+	'@tiptap/suggestion': ['Tiptap', '富文本编辑器'],
+	recharts: ['Recharts', '图表'],
+	'react-markdown': ['react-markdown', 'Markdown 渲染'],
+	'remark-gfm': ['react-markdown', 'Markdown 渲染'],
+	'remark-breaks': ['react-markdown', 'Markdown 渲染'],
+	marked: ['marked', 'Markdown 解析'],
+	streamdown: ['Streamdown', 'Markdown 渲染'],
+	shiki: ['Shiki', '代码高亮'],
+	'embla-carousel': ['Embla Carousel', '横滑轮播'],
+	'embla-carousel-react': ['Embla Carousel', '横滑轮播'],
+	swr: ['SWR', '数据请求'],
+	'@simplewebauthn/browser': ['SimpleWebAuthn', '通行密钥登录'],
+	'maplibre-gl': null,
+	'@number-flow/react': null,
+	'react-resizable-panels': null,
+	'react-easy-crop': null,
+	'qr-code-styling': null,
+	clsx: null,
+	'tailwind-merge': null,
+	'tailwind-variants': null,
+	'tw-animate-css': null,
 };
 
 // 写在 devDependencies 里、产物却打进浏览器 CSS 的（Tailwind 的基础样式与工具类、动画类），也要列。
@@ -136,17 +138,21 @@ while (queue.length) {
 const hardMissing = missing.filter((n) => !/-(darwin|linux|win32|freebsd|android|wasm32)(-|$)/.test(n));
 if (hardMissing.length) console.warn('解析不到的依赖：', [...new Set(hardMissing)].join(', '));
 
-// 页面清单：直接依赖
-const items = [];
-const noRole = [];
-for (const name of direct.sort()) {
+// 页面清单：直接依赖按项目合并
+const groups = new Map();
+const unknown = [];
+// 按 PROJECTS 里的先后排（主框架在前），没登记的排最后
+const ordered = [...Object.keys(PROJECTS).filter((n) => direct.includes(n)), ...direct.filter((n) => !(n in PROJECTS))];
+for (const name of ordered) {
 	if (EXCLUDE_DIRECT.has(name)) continue;
-	const dir = resolvePkg(name, webDir);
-	const pkg = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8'));
-	if (!ROLES[name]) noRole.push(name);
-	items.push({ name, role: ROLES[name] ?? '', version: pkg.version, license: licenseOf(pkg), href: repoUrl(pkg) ?? undefined });
+	if (!(name in PROJECTS)) unknown.push(name);
+	const proj = PROJECTS[name];
+	if (!proj || groups.has(proj[0])) continue;
+	const pkg = JSON.parse(fs.readFileSync(path.join(resolvePkg(name, webDir), 'package.json'), 'utf8'));
+	groups.set(proj[0], { name: proj[0], role: proj[1], version: pkg.version, license: licenseOf(pkg), href: repoUrl(pkg) ?? undefined });
 }
-if (noRole.length) console.warn('这些直接依赖还没写用途，去 ROLES 补：', noRole.join(', '));
+const items = [...groups.values()];
+if (unknown.length) console.warn('这些直接依赖还没在 PROJECTS 登记：', unknown.join(', '));
 
 // 全文：按名称排序，同一份许可证文本不去重（每个包的版权人不同）
 const entries = [...all.values()]
@@ -185,6 +191,6 @@ fs.writeFileSync(
 // 开头带 UTF-8 BOM：静态服务回 text/plain 时多半不带 charset，没有 BOM 浏览器会把中文表头按 Latin-1 显示成乱码。
 fs.writeFileSync(path.join(root, 'public/downloads/third-party-notices-web.txt'), '\uFEFF' + header + sep + blocks.join(sep) + '\n');
 
-console.log(`直接依赖 ${items.length} 个，全树 ${entries.length} 个`);
+console.log(`页面列 ${items.length} 个项目，全树 ${entries.length} 个包`);
 console.log('许可证分布：', byLicense);
 if (noText.length) console.log(`没有随附许可证文件的 ${noText.length} 个：`, noText.join('、'));

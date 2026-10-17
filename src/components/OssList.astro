@@ -50,6 +50,7 @@ const host = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/tree\/.
 		border-radius: 10px;
 		background: var(--lumen-panel);
 		overflow: hidden;
+		container-type: inline-size;
 	}
 
 	li {
@@ -115,7 +116,9 @@ const host = (url: string) => url.replace(/^https?:\/\//, '').replace(/\/tree\/.
 		text-underline-offset: 0.2em;
 	}
 
-	@media (max-width: 45rem) {
+	/* 按列表自身宽度换行，不按视口：视口 720–1000 px 时左边还有侧栏，正文只剩约 480 px，
+	   四列里定宽的三列就占掉 30 rem，名称列被挤成 0、和版本号叠在一起（2026-10-17 预览截图）。 */
+	@container (max-width: 40rem) {
 		li {
 			grid-template-columns: auto auto 1fr;
 			row-gap: 0.4rem;

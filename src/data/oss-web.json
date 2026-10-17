@@ -16,186 +16,74 @@
 	},
 	"items": [
 		{
-			"name": "@fontsource-variable/inter",
-			"role": "Inter 字体",
-			"version": "5.3.0",
-			"license": "OFL-1.1",
-			"href": "https://github.com/fontsource/font-files"
-		},
-		{
-			"name": "@heroui/react",
-			"role": "界面组件库",
-			"version": "3.2.6",
-			"license": "MIT",
-			"href": "https://github.com/heroui-inc/heroui"
-		},
-		{
-			"name": "@heroui/styles",
-			"role": "界面组件库的样式",
-			"version": "3.2.6",
-			"license": "MIT",
-			"href": "https://github.com/heroui-inc/heroui"
-		},
-		{
-			"name": "@number-flow/react",
-			"role": "数字滚动动画",
-			"version": "0.6.2",
-			"license": "MIT",
-			"href": "https://github.com/barvian/number-flow"
-		},
-		{
-			"name": "@simplewebauthn/browser",
-			"role": "通行密钥登录",
-			"version": "14.0.0",
-			"license": "MIT",
-			"href": "https://github.com/MasterKale/SimpleWebAuthn"
-		},
-		{
-			"name": "@tiptap/core",
-			"role": "富文本编辑器",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/extension-link",
-			"role": "富文本编辑器的链接",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/extension-underline",
-			"role": "富文本编辑器的下划线",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/extensions",
-			"role": "富文本编辑器扩展",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/pm",
-			"role": "富文本编辑器底层（ProseMirror）",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/react",
-			"role": "富文本编辑器的 React 封装",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/starter-kit",
-			"role": "富文本编辑器常用功能",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "@tiptap/suggestion",
-			"role": "富文本编辑器的输入提示",
-			"version": "3.31.4",
-			"license": "MIT",
-			"href": "https://github.com/ueberdosis/tiptap"
-		},
-		{
-			"name": "clsx",
-			"role": "样式类名拼接",
-			"version": "2.1.1",
-			"license": "MIT",
-			"href": "https://github.com/lukeed/clsx"
-		},
-		{
-			"name": "embla-carousel",
-			"role": "横滑轮播",
-			"version": "8.6.0",
-			"license": "MIT",
-			"href": "https://github.com/davidjerleke/embla-carousel"
-		},
-		{
-			"name": "embla-carousel-react",
-			"role": "横滑轮播的 React 封装",
-			"version": "8.6.0",
-			"license": "MIT",
-			"href": "https://github.com/davidjerleke/embla-carousel"
-		},
-		{
-			"name": "lucide-react",
-			"role": "图标",
-			"version": "1.52.0",
-			"license": "ISC",
-			"href": "https://github.com/lucide-icons/lucide"
-		},
-		{
-			"name": "maplibre-gl",
-			"role": "地图渲染",
-			"version": "6.12.0",
-			"license": "BSD-3-Clause",
-			"href": "https://github.com/maplibre/maplibre-gl-js"
-		},
-		{
-			"name": "marked",
-			"role": "Markdown 解析",
-			"version": "18.1.0",
-			"license": "MIT",
-			"href": "https://github.com/markedjs/marked"
-		},
-		{
-			"name": "motion",
-			"role": "动画",
-			"version": "12.42.2",
-			"license": "MIT",
-			"href": "https://github.com/motiondivision/motion"
-		},
-		{
-			"name": "next",
-			"role": "网页应用框架",
-			"version": "16.3.8",
-			"license": "MIT",
-			"href": "https://github.com/vercel/next.js"
-		},
-		{
-			"name": "qr-code-styling",
-			"role": "二维码生成",
-			"version": "1.9.2",
-			"license": "MIT",
-			"href": "https://github.com/kozakdenys/qr-code-styling"
-		},
-		{
-			"name": "react",
+			"name": "React",
 			"role": "界面框架",
 			"version": "19.3.0",
 			"license": "MIT",
 			"href": "https://github.com/react/react"
 		},
 		{
-			"name": "react-aria-components",
+			"name": "Next.js",
+			"role": "网页应用框架",
+			"version": "16.3.8",
+			"license": "MIT",
+			"href": "https://github.com/vercel/next.js"
+		},
+		{
+			"name": "HeroUI",
+			"role": "界面组件库",
+			"version": "3.2.6",
+			"license": "MIT",
+			"href": "https://github.com/heroui-inc/heroui"
+		},
+		{
+			"name": "React Aria",
 			"role": "无障碍交互组件",
 			"version": "1.21.1",
 			"license": "Apache-2.0",
 			"href": "https://github.com/adobe/react-spectrum"
 		},
 		{
-			"name": "react-dom",
-			"role": "界面框架的网页渲染",
-			"version": "19.3.0",
+			"name": "Tailwind CSS",
+			"role": "样式框架",
+			"version": "4.3.3",
 			"license": "MIT",
-			"href": "https://github.com/react/react"
+			"href": "https://github.com/tailwindlabs/tailwindcss"
 		},
 		{
-			"name": "react-easy-crop",
-			"role": "头像裁剪",
-			"version": "6.2.3",
+			"name": "Inter",
+			"role": "字体",
+			"version": "5.3.0",
+			"license": "OFL-1.1",
+			"href": "https://github.com/fontsource/font-files"
+		},
+		{
+			"name": "Lucide",
+			"role": "图标",
+			"version": "1.52.0",
+			"license": "ISC",
+			"href": "https://github.com/lucide-icons/lucide"
+		},
+		{
+			"name": "Motion",
+			"role": "动画",
+			"version": "12.42.2",
 			"license": "MIT",
-			"href": "https://github.com/ValentinH/react-easy-crop"
+			"href": "https://github.com/motiondivision/motion"
+		},
+		{
+			"name": "Tiptap",
+			"role": "富文本编辑器",
+			"version": "3.31.4",
+			"license": "MIT",
+			"href": "https://github.com/ueberdosis/tiptap"
+		},
+		{
+			"name": "Recharts",
+			"role": "图表",
+			"version": "3.10.1",
+			"license": "MIT",
+			"href": "https://github.com/recharts/recharts"
 		},
 		{
 			"name": "react-markdown",
@@ -205,81 +93,46 @@
 			"href": "https://github.com/remarkjs/react-markdown"
 		},
 		{
-			"name": "react-resizable-panels",
-			"role": "可拖动分栏",
-			"version": "4.14.2",
+			"name": "marked",
+			"role": "Markdown 解析",
+			"version": "18.1.0",
 			"license": "MIT",
-			"href": "https://github.com/bvaughn/react-resizable-panels"
+			"href": "https://github.com/markedjs/marked"
 		},
 		{
-			"name": "recharts",
-			"role": "图表",
-			"version": "3.10.1",
-			"license": "MIT",
-			"href": "https://github.com/recharts/recharts"
+			"name": "Streamdown",
+			"role": "Markdown 渲染",
+			"version": "2.7.0",
+			"license": "Apache-2.0",
+			"href": "https://github.com/vercel/streamdown"
 		},
 		{
-			"name": "remark-breaks",
-			"role": "Markdown 换行",
-			"version": "4.0.0",
-			"license": "MIT",
-			"href": "https://github.com/remarkjs/remark-breaks"
-		},
-		{
-			"name": "remark-gfm",
-			"role": "Markdown 表格与删除线等扩展",
-			"version": "4.0.1",
-			"license": "MIT",
-			"href": "https://github.com/remarkjs/remark-gfm"
-		},
-		{
-			"name": "shiki",
+			"name": "Shiki",
 			"role": "代码高亮",
 			"version": "4.5.0",
 			"license": "MIT",
 			"href": "https://github.com/shikijs/shiki"
 		},
 		{
-			"name": "streamdown",
-			"role": "流式 Markdown 渲染",
-			"version": "2.7.0",
-			"license": "Apache-2.0",
-			"href": "https://github.com/vercel/streamdown"
+			"name": "Embla Carousel",
+			"role": "横滑轮播",
+			"version": "8.6.0",
+			"license": "MIT",
+			"href": "https://github.com/davidjerleke/embla-carousel"
 		},
 		{
-			"name": "swr",
-			"role": "数据请求与缓存",
+			"name": "SWR",
+			"role": "数据请求",
 			"version": "2.5.1",
 			"license": "MIT",
 			"href": "https://github.com/vercel/swr"
 		},
 		{
-			"name": "tailwind-merge",
-			"role": "样式类名合并",
-			"version": "3.7.0",
+			"name": "SimpleWebAuthn",
+			"role": "通行密钥登录",
+			"version": "14.0.0",
 			"license": "MIT",
-			"href": "https://github.com/dcastil/tailwind-merge"
-		},
-		{
-			"name": "tailwind-variants",
-			"role": "样式变体",
-			"version": "3.3.1",
-			"license": "MIT",
-			"href": "https://github.com/heroui-inc/tailwind-variants"
-		},
-		{
-			"name": "tailwindcss",
-			"role": "样式框架",
-			"version": "4.3.3",
-			"license": "MIT",
-			"href": "https://github.com/tailwindlabs/tailwindcss"
-		},
-		{
-			"name": "tw-animate-css",
-			"role": "样式动画",
-			"version": "1.4.0",
-			"license": "MIT",
-			"href": "https://github.com/Wombosvideo/tw-animate-css"
+			"href": "https://github.com/MasterKale/SimpleWebAuthn"
 		}
 	]
 }
