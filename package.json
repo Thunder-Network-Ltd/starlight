@@ -10,11 +10,16 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "og:font": "node scripts/og-font.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.5",
     "astro": "^7.3.5",
+    "satori": "0.35.0",
     "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "harfbuzzjs": "1.6.2"
   }
 }
