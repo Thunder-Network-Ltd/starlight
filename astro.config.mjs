@@ -2,6 +2,24 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { sidebar } from './src/sidebar.mjs';
+import { englishHeadingIdsIntegration } from './src/plugins/english-heading-ids.mjs';
+
+// 旧的中文锚点（/start/plans/#选择线路）找不到时，按标题上的 data-legacy-id 换成英文锚点再滚过去（src/heading-ids.mjs）
+const legacyAnchorScript = `(() => {
+	const go = () => {
+		let id;
+		try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+		if (!id || document.getElementById(id)) return;
+		const el = document.querySelector('[data-legacy-id="' + CSS.escape(id) + '"]');
+		if (!el) return;
+		history.replaceState(null, '', '#' + el.id);
+		el.scrollIntoView();
+	};
+	// 等 load 再滚：DOMContentLoaded 时布局还没定，滚过去会落到页底（2026-10-19 实测）
+	if (document.readyState === 'complete') go();
+	else addEventListener('load', go);
+	addEventListener('hashchange', go);
+})();`;
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,6 +41,7 @@ export default defineConfig({
 		'/troubleshooting/content': '/panel/feedback/',
 	},
 	integrations: [
+		englishHeadingIdsIntegration(),
 		starlight({
 			title: 'Lumen 文档',
 			locales: {
@@ -35,6 +54,7 @@ export default defineConfig({
 				replacesTitle: true,
 			},
 			favicon: '/favicon.svg',
+			head: [{ tag: 'script', content: legacyAnchorScript }],
 			customCss: ['./src/styles/custom.css'],
 			social: [
 				{ icon: 'telegram', label: 'Telegram', href: 'https://t.me/Lumen_Media' },
