@@ -1,8 +1,8 @@
 {
-	"generated": "2026-10-17",
-	"total": 344,
+	"generated": "2026-10-18",
+	"total": 345,
 	"licenses": {
-		"Apache-2.0": 27,
+		"Apache-2.0": 28,
 		"MIT": 271,
 		"OFL-1.1": 1,
 		"LGPL-3.0-or-later": 9,
@@ -150,6 +150,14 @@
 			"license": "MIT",
 			"holder": "Matthew Miller",
 			"href": "https://github.com/MasterKale/SimpleWebAuthn"
+		},
+		{
+			"name": "Cap",
+			"role": "人机验证",
+			"version": "0.1.58",
+			"license": "Apache-2.0",
+			"holder": "Tiago",
+			"href": "https://github.com/tiagozip/cap"
 		}
 	]
 }

@@ -1,8 +1,8 @@
 ﻿Lumen 网页与控制台 第三方开源组件许可声明
 Third-party open source notices for the Lumen web app and console
 
-生成日期 Generated: 2026-10-17
-共 344 个软件包 / 344 packages
+生成日期 Generated: 2026-10-18
+共 345 个软件包 / 345 packages
 
 网页播放器所用的 libmedia（LGPL-3.0-or-later）及其对应源码另见 https://docs.lumen.ax/legal/open-source/
 
@@ -9297,6 +9297,26 @@ the avoidance of doubt, this paragraph does not form part of the
 public licenses.
 
 Creative Commons may be contacted at creativecommons.org.
+
+==============================================================================
+
+cap-widget 0.1.58
+License: Apache-2.0
+Source: https://github.com/tiagozip/cap
+
+Copyright 2025 Tiago
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ==============================================================================
 

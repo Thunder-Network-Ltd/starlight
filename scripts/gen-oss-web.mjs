@@ -63,6 +63,8 @@ const PROJECTS = {
 	'embla-carousel-react': ['Embla Carousel', '横滑轮播', 'David Jerleke'],
 	swr: ['SWR', '数据请求', 'Vercel, Inc.'],
 	'@simplewebauthn/browser': ['SimpleWebAuthn', '通行密钥登录', 'Matthew Miller'],
+	'cap-widget': ['Cap', '人机验证', 'Tiago'],
+	'@cap.js/wasm': ['Cap', '人机验证', 'Tiago'],
 	'maplibre-gl': null,
 	'@number-flow/react': null,
 	'react-resizable-panels': null,
